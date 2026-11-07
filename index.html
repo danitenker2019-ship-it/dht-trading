@@ -3,11 +3,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Dan Han Trading</title>
 <script src="config.js?v=12"></script>
-<link rel="apple-touch-icon" href="icon-180.png"><link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#050805">
+<link rel="apple-touch-icon" href="icon-180.png"><link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#060808">
 <meta name="color-scheme" content="light dark">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#050805;--sf:#0a110b;--ink:#eef6ee;--mut:#86a287;--line:#1b2f1c;--up:#69f03a;--dn:#ff4d5e;--acc:#7dff2e;--cy:#7dff2e;--yl:#facc15;color-scheme:dark}
+:root{--bg:#060808;--sf:#0a0e0c;--ink:#f0f4f0;--mut:#7f9482;--line:#171f1a;--up:#62dc34;--dn:#ff5563;--acc:#6fe82c;--cy:#38bdf8;--yl:#facc15;color-scheme:dark}
 *{box-sizing:border-box}html{scroll-padding-top:90px}
 body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.45 Inter,system-ui,sans-serif;padding-bottom:env(safe-area-inset-bottom,0px)}
 header{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line);padding:calc(10px + env(safe-area-inset-top,0px)) 16px 10px;display:flex;align-items:center;justify-content:space-between;gap:8px}
@@ -87,68 +87,67 @@ input[readonly]{color:var(--ink);cursor:default}
 .xbtn{border:0;background:none;color:var(--mut);font-size:18px;cursor:pointer;padding:4px 8px}
 .cw{cursor:pointer}.cw.sel{outline:2px solid var(--yl);outline-offset:1px}.tr.tap{cursor:pointer}
 
-/* ============ NEON GREEN THEME (colors only) ============ */
-::selection{background:#7dff2e;color:#031003}
-*{scrollbar-color:#2f7a2a #050805}
-html{background:#050805}
-body{background:transparent;color:var(--ink)}
-body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:
-radial-gradient(640px 440px at 100% -5%,rgba(125,255,46,.15),transparent 65%),
-radial-gradient(560px 480px at -10% 105%,rgba(52,211,80,.15),transparent 65%),
-linear-gradient(rgba(125,255,46,.04) 1px,transparent 1px) 0 0/34px 34px,
-linear-gradient(90deg,rgba(125,255,46,.04) 1px,transparent 1px) 0 0/34px 34px}
-body::after{content:"";position:fixed;top:0;bottom:0;left:0;width:2px;pointer-events:none;z-index:6;background:linear-gradient(180deg,transparent,#7dff2e 28%,#2fc21a 72%,transparent);box-shadow:0 0 14px #7dff2e;opacity:.6}
-header{background:rgba(5,8,5,.82);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-bottom:1px solid #16301a;box-shadow:0 1px 26px rgba(125,255,46,.08)}
-.lg{background:linear-gradient(135deg,#7dff2e,#16a34a);box-shadow:0 0 18px rgba(125,255,46,.45)}
-.lgb{box-shadow:0 0 0 1px #2c5a24,0 0 16px rgba(125,255,46,.35)}
-nav{background:#08100a;border-color:#1b3a1c;box-shadow:inset 0 0 18px rgba(125,255,46,.06)}
-nav button.on{background:#0f2a12;color:#7dff2e;box-shadow:0 0 0 1px #2f7a2a,0 0 16px rgba(125,255,46,.35)}
-nav button.on svg{filter:drop-shadow(0 0 4px rgba(125,255,46,.8))}
-.gear{border-color:#2f7a2a;background:#0d2410;color:#7dff2e;box-shadow:0 0 14px rgba(125,255,46,.3)}
-.card{background:linear-gradient(180deg,rgba(14,23,15,.92),rgba(7,11,8,.94));box-shadow:inset 0 1px 0 rgba(125,255,46,.07),0 8px 30px rgba(0,0,0,.5);transition:border-color .25s,box-shadow .25s}
-.card:hover{border-color:#2d5a2a;box-shadow:inset 0 1px 0 rgba(125,255,46,.12),0 0 26px rgba(125,255,46,.11),0 8px 30px rgba(0,0,0,.5)}
-.card.g1{background:linear-gradient(135deg,#0c3a12,#1f8a1c 60%,#58d41c);box-shadow:0 0 32px rgba(125,255,46,.25)}
-.card.g2{background:linear-gradient(135deg,#052109,#0f5a18 55%,#2fa826);box-shadow:0 0 28px rgba(47,168,38,.25)}
-.card.go{border-color:#7dff2e;box-shadow:0 0 28px rgba(125,255,46,.28),inset 0 0 30px rgba(125,255,46,.05)}
-.card.no{border-color:#ff4d5e;box-shadow:0 0 24px rgba(255,77,94,.24),inset 0 0 26px rgba(255,77,94,.05)}
-.card.wa{border-color:#facc15;box-shadow:0 0 22px rgba(250,204,21,.18)}
-.card.empty{border-color:#244424}
-.lab{color:#7dff2e;text-shadow:0 0 10px rgba(125,255,46,.45)}
-.eyebrow{color:#6f8f70}
-.big{text-shadow:0 0 22px rgba(125,255,46,.28)}.big.dn{text-shadow:0 0 22px rgba(255,77,94,.4)}
-.up{text-shadow:0 0 12px rgba(105,240,58,.4)}.dn{text-shadow:0 0 12px rgba(255,77,94,.35)}
-.plus{background:#0d2410;color:#7dff2e;box-shadow:0 0 0 1px #2f7a2a,0 0 18px rgba(125,255,46,.3)}
-.chips button{background:#09100a;color:#86a287}
-.chips button.on{background:linear-gradient(180deg,#143a14,#0d2a10);color:#c6ff9a;border-color:#7dff2e;box-shadow:0 0 16px rgba(125,255,46,.35)}
-.sc button.on{background:#12301a;color:#c6ff9a;border-color:#2f7a2a;box-shadow:0 0 10px rgba(125,255,46,.18)}
-.rw{background:#08100a}.rw:hover{border-color:#2f7a2a}
-.rw.on{border-color:#2f7a2a;box-shadow:0 0 14px rgba(125,255,46,.12)}
-.rw .ck{border-color:#2d442d}.rw.on .ck{background:#7dff2e;border-color:#7dff2e;color:#03200a;box-shadow:0 0 12px rgba(125,255,46,.6)}
-.seg{background:#08100a}.seg button.l.on{background:#0d3a14;color:#7dff2e;box-shadow:0 0 12px rgba(125,255,46,.25)}.seg button.s.on{background:#3a1218;color:#ff4d5e;box-shadow:0 0 12px rgba(255,77,94,.2)}
-.bar{background:#122012}.bar i{filter:saturate(1.2) brightness(1.12)}
-.msg,.ins{background:rgba(10,17,11,.92)}
-input,select{background:#060b07}
-input:focus,select:focus{border-color:#7dff2e;box-shadow:0 0 0 3px rgba(125,255,46,.15);outline:none}
-.b,.btn{background:linear-gradient(135deg,#8dff3a,#2fc21a);color:#04120a;border-color:#7dff2e;box-shadow:0 0 18px rgba(125,255,46,.35);transition:box-shadow .2s,transform .1s}
-.b:hover,.btn:hover{box-shadow:0 0 26px rgba(125,255,46,.55)}.b:active,.btn:active{transform:scale(.98)}
-.b.alt,.btn.alt{background:rgba(125,255,46,.04);color:var(--ink);border-color:#24401f;box-shadow:none}
-.b.alt:hover,.btn.alt:hover{border-color:#4ccf3a;box-shadow:0 0 16px rgba(125,255,46,.2)}
-.tog:hover{border-color:#2f7a2a;box-shadow:0 0 16px rgba(125,255,46,.12)}
-.mbtn{color:#7dff2e;border-color:#24401f}.mbtn:hover{border-color:#7dff2e;box-shadow:0 0 12px rgba(125,255,46,.3)}
-.stp span.on{background:#7dff2e;color:#03200a;border-color:#7dff2e;box-shadow:0 0 12px rgba(125,255,46,.4)}.stp span.dn2{color:#7dff2e;border-color:#2f7a2a}
-.sess{background:linear-gradient(180deg,#0f1a10,#080d09)}.sess.open{border-color:#7dff2e;box-shadow:0 8px 30px rgba(125,255,46,.2)}
-.tile,.kt4>div,.dday{background:rgba(8,16,10,.9)}.kt4>div:hover{border-color:#2f7a2a}
-.cd{background:#08100a}.cw{background:#08100a}
-.cd:hover,.cw:hover{border-color:#4ccf3a}
-.cd.off{background:transparent;border-color:#0f1a10}
-.cd.g{background:linear-gradient(180deg,#123a14,#0b2410);border-color:#2f9a2c;box-shadow:inset 0 0 14px rgba(125,255,46,.1)}
-.cd.g .dn0,.cd.g b{color:#7dff2e;text-shadow:0 0 8px rgba(125,255,46,.5)}
-.cd.r{background:linear-gradient(180deg,#3a1218,#240c10);border-color:#8a2a35}.cd.r .dn0,.cd.r b{color:#ff5a6a}
-.cd.td{outline-color:#7dff2e}.cd.sel,.cw.sel{outline-color:#facc15}
-svg.eq polyline{filter:drop-shadow(0 0 3px rgba(125,255,46,.7))}
-svg path[stroke="#7dff2e"]{filter:drop-shadow(0 0 4px rgba(125,255,46,.75))}
-svg path[stroke="#ff4d5e"]{filter:drop-shadow(0 0 4px rgba(255,77,94,.65))}
-@media (prefers-reduced-motion:no-preference){@keyframes nglow{0%,100%{box-shadow:0 8px 30px rgba(125,255,46,.14)}50%{box-shadow:0 8px 40px rgba(125,255,46,.34)}}.sess.open{animation:nglow 3.2s ease-in-out infinite}}
+/* ============ DARK GREEN THEME (calm) ============ */
+::selection{background:#6fe82c;color:#031003}
+*{scrollbar-color:#1f2b23 #060808}
+html{background:#060808}
+body{background:#060808;color:var(--ink)}
+header{background:rgba(6,8,8,.92);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-bottom:1px solid #141a16}
+.lg{background:linear-gradient(135deg,#5fd12a,#1f7a2a)}
+nav{background:#0a0e0c;border-color:#161d19}
+nav button.on{background:#0e1a10;color:#7dff2e;box-shadow:0 0 0 1px #1f4a22}
+nav button.on svg{filter:drop-shadow(0 0 3px rgba(125,255,46,.45))}
+.gear{border-color:#1f4a22;background:#0b150d;color:#6fe82c}
+.card{background:#0a0e0c;box-shadow:none}
+.card:hover{border-color:#1f2b23}
+.card.g1{background:linear-gradient(135deg,#0c2a10,#16661a)}
+.card.g2{background:linear-gradient(135deg,#061a09,#0e4414)}
+.card.go{border-color:#2a7d2a;box-shadow:0 0 14px rgba(125,255,46,.10)}
+.card.no{border-color:#7a2a35}
+.card.wa{border-color:#7a6612}
+.card.empty{border-color:#1c2a20}
+.lab{color:#6fe82c}
+.eyebrow{color:#6f8472}
+.plus{background:#0b150d;color:#6fe82c;box-shadow:0 0 0 1px #1f4a22}
+.chips button{background:#0a0e0c;color:#7f9482}
+.chips button.on{background:#0e1a10;color:#a8ff6a;border-color:#2a7d2a}
+.sc button.on{background:#0e1a10;color:#b6ff80;border-color:#1f4a22}
+.rw{background:#090d0b}.rw.on{border-color:#1f4a22}
+.rw .ck{border-color:#2a352d}.rw.on .ck{background:#6fe82c;border-color:#6fe82c;color:#03200a}
+.seg{background:#090d0b}.seg button.l.on{background:#0d2a12;color:#6fe82c}.seg button.s.on{background:#2a1013;color:#ff5563}
+.bar{background:#111815}
+.msg,.ins{background:#0a0e0c}
+input,select{background:#070a08}
+input:focus,select:focus{border-color:#2a7d2a;outline:none}
+.b,.btn{background:#6fe82c;color:#04120a;border-color:#6fe82c;box-shadow:none}
+.b:hover,.btn:hover{background:#82f040}
+.b.alt,.btn.alt{background:transparent;color:var(--ink);border-color:#1f2b23}
+.b.alt:hover,.btn.alt:hover{border-color:#2a7d2a;background:transparent}
+.tog:hover{border-color:#1f2b23}
+.mbtn{color:#6fe82c}
+.stp span.on{background:#6fe82c;color:#03200a;border-color:#6fe82c}.stp span.dn2{color:#6fe82c;border-color:#1f4a22}
+.sess{background:#0a0e0c}.sess.open{border-color:#2a7d2a;box-shadow:0 0 16px rgba(125,255,46,.10)}
+.tile,.kt4>div,.dday{background:#090d0b}
+.cd,.cw{background:#090d0b}
+.cd:hover,.cw:hover{border-color:#1f4a22}
+.cd.off{background:transparent;border-color:#0e1310}
+.cd.g{background:#0f2412;border-color:#1f6a24}
+.cd.g .dn0,.cd.g b{color:#6fe82c}
+.cd.r{background:#2a1013;border-color:#6a2630}.cd.r .dn0,.cd.r b{color:#ff5563}
+.cd.td{outline-color:#6fe82c}.cd.sel,.cw.sel{outline-color:#facc15}
+svg.eq polyline{filter:drop-shadow(0 0 3px rgba(125,255,46,.5))}
+svg path[stroke="#7dff2e"]{filter:drop-shadow(0 0 4px rgba(125,255,46,.55))}
+svg path[stroke="#ff4d5e"]{filter:drop-shadow(0 0 3px rgba(255,77,94,.4))}
+
+/* ===== meaning-based colors ===== */
+.lab{color:#8fa593}
+.card.wa{border-color:#6a2630}
+.card.no{border-color:#ff5563;box-shadow:0 0 14px rgba(255,85,99,.14)}
+.cd.td{outline-color:#38bdf8}
+.ins{border-left-color:#38bdf8}.ins.warn{border-left-color:var(--dn)}.ins.good{border-left-color:var(--up)}
+.bar i[style*="--dn"]{box-shadow:0 0 8px rgba(255,85,99,.35)}
+.kt4 b.dn,.dk b.dn,.tr b.dn{color:var(--dn)}
+.pay{margin-top:14px;padding:14px;border:1px solid var(--line);border-radius:16px;background:#090d0b}.pay.ready{border-color:#2a7d2a;box-shadow:0 0 14px rgba(125,255,46,.10)}.pay .pm{display:flex;margin-top:10px}
 </style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script></head>
 <body><header><button class="lgb" aria-label="Home" onclick="go('home')"><img id="lgi" alt="Dan Han Trading" width="44" height="44"></button><nav id="nav"></nav><button class="gear" aria-label="Settings" onclick="go('set')"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2"/></svg></button></header>
 <main><div id="v"></div></main>
@@ -170,7 +169,7 @@ const iso=d=>d.getFullYear()+'-'+p2(d.getMonth()+1)+'-'+p2(d.getDate())+'T'+p2(d
 const sum=a=>a.reduce((x,y)=>x+y,0),avg=a=>a.length?sum(a)/a.length:0;
 const fm=n=>(n<0?'−':'+')+Math.abs(n).toFixed(2);
 const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-const cls=n=>n<0?'dn':'up';
+const cls=n=>n<0?'dn':n>0?'up':'mut';
 
 /* ---------- import ---------- */
 const AL={d:['date','time','datetime','closed','close time','exit time','exit date','closing time'],s:['symbol','ticker','instrument','pair','asset'],side:['side','type','direction','action'],p:['pnl','p&l','profit','net profit','net pnl','realized pnl','profit/loss','result'],z:['size','qty','quantity','volume','lots','units'],m:['duration','minutes','hold','holding minutes'],e:['emotion','mood','feeling'],f:['plan','followed plan','followed_plan','plan followed'],n:['note','notes','comment'],r:['r','r multiple','r-multiple','rr','result r','r result']};
@@ -380,8 +379,8 @@ cells+=!inM?`<div class="cd off"></div>`:`<div class="cd ${o?(o.p>0?'g':o.p<0?'r
 rows+=cells+`<div class="cw ${ws.toISOString().slice(0,10)==CW?'sel':''}" role="button" tabindex="0" onclick="selWeek('${ws.toISOString().slice(0,10)}')" onkeydown="if(event.key=='Enter')selWeek('${ws.toISOString().slice(0,10)}')"><b class="${cls(wp)}">${wn?cm(wp):'$0'}</b><small>${wW}W / ${wL}L</small></div>`}
 const mn=new Date(Date.UTC(Y,M-1,1)).toLocaleString('en-US',{month:'long',timeZone:'UTC'}),m=calMsg(ts,ym);
 return`<div class="card"><div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px"><div><div style="display:flex;align-items:center;gap:8px"><button class="mbtn" aria-label="Previous month" onclick="moveM(-1)">‹</button><h2 style="font-size:30px;margin:0">${mn}</h2><button class="mbtn" aria-label="Next month" onclick="moveM(1)">›</button></div><div class="eyebrow" style="margin-top:6px">${Y} · ${acc?esc(acc.name):'All accounts'}</div></div><div style="text-align:right;cursor:pointer" role="button" tabindex="0" onclick="selMonth()"><div class="eyebrow">Monthly P/L ${CMO?'▴':'▾'}</div><div class="big mono ${cls(net)}" style="font-size:26px">${mt.length?sm(net):'$0'}</div></div></div>
-<div class="kt4"><div><span>Trades</span><b>${mt.length}</b></div><div><span>Avg hold time</span><b>${hs.length?Math.round(avg(hs.map(t=>t.m)))+'m':'–'}</b></div><div><span>Profit factor</span><b class="${pf>=1?'up':''}">${pf?pf.toFixed(2):'–'}</b></div><div><span>Best day</span><b class="up">${best&&best[1].p>0?cm(best[1].p):'–'}</b>${best&&best[1].p>0?`<small>${best[0].slice(5)}</small>`:''}</div></div>
-<div class="cal">${['MON','TUE','WED','THU','FRI'].map(x=>`<div class="ch">${x}</div>`).join('')}<div class="ch" style="color:var(--up);font-size:8px;letter-spacing:.04em;white-space:nowrap">WEEKLY P/L</div>${rows}</div>${CW?weekDetail(ts,acc,ym):CMO?monthDetail(ts,acc,ym):dayDetail(ts,acc)}
+<div class="kt4"><div><span>Trades</span><b>${mt.length}</b></div><div><span>Avg hold time</span><b>${hs.length?Math.round(avg(hs.map(t=>t.m)))+'m':'–'}</b></div><div><span>Profit factor</span><b class="${pf>=1?'up':pf?'dn':''}">${pf?pf.toFixed(2):'–'}</b></div><div><span>Best day</span><b class="up">${best&&best[1].p>0?cm(best[1].p):'–'}</b>${best&&best[1].p>0?`<small>${best[0].slice(5)}</small>`:''}</div></div>
+<div class="cal">${['MON','TUE','WED','THU','FRI'].map(x=>`<div class="ch">${x}</div>`).join('')}<div class="ch" style="color:var(--mut);font-size:8px;letter-spacing:.04em;white-space:nowrap">WEEKLY P/L</div>${rows}</div>${CW?weekDetail(ts,acc,ym):CMO?monthDetail(ts,acc,ym):dayDetail(ts,acc)}
 <p class="cmsg">${esc(m[0])} <span style="color:var(--${m[2]})">${esc(m[1])}</span></p></div>`}
 function del(id){T=T.filter(t=>t.id!=id);save();render()}
 const TABS=['home','journal','flight','accts','coach'];
@@ -420,7 +419,7 @@ const f=y=>JU=='r'?y.toFixed(1)+'R':'$'+(Math.abs(y)>=1000?(y/1000).toFixed(1)+'
 const pts=v.map((y,i)=>X(i).toFixed(1)+','+Y(y).toFixed(1)),line='M'+pts.join(' L'),area=line+` L${X(e).toFixed(1)},${H-b} L${X(0).toFixed(1)},${H-b} Z`;
 const grid=[0,1,2,3].map(i=>{const y=mn+(mx-mn)*i/3,yy=Y(y).toFixed(1);return`<line x1="${l}" x2="${W-r}" y1="${yy}" y2="${yy}" stroke="#162616"/><text x="${l-6}" y="${(+yy+4).toFixed(1)}" text-anchor="end" font-size="10" fill="#6f8f70">${f(y)}</text>`}).join('');
 const ds=i=>L[Math.min(L.length-1,Math.max(0,i-1))].d.slice(5,10),dl=v[e]-v[0];
-return`<svg viewBox="0 0 ${W} ${H}" style="width:100%;display:block" role="img" aria-label="Equity curve"><defs><linearGradient id="eg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:${col};stop-opacity:.28"/><stop offset="1" style="stop-color:${col};stop-opacity:0"/></linearGradient></defs>${grid}<line x1="${l}" x2="${W-r}" y1="${Y(pk).toFixed(1)}" y2="${Y(pk).toFixed(1)}" stroke="#3fa92a" stroke-dasharray="3 3"/><path d="${area}" fill="url(#eg)"/><path d="${line}" fill="none" stroke="${col}" stroke-width="2" stroke-linejoin="round"/><circle cx="${X(e).toFixed(1)}" cy="${Y(v[e]).toFixed(1)}" r="4" fill="${col}"/><text x="${l}" y="${H-8}" font-size="10" fill="#6f8f70">${ds(1)}</text><text x="${W/2}" y="${H-8}" text-anchor="middle" font-size="10" fill="#6f8f70">${ds(Math.round(v.length/2))}</text><text x="${W-r}" y="${H-8}" text-anchor="end" font-size="10" fill="#6f8f70">${ds(v.length)}</text></svg><p class="mut small" style="margin-top:4px">Dashed line marks your equity peak.</p><div class="kp"><div><b>${f(pk)}</b><span>Peak</span></div><div><b class="dn">${dd?'−'+f(dd):'0'}</b><span>Max drawdown</span></div><div><b class="${cls(dl)}">${JU=='r'?fm(dl)+'R':sm(dl)}</b><span>Period result</span></div></div>`}
+return`<svg viewBox="0 0 ${W} ${H}" style="width:100%;display:block" role="img" aria-label="Equity curve"><defs><linearGradient id="eg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:${col};stop-opacity:.28"/><stop offset="1" style="stop-color:${col};stop-opacity:0"/></linearGradient></defs>${grid}<line x1="${l}" x2="${W-r}" y1="${Y(pk).toFixed(1)}" y2="${Y(pk).toFixed(1)}" stroke="#38bdf8" stroke-opacity=".55" stroke-dasharray="3 3"/><path d="${area}" fill="url(#eg)"/><path d="${line}" fill="none" stroke="${col}" stroke-width="2" stroke-linejoin="round"/><circle cx="${X(e).toFixed(1)}" cy="${Y(v[e]).toFixed(1)}" r="4" fill="${col}"/><text x="${l}" y="${H-8}" font-size="10" fill="#6f8f70">${ds(1)}</text><text x="${W/2}" y="${H-8}" text-anchor="middle" font-size="10" fill="#6f8f70">${ds(Math.round(v.length/2))}</text><text x="${W-r}" y="${H-8}" text-anchor="end" font-size="10" fill="#6f8f70">${ds(v.length)}</text></svg><p class="mut small" style="margin-top:4px">Dashed line marks your equity peak.</p><div class="kp"><div><b>${f(pk)}</b><span>Peak</span></div><div><b class="dn">${dd?'−'+f(dd):'0'}</b><span>Max drawdown</span></div><div><b class="${cls(dl)}">${JU=='r'?fm(dl)+'R':sm(dl)}</b><span>Period result</span></div></div>`}
 function journalView(){const acc=AT.find(x=>x.id==JA);if(JA!='all'&&!acc)JA='all';
 const sc=T.filter(t=>JA=='all'||t.acc==JA),op=sc.filter(isOpen),ts=sc.filter(t=>!isOpen(t)).sort((x,y)=>x.d<y.d?-1:1),k=kpi(ts),base=acc?acc.size:(AT.length?sum(AT.map(x=>x.size)):CFG.bal),an=analyze(ts);
 const brk=an.out.filter(o=>/^(Plan breach|You reported|Taken without)/.test(o.t)),fix=an.out.filter(o=>o.l=='warn'&&!brk.includes(o));
@@ -431,7 +430,7 @@ const pctv=base?k.net/base*100:0,L=[...ts].reverse().slice(0,25);
 const rows=(JA=='all'&&AT.length)?`<div class="card"><div class="sec"><h3>Accounts</h3></div>`+AT.map(x=>{const q=kpi(T.filter(t=>t.acc==x.id));return`<div class="tr" role="button" tabindex="0" style="cursor:pointer" onclick="JA='${x.id}';render()"><div><b>${esc(x.name)}</b><small>${KL[x.kind]||esc(x.kind)}</small></div><div style="text-align:right;font-variant-numeric:tabular-nums"><b class="${cls(q.net)}">${sm(q.net)}</b><small>${q.n?Math.round(q.wr)+'% win · '+(q.ar==null?'–':fm(q.ar)+'R avg')+' · ':''}${q.n} trades</small></div></div>`}).join('')+`</div>`:'';
 return`<div class="hd"><h1>Journal</h1><button class="plus" aria-label="New trade" onclick="go('flight')">+</button></div>
 <div class="chips">${[['all','All accounts'],...AT.map(x=>[x.id,x.name])].map(([i,l])=>`<button class="${JA==i?'on':''}" onclick="JA='${i}';render()">${esc(l)}</button>`).join('')}</div>
-${openCard(op)}<div class="card"><div class="lab" style="color:var(--mut)">${acc?esc(acc.name):'All accounts'}</div><div class="big">${money(base+k.net)}</div><div class="${cls(k.net)}" style="font-weight:600">${sm(k.net)}${base?` (${pctv>=0?'+':'−'}${Math.abs(pctv).toFixed(2)}%)`:''}</div><div class="kp"><div><b>${k.n?Math.round(k.wr)+'%':'–'}</b><span>Win rate</span></div><div><b>${k.ar==null?'–':fm(k.ar)+'R'}</b><span>Average R</span></div><div><b>${k.n}</b><span>Trades</span></div></div></div>
+${openCard(op)}<div class="card"><div class="lab" style="color:var(--mut)">${acc?esc(acc.name):'All accounts'}</div><div class="big">${money(base+k.net)}</div><div class="${cls(k.net)}" style="font-weight:600">${sm(k.net)}${base?` (${pctv>=0?'+':'−'}${Math.abs(pctv).toFixed(2)}%)`:''}</div><div class="kp"><div><b>${k.n?Math.round(k.wr)+'%':'–'}</b><span>Win rate</span></div><div><b class="${k.ar==null?'':cls(k.ar)}">${k.ar==null?'–':fm(k.ar)+'R'}</b><span>Average R</span></div><div><b>${k.n}</b><span>Trades</span></div></div></div>
 <div class="card"><div class="sec"><h3>Equity curve</h3><div class="sc"><button class="${JU=='usd'?'on':''}" onclick="JU='usd';render()">$</button><button class="${JU=='r'?'on':''}" onclick="JU='r';render()">R</button></div></div><div class="sc" style="margin-bottom:10px">${[['1w','1W'],['1m','1M'],['all','All']].map(([i,l])=>`<button class="${JR==i?'on':''}" onclick="JR='${i}';render()">${l}</button>`).join('')}</div>${eqChart(ts,base)}</div>${rows}
 <div class="card"><div class="sec"><h3>Performance</h3></div><div class="kp" style="margin:0;padding:0;border:0;grid-template-columns:1fr 1fr;row-gap:16px"><div><b>${pf.toFixed(2)}</b><span>Profit factor</span></div><div><b>${top&&top[1]>0?esc(top[0]):'–'}</b><span>Top asset</span></div><div><b>${sw(3)}</b><span>London win rate</span></div><div><b>${sw(10)}</b><span>New York win rate</span></div></div></div>
 <button class="tog ${showTR?'open':''}" aria-expanded="${showTR}" onclick="showTR=!showTR;render()"><span>Recent trades <span class="mut">· ${acc?esc(acc.name):'All accounts'} (${ts.length})</span></span><span class="chev">▾</span></button>`+(showTR?`<div class="sc" style="margin-bottom:12px"><button class="${TV=='list'?'on':''}" onclick="TV='list';render()">List</button><button class="${TV=='cal'?'on':''}" onclick="TV='cal';render()">Calendar</button></div>${accChips()}`+(TV=='cal'?calView(ts,acc):`<div class="card">`+(L.length?L.map(t=>{const ac=AT.find(x=>x.id==t.acc);return`<div class="tr"><div><b>${esc(t.s||'Trade')}</b> ${esc(t.dir||t.side||'')}<small>${esc(t.d.replace('T',' '))}${ac?' · '+esc(ac.name):' · No account'}${t.e?' · '+esc(t.e):''}</small>${!ac&&AT.length?`<select style="margin-top:6px;padding:8px" onchange="assignAcc('${t.id}',this.value)"><option value="">Assign to account…</option>${AT.map(x=>`<option value="${x.id}">${esc(x.name)}</option>`).join('')}</select>`:''}</div><div style="text-align:right"><b class="${cls(t.p)}">${fm(t.p)}</b>${t.r!=null?`<small>${fm(t.r)}R</small>`:''}<button onclick="del('${t.id}')">Delete</button></div></div>`}).join(''):'<p class="mut" style="text-align:center;padding:12px">No trades logged. Tap + to run a Pre-Flight check.</p>')+`</div>`):'')+`<div class="card" style="border-left:4px solid var(--dn)"><div class="sec"><h3 style="color:var(--dn)">Stop · rule violations</h3><span class="mut small">${brk.length}</span></div><p class="mut small">Breaking your plan. Zero tolerance.</p>${list(brk)}</div>
@@ -483,23 +482,39 @@ if(!s.hit&&!confirm('The profit target is not reached yet. Move to the next phas
 a.hist=[...(a.hist||[]),{d:etNow().slice(0,10),e:'Finished '+ph(a),pl:Math.round(s.pl)}];a.phase=nx;a.ps=etNow();saveAcc();msg=nx=='f'?'🎉 Funded! Congratulations.':'Moved to '+ph(a)+'. Good luck.';render()}
 function delAcc(id){if(confirm('Delete this account and its phase history? Its trades stay in your journal until you delete them.')){AT=AT.filter(a=>a.id!=id);saveAcc();render()}}
 function acCard(a){const s=accStat(a),pc=(v,mx)=>mx>0?Math.min(100,Math.max(0,v/mx*100)):0,seq=a.phase=='live'?[]:a.steps==1?['p1','f']:['p1','p2','f'],ix=seq.indexOf(a.phase),lb=a.kind=='futures'?{p1:'Trading Combine',f:'Express Funded'}:{p1:'Phase 1',p2:'Phase 2',f:'Funded'};
-const bar=(l,t,p,c)=>`<div class="bl"><span>${l}</span><span>${t}</span></div><div class="bar"><i style="width:${p}%;background:var(--${c})"></i></div>`;
+const bar=(l,t,p,c)=>`<div class="bl"><span>${l}</span><span style="color:var(--${c=='dn'?'dn':c=='up'?'up':'mut'})">${t}</span></div><div class="bar"><i style="width:${p}%;background:var(--${c})"></i></div>`;
 const dp=pc(s.dUsed,s.dLim),mUsed=Math.max(0,s.mLim-s.mLeft),mp=pc(mUsed,s.mLim);
 let st,cl='',bc=s.breach?'no':s.hit?'go':s.pl<0?'wa':'',fx='';if(a.kind=='futures'){if(a.phase=='p1'&&s.cons)fx=`<p class="mut small">Consistency: best day ${money(s.cons.best)} of ${money(s.cons.lim)} allowed (55% of the target).${s.cons.raised?' Target raised to '+money(s.tAmt)+'.':''}</p>`;else if(a.phase=='f'&&s.pay)fx=`<p class="mut small">Payout, standard path: ${s.pay.wd}/5 winning days of $150+ ${s.pay.std?'✓':''}<br>Consistency path: ${s.pay.nd}/3 trading days, best day ${Math.round(s.pay.share*100)}% of profit (max 40%) ${s.pay.cons?'✓':''}<br>Max per request: ${money(s.pay.cap[0])} standard, ${money(s.pay.cap[1])} consistency.</p>`}
 if(s.breach)st=`<b class="dn">Breached.</b> A drawdown limit was hit. Stop trading this account and review your journal.`;
-else if(s.dHit)st=`<b style="color:var(--yl)">Daily Loss Limit hit.</b> Stop trading this account for today.`;
+else if(s.dHit)st=`<b class="dn">Daily Loss Limit hit.</b> Stop trading this account for today.`;
 else if(a.kind=='futures'&&a.phase=='f'&&s.pay&&(s.pay.std||s.pay.cons))st=`<b class="up">Payout conditions I track are met.</b> Confirm on Topstep before you request.`;
 else if(s.hit)st=`<b class="up">🎉 Target hit! Congratulations!</b> ${a.phase=='f'?'':'You can move to the next step.'}`;
 else if(a.phase=='f'&&s.pl>0)st=`<b class="up">🎉 Funded and up ${money(s.pl)}.</b> Keep following the plan.`;
-else if(s.pl<0)st=`<b style="color:var(--yl)">In drawdown ${money(s.pl)}.</b> ${a.dmx?money(s.mLeft)+' left before the max drawdown.':''}`;
+else if(s.pl<0)st=`<b class="dn">In drawdown ${money(s.pl)}.</b> ${a.dmx?money(s.mLeft)+' left before the max drawdown.':''}`;
 else if(dp>=70||mp>=70)st=`<b style="color:var(--yl)">Careful:</b> you are close to a drawdown limit.`;
 else st=s.tAmt?`${money(s.tAmt-s.pl)} to go for the target. Stay patient.`:'On track. Follow the plan.';
 return`<div class="card ${bc}"><div style="display:flex;justify-content:space-between;gap:8px"><div><b style="font-size:20px">${esc(a.name)}</b><div class="mut">${KL[a.kind]||esc(a.kind)}${a.kind=='prop'||a.kind=='funded'||a.kind=='futures'?' · '+ph(a):''} · ${money(a.size)}</div></div><div style="text-align:right"><div class="big" style="font-size:24px">${money(s.bal)}</div><b class="${cls(s.pl)}">${s.pl>=0?'+':''}${money(s.pl)}</b></div></div>
 ${seq.length?`<div class="stp">${seq.map((k,i)=>`<span class="${i==ix?'on':i<ix?'dn2':''}">${i<ix?'✓ ':''}${lb[k]}</span>`).join('')}</div>`:''}
-<div style="margin-top:10px">${s.tAmt?bar('Profit target',`${money(Math.max(0,s.pl))} of ${money(s.tAmt)} (${Math.round(pc(s.pl,s.tAmt))}%)`,pc(s.pl,s.tAmt),'up'):''}${a.ddd?bar(a.kind=='futures'?'Daily Loss Limit used':'Daily drawdown used',`${money(s.dUsed)} of ${money(s.dLim)}`,dp,dp>=80?'dn':dp>=50?'yl':'cy'):''}${a.dmx?bar(a.dtype=='eod'?'Max Loss Limit (end-of-day trailing)':`Max drawdown used (${a.dtype})`,`${money(mUsed)} of ${money(s.mLim)}`,mp,mp>=80?'dn':mp>=50?'yl':'cy'):''}</div>
-${fx}<p>${st}</p><p class="mut small" style="margin-top:6px">${s.ts.length} trades this phase. Drawdown uses closed trades only.</p>
+<div style="margin-top:10px">${s.tAmt?bar('Profit target',`${money(Math.max(0,s.pl))} of ${money(s.tAmt)} (${Math.round(pc(s.pl,s.tAmt))}%)`,pc(s.pl,s.tAmt),'up'):''}${a.ddd?bar(a.kind=='futures'?'Daily Loss Limit used':'Daily drawdown used',`${money(s.dUsed)} of ${money(s.dLim)}`,dp,'dn'):''}${a.dmx?bar(a.dtype=='eod'?'Max Loss Limit (end-of-day trailing)':`Max drawdown used (${a.dtype})`,`${money(mUsed)} of ${money(s.mLim)}`,mp,'dn'):''}</div>
+${fx}<p>${st}</p>${payBox(a,s)}<p class="mut small" style="margin-top:6px">${s.ts.length} trades this phase. Drawdown uses closed trades only.</p>
 ${(a.hist||[]).map(x=>`<p class="mut small">✓ ${esc(x.d)} · ${esc(x.e)} (${money(x.pl)})</p>`).join('')}
 ${seq.length&&a.phase!='f'?`<button class="b ${s.hit?'':'alt'}" onclick="adv('${a.id}')">${s.hit?'Advance to next step':'Move to next step'}</button>`:''}<button class="b alt" onclick="delAcc('${a.id}')">Delete</button></div>`}
+
+let PA={};
+function payInfo(a){const now=Date.parse(etNow().slice(0,16)+':00Z'),pays=(a.hist||[]).filter(x=>x.pay),last=pays.length?pays[pays.length-1].t:'',all=T.filter(t=>t.acc==a.id&&t.d>=a.ps),cyc=all.filter(t=>!last||t.d.slice(0,16)>last.slice(0,16)).sort((x,y)=>x.d<y.d?-1:1),ft=cyc[0]?cyc[0].d:null,paid=sum(pays.map(x=>+x.pl||0)),prof=sum(all.filter(t=>!isOpen(t)).map(t=>t.p)),avail=Math.round((prof-paid)*100)/100;
+const left=ft?Date.parse(ft.slice(0,16)+':00Z')+14*864e5-now:null;return{pays,last,ft,left,ok:ft!=null&&left<=0,avail,prof,paid}}
+function payBox(a,s){if(a.phase!='f')return'';const i=payInfo(a),sz=a.size||1,pct=Math.min(100,Math.max(0,i.avail/(sz*.1)*100)),fd=x=>String(x).slice(0,10),ready=i.ok&&i.avail>0,lp=i.pays.length?i.pays[i.pays.length-1]:null;
+const note=!i.ft?(lp?`Payout of ${money(lp.pl)} requested on ${fd(lp.t||lp.d)}. Place your first trade to start the next 14-day payout window.`:'Place your first trade on this funded account to start the 14-day payout window.')
+:!i.ok?`Payout opens in ${Math.ceil(i.left/864e5)} day${Math.ceil(i.left/864e5)>1?'s':''}. Your 14-day window started with your first trade on ${fd(i.ft)}.`
+:i.avail<=0?'The 14 days are done, but the account must be in profit to request a payout.'
+:`Choose how much to withdraw, up to ${money(i.avail)}. After you request, a new 14-day window starts with your next first trade.`;
+return`<div class="pay ${ready?'ready':''}"><div class="bl"><span>Profit (info only)</span><span style="color:var(--${i.avail>0?'up':i.avail<0?'dn':'mut'})">${money(i.avail)} · ${(i.avail/sz*100).toFixed(2)}% of account</span></div><div class="bar"><i style="width:${pct}%;background:var(--up)"></i></div>${i.paid?`<p class="mut small">Paid out so far: ${money(i.paid)}</p>`:''}
+${ready?`<p class="up" style="font-weight:700;margin:10px 0 0">Your account is ready for payout and your hard work and rules are paying off 🎉</p><div class="pm"><input type="number" inputmode="decimal" step="any" min="0" max="${i.avail}" placeholder="Amount (max ${money(i.avail)})" value="${PA[a.id]||''}" aria-label="Payout amount"></div><div class="sc" style="margin-top:8px">${[25,50,75,100].map(f=>`<button onclick="PA['${a.id}']=Math.floor(${i.avail}*${f})/100;render()">${f}%</button>`).join('')}</div><button class="b" onclick="reqPayout('${a.id}',this.parentNode.querySelector('input').value)">Request payout</button>`:''}
+<p class="mut small" style="margin-top:10px">${note}</p></div>`}
+function reqPayout(id,v){const a=AT.find(x=>x.id==id);if(!a)return;const i=payInfo(a);if(!i.ok||i.avail<=0){msg='Payout is not available yet.';return render()}
+const amt=Math.round((+v||0)*100)/100;if(!(amt>0)){msg='Enter or pick the payout amount first.';return render()}if(amt>i.avail){msg='The amount cannot be more than your profit of '+money(i.avail)+'.';return render()}
+if(!confirm('Request a payout of '+money(amt)+'? A new 14-day window will start with your next first trade.'))return;
+a.hist=[...(a.hist||[]),{d:etNow().slice(0,10),t:etNow().slice(0,16),e:'Payout requested',pl:amt,pay:true}];PA[id]=0;saveAcc();msg='Payout of '+money(amt)+' requested.';render()}
 function acctView(){return`<div class="hd"><h1>Accounts</h1><button class="plus" aria-label="Add account" onclick="showAF=!showAF;render()">${showAF?'×':'+'}</button></div>`+(showAF?afForm():'')+(AT.length?AT.map(acCard).join(''):'<div class="card empty">No accounts yet. Tap + to add a prop challenge, funded or live account. You can add as many as you need.</div>')}
 function settingsView(){const e=etInfo(),row=(x,y)=>`<div class="tr"><span>${x}</span><b>${y}</b></div>`;
 return`<div class="hd"><h1>Settings</h1></div>
@@ -536,7 +551,7 @@ const r=m=='in'?await sb.auth.signInWithPassword({email:e,password:p}):await sb.
 if(r.error){msg=r.error.message;return render()}
 if(!r.data.session){msg='Check your email to confirm your account, then sign in.';return render()}
 await boot()}
-async function boot(){if(SUPABASE_URL.includes('PASTE')){msg='Setup needed: paste your Supabase URL and anon key at the top of the script (see README).';return render()}
+async function boot(){tab='home';if(SUPABASE_URL.includes('PASTE')){msg='Setup needed: paste your Supabase URL and anon key at the top of the script (see README).';return render()}
 sb=sb||supabase.createClient(SUPABASE_URL,SUPABASE_KEY);const g=await sb.auth.getSession();UID=g.data.session?g.data.session.user.id:null;UEMAIL=g.data.session?g.data.session.user.email:'';T=[];SRV=new Set();AT=[];SRVA=new Set();
 if(UID){const a=await sb.from('trades').select('*').order('d').range(0,4999);T=(a.data||[]).map(x=>({...x,p:+x.p,z:+x.z,m:+x.m,r:x.r==null?null:+x.r}));SRV=new Set(T.map(t=>t.id));
 const c=await sb.from('settings').select('*').maybeSingle();if(c.data)CFG={bal:+c.data.bal,off:+c.data.tzoff};const mm=await sb.from('coach_memory').select('notes').maybeSingle();MEM=mm.data?mm.data.notes:'';const ac=await sb.from('accounts').select('*').order('created');AT=(ac.data||[]).map(a=>({...a,size:+a.size,ddd:+a.ddd,dmx:+a.dmx,t1:+a.t1,t2:+a.t2,steps:+a.steps,hist:a.hist||[]}));SRVA=new Set(AT.map(a=>a.id))}
