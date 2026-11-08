@@ -1,0 +1,37 @@
+name: Update red-folder news
+on:
+  schedule:
+    - cron: '7 * * * *'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  news:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build news.json
+        run: |
+          curl -fsSL --retry 3 -A "Mozilla/5.0" https://nfs.faireconomy.media/ff_calendar_thisweek.json -o raw.json
+          python3 - <<'PY'
+          import json, datetime
+          from zoneinfo import ZoneInfo
+          et = ZoneInfo('America/New_York')
+          out = []
+          for e in json.load(open('raw.json')):
+              if e.get('impact') != 'High':
+                  continue
+              dt = datetime.datetime.fromisoformat(e['date']).astimezone(et)
+              if dt.hour == 0 and dt.minute == 0:
+                  continue
+              out.append({'d': dt.strftime('%Y-%m-%d'), 't': dt.strftime('%H:%M'), 'c': e.get('country', ''), 'n': e.get('title', '')})
+          out.sort(key=lambda x: (x['d'], x['t']))
+          json.dump({'events': out}, open('news.json', 'w'), indent=1)
+          PY
+          rm -f raw.json
+      - name: Save if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add news.json
+          git diff --cached --quiet || (git commit -m "Update news.json" && git push)
