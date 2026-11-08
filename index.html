@@ -1,12 +1,12 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>DHT AI app</title>
+<title>DHT Edge</title>
 <script src="config.js?v=14"></script>
 <link rel="apple-touch-icon" href="icon-v2-180.png">
 <link rel="icon" type="image/png" sizes="32x32" href="icon-v2-32.png"><link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#060808">
 <meta name="color-scheme" content="light dark">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#060808;--sf:#0a0e0c;--ink:#f0f4f0;--mut:#7f9482;--line:#171f1a;--up:#62dc34;--dn:#ff5563;--acc:#6fe82c;--cy:#38bdf8;--yl:#facc15;color-scheme:dark}
 *{box-sizing:border-box}html{scroll-padding-top:90px}
@@ -162,8 +162,15 @@ nav.bnav svg.i{width:29px;height:29px;stroke-width:1.9}
 body.auth nav.bnav{display:none}
 body.auth .brand{display:none}
 main{padding-bottom:118px}
+
+/* ===== header brand ===== */
+.brand{display:block;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:27px;font-weight:500;letter-spacing:0;line-height:1.05}
+.brand .bn{display:flex;align-items:center;gap:9px}
+.brand b{font-weight:500;color:#DCE3E8}
+.brand small{display:block;margin-top:5px;font-size:9.5px;font-weight:400;letter-spacing:1.3px;color:#829586;text-transform:uppercase;white-space:nowrap;line-height:1}
+@media(max-width:360px){.brand{font-size:26px}.brand small{font-size:9px;letter-spacing:1.2px}}
 </style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script></head>
-<body><header><div class="bw"><button class="lgb" aria-label="Home" onclick="go('home')"><img id="lgi" alt="Dan Han Trading" width="44" height="44"></button><div class="brand"><b>DHT AI app</b><span class="dot" role="status" aria-label="Online" title="Online"></span></div></div><button class="gear" aria-label="Settings" onclick="go('set')"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2"/></svg></button></header>
+<body><header><div class="bw"><button class="lgb" aria-label="Home" onclick="go('home')"><img id="lgi" alt="Dan Han Trading" width="44" height="44"></button><div class="brand"><div class="bn"><b>DHT Edge</b><span class="dot" role="status" aria-label="Online" title="Online"></span></div><small>Your intelligent trading partner.</small></div></div><button class="gear" aria-label="Settings" onclick="go('set')"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2"/></svg></button></header>
 <main><div id="v"></div></main>
 <nav id="nav" class="bnav" aria-label="Main"></nav>
 <script>
@@ -294,14 +301,16 @@ let PREF={name:'',h24:false};try{PREF=Object.assign(PREF,JSON.parse(localStorage
 const savePref=()=>{try{localStorage.setItem('thc_prefs',JSON.stringify(PREF))}catch(e){}};
 const etNow=()=>{const p=Object.fromEntries(new Intl.DateTimeFormat('en-CA',{timeZone:'America/New_York',hourCycle:'h23',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'}).formatToParts(new Date()).map(x=>[x.type,x.value]));return p.year+'-'+p.month+'-'+p.day+'T'+p.hour+':'+p.minute};
 const tmin=t=>+t.slice(0,2)*60+ +t.slice(3,5),etMin=d=>+d.slice(11,13)*60+ +d.slice(14,16),money=n=>(n<0?'−$':'$')+Math.abs(Math.round(n)).toLocaleString('en-US');
-const nk=()=>'thc_news_'+etNow().slice(0,10);
-const NEWSM=()=>{try{return JSON.parse(localStorage.getItem(nk())||'[]')}catch(e){return[]}};
-let AUTO=[];const NEWS_CCY=['USD'],NEWS_URLS=['https://raw.githubusercontent.com/danitenker2019-ship-it/dht-trading/main/news.json','news.json'];
-const NEWS=()=>[...NEWSM(),...AUTO].sort((x,y)=>x.t<y.t?-1:x.t>y.t?1:0);
-async function loadNews(){for(const u of NEWS_URLS){try{const r=await fetch(u+'?t='+Math.floor(Date.now()/3e5),{cache:'no-store'});if(!r.ok)continue;const d=await r.json(),td=etNow().slice(0,10),a=(d.events||[]).filter(e=>e.d==td&&NEWS_CCY.includes(e.c)).map(e=>({t:e.t,n:e.c+' '+e.n,auto:true})),ch=JSON.stringify(a)!=JSON.stringify(AUTO);AUTO=a;const el=document.activeElement;if(ch&&typeof UID!='undefined'&&UID&&!(el&&/INPUT|TEXTAREA|SELECT/.test(el.tagName)))render();return}catch(e){}}}
-const setNews=a=>{try{localStorage.setItem(nk(),JSON.stringify(a))}catch(e){}};
-function addNews(){const t=document.getElementById('nt').value,n=document.getElementById('nn').value.trim();if(!t)return;const a=NEWSM();a.push({t,n});a.sort((x,y)=>x.t<y.t?-1:1);setNews(a);render()}
-function delNews(i){const x=NEWS()[i];if(!x||x.auto)return;const a=NEWSM(),k=a.findIndex(y=>y.t==x.t&&y.n==x.n);if(k>=0)a.splice(k,1);setNews(a);render()}
+let AUTO=[],NSTAT={s:'loading',u:''};const NEWS_CCY=['USD'],NEWS_URLS=['https://raw.githubusercontent.com/danitenker2019-ship-it/dht-trading/main/news.json','news.json'],NEWS_MAX_AGE=4*36e5,NCK='thc_news_cache';
+const NEWS=()=>[...AUTO].sort((x,y)=>x.t<y.t?-1:x.t>y.t?1:0);
+function nlast(u){if(!u)return'unknown';const d=new Date(u);return isNaN(d)?'unknown':d.toLocaleString('en-US',{timeZone:'America/New_York',month:'short',day:'numeric',hour:'numeric',minute:'2-digit'})+' ET'}
+function newsBody(ev){const rows=ev.map(x=>`<div class="tr"><span>${esc(x.t)} ${esc(x.n)}</span><span class="mut small">Forex Factory</span></div>`).join('');
+if(NSTAT.s=='loading')return'<p class="mut">Loading news…</p>';
+if(NSTAT.s=='bad')return`<p class="dn" style="font-weight:700;margin:0">News unavailable</p><p class="mut small" style="margin:4px 0 10px">Last update: ${esc(nlast(NSTAT.u))}</p>`+rows;
+return ev.length?rows:'<p class="mut">No red folder event for today.</p>'}
+async function loadNews(){let d=null;for(const u of NEWS_URLS){try{const r=await fetch(u+'?t='+Math.floor(Date.now()/3e5),{cache:'no-store'});if(!r.ok)continue;const j=await r.json();if(j&&Array.isArray(j.events)){d=j;break}}catch(e){}}
+let st,src;if(d){try{localStorage.setItem(NCK,JSON.stringify(d))}catch(e){}const age=d.updated?Date.now()-Date.parse(d.updated):Infinity;st=age<=NEWS_MAX_AGE?'ok':'bad';src=d}else{st='bad';try{src=JSON.parse(localStorage.getItem(NCK)||'null')}catch(e){src=null}}
+const td=etNow().slice(0,10),a=src?(src.events||[]).filter(e=>e.d==td&&NEWS_CCY.includes(e.c)).map(e=>({t:e.t,n:e.c+' '+e.n,auto:true})):[],u=src&&src.updated||'',ch=JSON.stringify([a,st,u])!=JSON.stringify([AUTO,NSTAT.s,NSTAT.u]);AUTO=a;NSTAT={s:st,u};const el=document.activeElement;if(ch&&typeof UID!='undefined'&&UID&&!(el&&/INPUT|TEXTAREA|SELECT/.test(el.tagName)))render()}
 function newsAt(m){return NEWS().some(e=>{const x=tmin(e.t);return(m>=x&&m<x+30)||Math.floor(x/60)==Math.floor(m/60)})}
 function winLine(w){const ev=NEWS().map(x=>({...x,m:tmin(x.t)})),lb=`${w[0]} ${fmt(w[3])}–${fmt(w[4])}`,inn=ev.find(x=>x.m>=w[3]&&x.m<w[4]);
 if(inn)return`<div class="wl dn">${lb}: blocked (${inn.t} release inside the hour)</div>`;
@@ -427,7 +436,7 @@ return`<div class="hero" style="margin:4px 0 18px"><div class="eyebrow">${new Da
 <div class="card sess ${sess().open?'open':''}" id="sess">${sessInner()}</div>${lim}${op?`<div class="card wa" onclick="go('journal')" style="cursor:pointer"><b>${op} open trade${op>1?'s':''}</b><p class="mut">Add the result when ${op>1?'they close':'it closes'}. Tap to open the Journal.</p></div>`:''}
 <div class="sec"><h3>Today</h3></div><div class="tiles"><div class="tile"><b>${q.tt.length}</b><span>Trades</span></div><div class="tile"><b class="${cls(q.dR)}">${fm(q.dR)}R</b><span>Net · ${fm(q.dR*.5)}%</span></div><div class="tile"><b>${q.ls}/2</b><span>Stop-outs</span></div></div>
 <div style="margin:-4px 0 18px"><button class="b" style="margin-top:0" onclick="go('flight')">Run Pre-Flight</button><button class="b alt" style="margin-top:0" onclick="go('coach')">Ask your coach</button></div>
-<div class="card"><div class="sec"><h3>Red-folder news (ET)</h3></div>`+(ev.length?ev.map((x,i)=>`<div class="tr"><span>${esc(x.t)} ${esc(x.n)}</span>${x.auto?'<span class="mut small">Forex Factory</span>':`<button onclick="delNews(${i})">Remove</button>`}</div>`).join(''):'<p class="mut">No red-folder events for today.</p>')+WIN.map(winLine).join('')+`<form class="nf" onsubmit="addNews();return false" style="display:flex"><input id="nt" type="time" aria-label="Time ET"><input id="nn" placeholder="Event name"><button class="b" style="margin:0">Add</button></form><p class="mut small" style="margin-top:8px">Red-folder events load automatically from Forex Factory, in ET. You can still add your own. Entries are blocked inside the hour and for 30 minutes after a release.</p></div>
+<div class="card"><div class="sec"><h3>Red-folder news (ET)</h3></div>`+newsBody(ev)+WIN.map(winLine).join('')+`<p class="mut small" style="margin-top:8px">Red-folder events load automatically from Forex Factory, in ET. Entries are blocked inside the hour and for 30 minutes after a release.</p></div>
 <div class="card" onclick="go('coach')" style="cursor:pointer"><div class="lab">AI Coach</div><h2 style="margin-top:8px">${n?'Your coach has notes':'Ready to build your edge'}</h2><p class="mut">${n?esc(top1?top1.t+'. '+top1.x:'No strong bad habits so far. Keep journaling.'):'Log your first trades via the Pre-Flight check. Your coach will analyze your edge and habits.'}</p></div>`}
 function eqChart(ts,base){const cut=JR=='all'?'':iso(new Date(Date.now()-(JR=='1w'?7:30)*864e5)),pre=cut?ts.filter(t=>t.d<cut):[],L=cut?ts.filter(t=>t.d>=cut):ts,val=t=>JU=='r'?(Rv(t)||0):t.p;
 if(L.length<2)return`<div class="mut" style="padding:40px 0;text-align:center">Log at least two trades to see your equity curve.</div>`;
@@ -463,7 +472,7 @@ return`<div class="hd"><h1>Pre-Flight</h1></div><p class="sub">Validate against 
 `<div class="card"><div class="lab">Trade details</div><form onsubmit="return false" style="margin-top:12px"><label class="w">Date and time (ET)<input type="datetime-local" value="${P.d}" onchange="PF.d=this.value;render()"></label><label>Account<select onchange="PF.acc=this.value;render()">${AT.map(a=>`<option value="${a.id}" ${P.acc==a.id?'selected':''}>${esc(a.name)}</option>`).join('')}</select></label>
 <label>Instrument<select onchange="PF.s=this.value"><option value="">Select…</option>${INS.map(i=>`<option ${P.s==i?'selected':''}>${i}</option>`).join('')}<option ${P.s=='Other'?'selected':''}>Other</option></select></label><label>Window (ET)<input readonly value="${inW?(h==3?'London 3–4 AM':'NY 10–11 AM'):'Outside'}"></label>
 <label>Risk %<input type="number" step="any" value="${P.risk}" onchange="PF.risk=+this.value;render()"></label><label>Direction<div class="seg"><button type="button" class="l ${P.dir=='long'?'on':''}" onclick="PF.dir='long';render()">LONG</button><button type="button" class="s ${P.dir=='short'?'on':''}" onclick="PF.dir='short';render()">SHORT</button></div></label></form></div>
-<div class="card"><div class="lab" style="color:var(--cy)">Mandatory filters</div><div style="margin-top:12px">`+R('Limits Check','Today > -1%? Week > -2%? Under 2 stop-outs?',lim,null,true)+R('Time Window','Inside London or NY silver bullet hour?',inW,null,true)+R('News Clear','30m past red folders, none in the hour?',!blk,null,true)+MF.map(f=>R(f[1],f[2],!!P.c[f[0]],['c',f[0]])).join('')+`</div></div>`+
+<div class="card"><div class="lab" style="color:var(--cy)">Mandatory filters</div><div style="margin-top:12px">`+R('Limits Check','Today > -1%? Week > -2%? Under 2 stop-outs?',lim,null,true)+R('Time Window','Inside London or NY silver bullet hour?',inW,null,true)+R('News Clear',(NSTAT.s=='bad'?'News unavailable. Check Forex Factory yourself.':'30m past red folders, none in the hour?'),!blk,null,true)+MF.map(f=>R(f[1],f[2],!!P.c[f[0]],['c',f[0]])).join('')+`</div></div>`+
 card([ok?'good':'warn',ok?'Cleared by your plan':'NO TRADE',ok?'Every filter is met. Execute the plan.':'Missing: '+miss.join(', ')+'.'])+
 `<div class="card"><div class="lab">Before you execute</div><form onsubmit="return false" style="margin-top:12px"><label class="w">How do you feel?<select onchange="PF.e=this.value">${sel(P.e,[['','–'],['calm','Calm'],['confident','Confident'],['anxious','Anxious'],['fomo','FOMO'],['angry','Angry'],['bored','Bored'],['tired','Tired']])}</select></label><label class="w">Note<input value="${esc(P.n)}" onchange="PF.n=this.value"></label></form><p class="mut small" style="margin-top:10px">You add the result later, when the trade closes. It waits for you under Open trades in the Journal.</p><button class="b" onclick="saveTrade()">${ok?'Log trade (open)':'Log anyway (rule violation)'}</button></div>`}
 function saveTrade(){if(!PF.acc){msg='Choose an account first.';return render()}const P=PF,risk=+P.risk||0.5,flt={open:true,rk:risk};
