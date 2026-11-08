@@ -225,7 +225,7 @@ main{padding-bottom:118px}
 .card.sess b{color:#a8ff6a}
 .card.sess.open{background:linear-gradient(160deg,#0e1b11,#090d0b);border-color:#2a7d2a;box-shadow:0 0 16px rgba(125,255,46,.08)}
 /* ===================================================================
-   DHT EDGE - EXECUTIVE TRADING WORKSTATION (Desktop >= 1024px)
+   DHT EDGE - EXECUTIVE DESKTOP (PRESERVES ORIGINAL CALENDAR LOOK)
    =================================================================== */
 @media (min-width: 1024px) {
 
@@ -278,118 +278,76 @@ main{padding-bottom:118px}
   }
 
   header {
-    max-width: 1440px !important;
+    max-width: 1400px !important;
     margin: 0 auto !important;
-    padding: 20px 36px 12px !important;
+    padding: 20px 40px 12px !important;
   }
 
   main {
-    max-width: 1440px !important;
+    max-width: 1400px !important;
     margin: 0 auto !important;
-    padding: 12px 36px 60px !important;
+    padding: 12px 40px 60px !important;
   }
 
-  /* 2. AI COACH TAB: TIGHT 2-COLUMN COCKPIT (ELIMINATES GAPS) */
-  #v:has(#coachSend),
-  #v:has(.coach-chat),
-  #v:has(button:contains("Ask your coach")),
+  /* 2. AI Coach & Home Screen Controls */
   #v:has(input[placeholder*="1H chart"]) {
     display: grid !important;
-    grid-template-columns: 1.3fr 1fr !important;
-    grid-template-areas: 
-      "head head"
-      "input setup"
-      "input memory" !important;
+    grid-template-columns: 1.4fr 1fr !important;
     gap: 20px !important;
     align-items: start !important;
   }
 
-  /* Coach Title & Subtext spans across */
-  #v:has(input[placeholder*="1H chart"]) > h1,
-  #v:has(input[placeholder*="1H chart"]) > p {
-    grid-column: 1 / -1 !important;
-    margin-bottom: 4px !important;
-  }
-
-  /* Prompt Box & Buttons docked together without gaps */
-  #v:has(input[placeholder*="1H chart"]) div:has(input[placeholder*="1H chart"]),
-  .coach-input-wrap {
-    background: #0f1512 !important;
-    border: 1px solid rgba(255, 255, 255, 0.08) !important;
-    border-radius: 12px !important;
-    padding: 18px !important;
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 12px !important;
-  }
-
-  /* Inline Coach Buttons */
-  div:has(> button:contains("Send")) {
-    display: flex !important;
-    gap: 10px !important;
-    margin-top: 4px !important;
-  }
-
-  /* 3. JOURNAL TAB: COMPACT PROFESSIONAL DESKTOP LEDGER */
-  /* Top Account filter pills as a clean single row */
-  .acct-pills,
-  div:has(> button:contains("Topstep XFA")) {
-    display: flex !important;
-    flex-wrap: wrap !important;
-    gap: 8px !important;
-    margin-bottom: 16px !important;
-  }
-
-  /* Compact Recent Trades Section */
-  .trades-list,
-  div:has(> .trade-row),
-  div:has(> h4:contains("RECENT TRADES")) {
-    max-height: 380px !important;
-    overflow-y: auto !important;
-  }
-
-  /* 4. CALENDAR TAB: WIDE OPEN DESKTOP SPREAD */
-  .cal,
-  div:has(> .cal-grid),
-  div:has(> table.calendar) {
-    width: 100% !important;
-    grid-column: 1 / -1 !important;
-    display: block !important;
-    margin-bottom: 24px !important;
-  }
-
-  /* Calendar Days Grid - Expands wide across the entire monitor */
-  .cal-grid,
-  .cal-month {
+  #v:has(> .hero),
+  #v:has(> .sess) {
     display: grid !important;
-    grid-template-columns: repeat(7, 1fr) !important;
-    gap: 10px !important;
+    grid-template-columns: 1.5fr 1fr !important;
+    gap: 24px !important;
+    align-items: start !important;
+  }
+
+  #v > .hero, #v > .hd, #v > .dday, #v > .chips {
+    grid-column: 1 / -1 !important;
+  }
+
+  /* 3. YOUR ORIGINAL CALENDAR: KEPT EXACT, MADE WIDE */
+  /* Ensures the calendar wrapper stretches to full container width */
+  .cal,
+  #v .cal,
+  div:has(> .cal) {
+    width: 100% !important;
+    max-width: 1400px !important;
+    display: block !important;
+    margin: 0 auto 24px auto !important;
+  }
+
+  /* Keeps your original calendar table/cells intact, just expanding the horizontal space */
+  table.cal, 
+  .cal table,
+  .cal-matrix {
+    width: 100% !important;
+    table-layout: fixed !important;
+  }
+
+  /* 4. STOPS & FIXES SIDE-BY-SIDE UNDERNEATH */
+  /* Groups the Stop Violations and Execution Mistakes into two equal columns */
+  div:has(> h4:contains("STOP")),
+  div:has(> h4:contains("FIX")) {
     width: 100% !important;
   }
 
-  .cd, .cw, .cal-cell {
-    min-height: 90px !important;
-    padding: 10px !important;
-    background: #0e1411 !important;
-    border: 1px solid rgba(255, 255, 255, 0.05) !important;
-    border-radius: 8px !important;
-  }
-
-  /* 5. STOPS & FIXES: POSITIONED SIDE-BY-SIDE UNDER THE CALENDAR */
-  div:has(> h4:contains("STOP · RULE VIOLATIONS")),
-  div:has(> h4:contains("FIX · EXECUTION MISTAKES")),
-  .violations-wrap {
+  #v:has(h4:contains("STOP")) {
     display: grid !important;
     grid-template-columns: 1fr 1fr !important;
     gap: 20px !important;
-    grid-column: 1 / -1 !important;
-    width: 100% !important;
-    margin-top: 20px !important;
   }
 
-  /* Card surface styling */
-  .card, 
-  div[class*="card"] {
+  /* Keep full-width cards spanning both columns on the journal page */
+  #v:has(h4:contains("STOP")) > div:not(:has(h4:contains("STOP"))):not(:has(h4:contains("FIX"))) {
+    grid-column: 1 / -1 !important;
+  }
+
+  /* 5. General Card Surface */
+  .card {
     background: #0f1512 !important;
     border: 1px solid rgba(255, 255, 255, 0.07) !important;
     border-radius: 12px !important;
