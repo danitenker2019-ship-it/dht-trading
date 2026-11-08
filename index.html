@@ -224,8 +224,69 @@ main{padding-bottom:118px}
 .card.sess .sz{color:#eef6ee}
 .card.sess b{color:#a8ff6a}
 .card.sess.open{background:linear-gradient(160deg,#0e1b11,#090d0b);border-color:#2a7d2a;box-shadow:0 0 16px rgba(125,255,46,.08)}
+
+/* ===== desktop (PC) layout: sidebar + top bar + dashboard grid ===== */
+nav .sb-only,.dtop{display:none}.nl{display:none}
+@media (min-width:1024px){
+header{display:none}
+body{padding-left:260px;padding-bottom:0}
+body.auth{padding-left:0}body.auth .dtop{display:none}
+nav.bnav{left:0;right:auto;top:0;bottom:0;width:260px;flex-direction:column;justify-content:flex-start;align-items:stretch;gap:4px;padding:22px 14px 18px;border:0;border-right:1px solid #141a16;background:#070a08;-webkit-backdrop-filter:none;backdrop-filter:none;overflow-y:auto}
+nav.bnav .sb-only{display:flex}
+nav.bnav .sb-brand{align-items:center;gap:12px;padding:2px 8px 22px}
+nav.bnav .sb-brand img{border-radius:12px;box-shadow:0 0 0 1px #16301a}
+nav.bnav .sb-brand b{display:block;font-size:20px;font-weight:500;color:#DCE3E8;line-height:1.1}
+nav.bnav .sb-brand small{display:block;margin-top:4px;font-size:8.5px;letter-spacing:1.2px;color:#829586;line-height:1.25}
+nav.bnav .sb-sec{padding:10px 14px 6px;font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#5f7262}
+nav.bnav .sb-grow{flex:1}
+nav.bnav button{flex:none;max-width:none;width:100%;height:46px;display:flex;align-items:center;justify-content:flex-start;gap:14px;padding:0 14px;border-radius:12px;text-align:left;transition:background .15s,color .15s}
+nav.bnav svg.i{width:22px;height:22px;stroke-width:1.8;flex:none}
+nav.bnav button .nl{display:block;font:600 15px Inter,sans-serif;min-width:0}
+nav.bnav button:hover{background:#0b130d;color:var(--ink)}
+nav.bnav button.on{background:#0e1a10;color:#7dff2e;box-shadow:inset 3px 0 0 #6fe82c,0 0 0 1px #1d3a22}
+nav.bnav button.sb-prof{height:60px;border:1px solid #141a16;background:#0a0e0c;color:var(--ink)}
+nav.bnav button.sb-prof.on{border-color:#1f4a22}
+.sb-av{width:36px;height:36px;border-radius:50%;background:#0e1b11;border:1px solid #1f4a22;color:#6fe82c;font-weight:700;display:grid;place-items:center;flex:none}
+nav.bnav .sb-prof .nl b{display:block;font-size:14px;font-weight:600;color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+nav.bnav .sb-prof .nl small{display:block;font-size:11.5px;font-weight:400;color:#829586;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.dtop{display:flex;position:sticky;top:0;z-index:6;height:78px;align-items:center;justify-content:space-between;padding:0 40px;background:rgba(6,8,8,.88);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-bottom:1px solid #141a16}
+.dtop h1{font-size:22px;font-weight:700;margin:0;line-height:1.2}.dtop div>span{display:block;margin-top:2px;font-size:13px;color:#829586}
+.dt-r{display:flex;align-items:center;gap:10px}
+.dt-p{font-size:12.5px;font-weight:600;padding:7px 14px;border-radius:999px;background:#18211c;color:#9bb09c;border:1px solid #1d2a21;white-space:nowrap}
+.dt-p.ok,.dt-p.live{background:#0f2a15;color:#7dff2e;border-color:#1d4a26}.dt-p.wait{background:#2a220b;color:#facc15;border-color:#4a3f12}.dt-p.bad{background:#2e1015;color:#ff5563;border-color:#6a2630}
+.dt-clock{font:600 14px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#DCE3E8;padding:7px 14px;border-radius:12px;border:1px solid #1d2a21;background:#0a0e0c;min-width:128px;text-align:center}
+main{max-width:1480px;margin:0 auto;padding:28px 40px 60px}
+#v{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:20px;align-items:start}
+#v>*{grid-column:1/-1;margin-top:0;margin-bottom:0;min-width:0}
+.hd h1{font-size:0;margin:0}.hd{margin:0}
+body[data-tab=set] .hd h1{font-size:26px}
+.ai-head{margin-top:20px}
+body[data-tab] .hero h1{font-size:40px}
+.card{padding:22px}
+/* dashboard */
+body[data-tab=home] #v>.hero{grid-column:1/9;grid-row:1}
+body[data-tab=home] #insai{grid-column:1/9;grid-row:2}
+body[data-tab=home] #sess{grid-column:9/13;grid-row:1/3;align-self:stretch;display:flex;flex-direction:column;justify-content:center}
+body[data-tab=home] #newscard{grid-column:1/7;align-self:stretch}
+body[data-tab=home] #insdet{grid-column:7/13;align-self:stretch}
+body[data-tab=home] #v>div:not([class]){display:flex;gap:12px;max-width:560px}
+body[data-tab=home] .tiles{margin-bottom:0}
+/* other pages */
+body[data-tab=journal] #v>.card{grid-column:span 6}
+body[data-tab=journal] #v>.tog,body[data-tab=journal] #v>.tog~*{grid-column:1/-1}
+body[data-tab=journal] .card svg{max-height:320px}
+body[data-tab=journal] #v{grid-auto-flow:row dense}
+body[data-tab=journal] #v>.card:has(.sc){grid-row:span 2}
+body[data-tab=flight] #v>.card{grid-column:span 6}
+body[data-tab=flight] #v>.card:last-child{grid-column:1/-1}
+body[data-tab=accts] #v>.card{grid-column:span 6}
+body[data-tab=coach] #v>.card,body[data-tab=coach] #v>form{grid-column:span 6}
+body[data-tab=set] #v>*{grid-column:3/11}
+.au{max-width:440px;padding-top:6vh}
+}
 </style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script></head>
 <body><header><div class="bw"><button class="lgb" aria-label="Home" onclick="go('home')"><img id="lgi" alt="Dan Han Trading" width="44" height="44"></button><div class="brand"><div class="bn"><b>DHT Edge</b><span class="dot" role="status" aria-label="Online" title="Online"></span></div><small>Your intelligent trading partner.</small></div></div><button class="gear" aria-label="Profile" onclick="go('set')"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.6"/><path d="M4.500 20c.8-3.600 3.800-5.500 7.500-5.500s6.700 1.900 7.500 5.500"/></svg></button></header>
+<div id="dtop" class="dtop"></div>
 <main><div id="v"></div></main>
 <nav id="nav" class="bnav" aria-label="Main"></nav>
 <script>
@@ -467,8 +528,16 @@ return`<div class="card"><div style="display:flex;justify-content:space-between;
 function del(id){T=T.filter(t=>t.id!=id);save();render()}
 const TABS=['home','journal','flight','accts','coach'];
 function go(k){tab=k;msg='';if(k=='set')PSEC='';if(k=='flight')PF=null;render();window.scrollTo(0,0)}
+function drawTop(){const t=document.getElementById('dtop');if(!t)return;const TT={home:'Dashboard',journal:'Journal',flight:'Pre-Flight',accts:'Accounts',coach:'AI Coach',set:'Profile'};
+let S=null;try{S=sess()}catch(x){}const e=etInfo(),mins=e.h*60+e.m,closed=e.dow==6||(e.dow==0&&mins<1080)||(e.dow==5&&mins>=1020);
+const sp=closed?['Markets closed','rest']:S&&S.open?['Kill zone open · '+S.w[1],'live']:S?['Next · '+S.w[1]+' in '+cd(S.in),'wait']:['','rest'];
+const nw=NSTAT.s=='bad'?['News unavailable','bad']:NSTAT.s=='loading'?['Loading news…','rest']:[AUTO.length?AUTO.length+' red-folder event'+(AUTO.length>1?'s':'')+' today':'No red-folder news today','ok'];
+t.innerHTML=`<div><h1>${TT[tab]||''}</h1><span>${new Date().toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric',timeZone:'America/New_York'})}</span></div><div class="dt-r"><span class="dt-p ${nw[1]}">${esc(nw[0])}</span>${sp[0]?`<span class="dt-p ${sp[1]}">${esc(sp[0])}</span>`:''}<span class="dt-clock" id="dtclk"></span></div>`;tickTop()}
+function tickTop(){const c=document.getElementById('dtclk');if(c)c.textContent=new Date().toLocaleTimeString('en-US',{timeZone:'America/New_York',hour:'numeric',minute:'2-digit',second:'2-digit'})+' ET'}
 function render(){if(document.body&&document.body.classList)document.body.classList.toggle('auth',!UID);if(!UID)return authView();
-document.getElementById('nav').innerHTML=TABS.map(k=>`<button class="${tab==k?'on':''}" aria-label="${k}" onclick="go('${k}')"><svg class="i" viewBox="0 0 24 24">${IC[k]}</svg></button>`).join('');
+const NL={home:'Dashboard',journal:'Journal',flight:'Pre-Flight',accts:'Accounts',coach:'AI Coach'},ini=((PREF.name||'').trim()||UEMAIL||'T').trim()[0].toUpperCase();
+document.getElementById('nav').innerHTML=`<div class="sb-only sb-brand"><img src="${LOGO}" alt="" width="46" height="46"><div><b>DHT Edge</b><small>YOUR INTELLIGENT TRADING PARTNER.</small></div></div><div class="sb-only sb-sec">Menu</div>`+TABS.map(k=>`<button class="${tab==k?'on':''}" aria-label="${NL[k]}" onclick="go('${k}')"><svg class="i" viewBox="0 0 24 24">${IC[k]}</svg><span class="nl">${NL[k]}</span></button>`).join('')+`<div class="sb-only sb-grow"></div><div class="sb-only sb-sec">Account</div><button class="sb-only sb-prof ${tab=='set'?'on':''}" aria-label="Profile" onclick="go('set')"><span class="sb-av">${esc(ini)}</span><span class="nl"><b>${esc((PREF.name||'').trim()||'Trader')}</b><small>${esc(UEMAIL||'Signed in')}</small></span></button>`;
+document.body.dataset.tab=tab;drawTop();
 let h=msg?`<div class="msg">${esc(msg)}</div>`:'';
 h+=tab=='home'?homeView():tab=='journal'?journalView():tab=='flight'?flightView():tab=='accts'?acctView():tab=='coach'?`<div class="hd"><h1>AI Coach</h1></div>`+coachView():profileView();
 document.getElementById('v').innerHTML=h}
@@ -534,7 +603,7 @@ return`<div class="hero" style="margin:4px 0 18px"><div class="eyebrow">${new Da
 <div class="card sess ${sess().open?'open':''}" id="sess">${sessInner()}</div>${lim}${op?`<div class="card wa" onclick="go('journal')" style="cursor:pointer"><b>${op} open trade${op>1?'s':''}</b><p class="mut">Add the result when ${op>1?'they close':'it closes'}. Tap to open the Journal.</p></div>`:''}
 <div class="sec"><h3>Today</h3></div><div class="tiles"><div class="tile"><b>${q.tt.length}</b><span>Trades</span></div><div class="tile"><b class="${cls(q.dR)}">${fm(q.dR)}R</b><span>Net · ${fm(q.dR*.5)}%</span></div><div class="tile"><b>${q.ls}/2</b><span>Stop-outs</span></div></div>
 <div style="margin:-4px 0 18px"><button class="b" style="margin-top:0" onclick="go('flight')">Run Pre-Flight</button><button class="b alt" style="margin-top:0" onclick="go('coach')">Ask your coach</button></div>
-<div class="card"><div class="sec"><h3>Red-folder news (ET)</h3></div>`+newsBody(ev)+WIN.map(winLine).join('')+`<p class="mut small" style="margin-top:8px">Red-folder events load automatically from Forex Factory, in ET. Entries are blocked inside the hour and for 30 minutes after a release.</p></div>
+<div class="card" id="newscard"><div class="sec"><h3>Red-folder news (ET)</h3></div>`+newsBody(ev)+WIN.map(winLine).join('')+`<p class="mut small" style="margin-top:8px">Red-folder events load automatically from Forex Factory, in ET. Entries are blocked inside the hour and for 30 minutes after a release.</p></div>
 <div class="card aid" id="insdet">${insightDetail()}</div>`}
 function eqChart(ts,base){const cut=JR=='all'?'':iso(new Date(Date.now()-(JR=='1w'?7:30)*864e5)),pre=cut?ts.filter(t=>t.d<cut):[],L=cut?ts.filter(t=>t.d>=cut):ts,val=t=>JU=='r'?(Rv(t)||0):t.p;
 if(L.length<2)return`<div class="mut" style="padding:40px 0;text-align:center">Log at least two trades to see your equity curve.</div>`;
@@ -701,5 +770,5 @@ document.getElementById('lgi').src=LOGO;{const fi=document.createElement('link')
 function setOnline(){const d=document.querySelector('.dot');if(!d||typeof navigator=='undefined')return;const on=navigator.onLine!==false;d.classList.toggle('off',!on);d.title=on?'Online':'Offline';d.setAttribute('aria-label',on?'Online':'Offline')}
 if(window.addEventListener){window.addEventListener('online',setOnline);window.addEventListener('offline',setOnline)}
 setOnline();
-boot();loadNews();document.addEventListener('visibilitychange',()=>{if(!document.hidden)loadNews()});setInterval(loadNews,6e5);setInterval(()=>{const el=document.getElementById('insai'),el2=document.getElementById('insdet');if(!document.hidden){try{if(el){el.innerHTML=insightInner();el.className='card ai '+insightTone()}if(el2)el2.innerHTML=insightDetail()}catch(x){}}},60000);
+boot();loadNews();document.addEventListener('visibilitychange',()=>{if(!document.hidden)loadNews()});setInterval(loadNews,6e5);setInterval(tickTop,1000);setInterval(()=>{if(typeof UID!='undefined'&&UID)drawTop()},30000);setInterval(()=>{const el=document.getElementById('insai'),el2=document.getElementById('insdet');if(!document.hidden){try{if(el){el.innerHTML=insightInner();el.className='card ai '+insightTone()}if(el2)el2.innerHTML=insightDetail()}catch(x){}}},60000);
 </script></body></html>
