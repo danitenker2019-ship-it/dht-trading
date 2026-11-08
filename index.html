@@ -225,14 +225,14 @@ main{padding-bottom:118px}
 .card.sess b{color:#a8ff6a}
 .card.sess.open{background:linear-gradient(160deg,#0e1b11,#090d0b);border-color:#2a7d2a;box-shadow:0 0 16px rgba(125,255,46,.08)}
 /* ===================================================================
-   DHT EDGE - DESKTOP COCKPIT (RESTORES 6-COLUMN CALENDAR GRID)
+   DHT EDGE - CLEAN DESKTOP VIEW (100% PRESERVES ORIGINAL UI)
    =================================================================== */
 @media (min-width: 1024px) {
 
-  /* 1. Global Viewport & Left Sidebar Rail */
+  /* 1. Canvas & Fixed Left Rail */
   body {
     background-color: #070908 !important;
-    padding-left: 76px !important;
+    padding-left: 72px !important;
     margin: 0 !important;
   }
 
@@ -241,7 +241,7 @@ main{padding-bottom:118px}
     top: 0 !important;
     left: 0 !important;
     bottom: 0 !important;
-    width: 68px !important;
+    width: 64px !important;
     height: 100vh !important;
     background: #0b100d !important;
     border-right: 1px solid rgba(255, 255, 255, 0.08) !important;
@@ -259,8 +259,8 @@ main{padding-bottom:118px}
   }
 
   nav.bnav button {
-    width: 44px !important;
-    height: 44px !important;
+    width: 42px !important;
+    height: 42px !important;
     border-radius: 10px !important;
     background: transparent !important;
     border: none !important;
@@ -277,93 +277,49 @@ main{padding-bottom:118px}
     color: #2ed573 !important;
   }
 
-  header {
-    max-width: 1440px !important;
+  /* 2. Top Header & Widescreen Container */
+  header, main {
+    max-width: 1320px !important;
+    width: 100% !important;
     margin: 0 auto !important;
-    padding: 20px 40px 12px !important;
+    padding-left: 32px !important;
+    padding-right: 32px !important;
   }
 
-  main {
-    max-width: 1440px !important;
-    margin: 0 auto !important;
-    padding: 12px 40px 60px !important;
+  /* 3. CALENDAR: WIDE & UNTOUCHED (Zero internal element overrides) */
+  /* Remove mobile width choke so your calendar stretches smoothly */
+  #v, .cal, .view-calendar, .view-journal {
+    max-width: 100% !important;
+    width: 100% !important;
   }
 
-  /* 2. Standard View Layouts */
+  /* 4. STOP & FIX SECTION: SIDE-BY-SIDE UNDER THE CALENDAR */
+  /* Targets the parent containing the Rule Violations and Execution Mistakes */
+  div:has(> div:has(h4:contains("STOP · RULE VIOLATIONS"))),
+  div:has(> .card:has(h4:contains("STOP"))) {
+    display: flex !important;
+    flex-direction: row !important;
+    gap: 20px !important;
+    width: 100% !important;
+    margin-top: 24px !important;
+  }
+
+  div:has(> div:has(h4:contains("STOP · RULE VIOLATIONS"))) > div,
+  div:has(> .card:has(h4:contains("STOP"))) > .card {
+    flex: 1 1 50% !important;
+    width: 50% !important;
+  }
+
+  /* 5. Home Tab Dashboard Cockpit */
   #v:has(> .hero),
   #v:has(> .sess) {
     display: grid !important;
     grid-template-columns: 1.5fr 1fr !important;
     gap: 24px !important;
-    align-items: start !important;
   }
 
   #v > .hero, #v > .hd, #v > .dday, #v > .chips {
     grid-column: 1 / -1 !important;
-  }
-
-  /* 3. CALENDAR RESTORATION: EXACT 6-COLUMN GRID */
-  /* Calendar Top Stats (Trades, Avg Hold, Profit Factor, Best Day) */
-  .cal-stats,
-  div:has(> div:has(> small:contains("TRADES"))) {
-    display: grid !important;
-    grid-template-columns: repeat(4, 1fr) !important;
-    gap: 14px !important;
-    margin-bottom: 20px !important;
-  }
-
-  /* 6-Column Matrix (Mon, Tue, Wed, Thu, Fri, Weekly P/L) */
-  .cal,
-  .cal-grid,
-  .cal-matrix,
-  div:has(> .cd),
-  div:has(> .cw) {
-    display: grid !important;
-    grid-template-columns: repeat(5, 1fr) 1.2fr !important; /* 5 days + Weekly P/L */
-    gap: 10px !important;
-    width: 100% !important;
-  }
-
-  /* Calendar Day & Week Boxes (Restores round-corner cards) */
-  .cd, .cw,
-  div:has(> .cd) > div,
-  div:has(> .cw) > div {
-    min-height: 85px !important;
-    background: #0d120f !important;
-    border: 1px solid rgba(255, 255, 255, 0.06) !important;
-    border-radius: 12px !important;
-    padding: 10px 12px !important;
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: space-between !important;
-  }
-
-  /* Weekly summary column highlight */
-  .cw {
-    background: #0f1512 !important;
-    border-color: rgba(255, 255, 255, 0.09) !important;
-  }
-
-  /* 4. STOP & FIX SECTION SIDE-BY-SIDE */
-  .violations-row,
-  #v:has(h4:contains("STOP")) {
-    display: block !important;
-  }
-
-  .wrap-stop-fix,
-  div:has(> div > h4:contains("STOP · RULE VIOLATIONS")) {
-    display: grid !important;
-    grid-template-columns: 1fr 1fr !important;
-    gap: 20px !important;
-    margin-top: 24px !important;
-  }
-
-  /* 5. Base Card Styles */
-  .card {
-    background: #0f1512 !important;
-    border: 1px solid rgba(255, 255, 255, 0.07) !important;
-    border-radius: 12px !important;
-    padding: 20px !important;
   }
 }
 </style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script></head>
