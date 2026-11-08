@@ -169,8 +169,47 @@ main{padding-bottom:118px}
 .brand b{font-weight:500;color:#DCE3E8}
 .brand small{display:block;margin-top:5px;font-size:9.5px;font-weight:400;letter-spacing:1.3px;color:#829586;text-transform:uppercase;white-space:nowrap;line-height:1}
 @media(max-width:360px){.brand{font-size:26px}.brand small{font-size:9px;letter-spacing:1.2px}}
+
+/* ===== AI insight card ===== */
+.card.ai{padding:18px}.card.aid{padding:6px 18px}
+.ai-h{display:flex;align-items:center;gap:14px}
+.ai-ic{width:52px;height:52px;border-radius:16px;background:#0e1b11;border:1px solid #16301a;display:grid;place-items:center;flex:none}
+.ai-t{flex:1;min-width:0}.ai-t b{display:block;font-size:17px;font-weight:700;letter-spacing:.01em;color:#f0f4f0;line-height:1.15}
+.ai-t span{display:block;margin-top:3px;font-size:11px;letter-spacing:.07em;color:#829586}
+.ai-pill{flex:none;font-size:12px;font-weight:700;letter-spacing:.06em;padding:6px 13px;border-radius:999px;background:#12301a;color:#6fe82c}
+.ai-pill.live{background:#0f3a17;color:#8dff3a}.ai-pill.wait{background:#33290c;color:#facc15}.ai-pill.stop{background:#3a1218;color:#ff5563}.ai-pill.rest{background:#18211c;color:#8fa593}
+.ai-head{font-size:22px;font-weight:700;line-height:1.25;margin:18px 0 8px;color:#eef6ee}
+.ai-body{font-size:15px;line-height:1.5;color:#8ea392;margin:0}
+.ai-div{height:1px;background:#1a2a1d;margin:16px 0 4px}
+.ai-s{padding:12px 0;border-top:1px solid #131d16}.ai-s:first-of-type{border-top:0}
+.ai-l{display:block;font-size:10.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#829586;margin-bottom:5px}
+.ai-l.up{color:var(--up)}.ai-l.dn{color:var(--dn)}.ai-l.cy{color:var(--cy)}
+.ai-s p{margin:0;font-size:14.5px;line-height:1.45;color:#c9d6ca}
+.ai-perf{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}.ai-perf>div{border:1px solid var(--line);border-radius:12px;padding:9px 6px;background:#090d0b;text-align:center;min-width:0}
+.ai-perf b{display:block;font-size:15px;white-space:nowrap}.ai-perf span{display:block;margin-top:3px;font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;color:#829586}
+/* ===== sign-in screen ===== */
+.au{max-width:420px;margin:0 auto;padding:18px 0 28px}
+.au-top{text-align:center;margin:6px 0 26px}.au-top img{border-radius:24px;display:block;margin:0 auto 16px;box-shadow:0 0 0 1px #16301a}
+.au-top h1{font-size:30px;font-weight:500;color:#DCE3E8;margin:0 0 8px;letter-spacing:0}
+.au-top p{margin:0;font-size:10px;font-weight:400;letter-spacing:1.3px;color:#829586}
+.au-card{display:flex;flex-direction:column;gap:14px;padding:20px;border:1px solid var(--line);border-radius:22px;background:#0a0e0c}
+.au-card label{display:flex;flex-direction:column;gap:8px;font-size:13px;font-weight:600;color:#a9b9ab}
+.au-card input{height:50px;padding:0 14px}
+.au-pw{position:relative;display:block}.au-pw input{padding-right:64px}
+.au-eye{position:absolute;right:6px;top:50%;transform:translateY(-50%);border:0;background:none;color:#6fe82c;font:600 13px Inter,sans-serif;padding:10px;cursor:pointer}
+.au-card .b{margin:0;height:50px}.au-card .b:disabled{opacity:.6}
+.au-msg{padding:12px 14px;border-radius:14px;background:#2a1013;border:1px solid #6a2630;color:#ffb3ba;margin-bottom:14px;font-size:14.5px}
+.au-foot{text-align:center;font-size:12.5px;color:#6f8472;margin:16px 0 0}
+
+/* ===== profile ===== */
+.pf-top{display:flex;align-items:center;gap:14px}.pf-av{width:56px;height:56px;border-radius:50%;background:#0e1b11;border:1px solid #1f4a22;color:#6fe82c;font-weight:700;font-size:22px;display:grid;place-items:center;flex:none}
+.pf-top b{display:block;font-size:18px}.pf-top span{display:block;color:var(--mut);font-size:13.5px;word-break:break-all;margin-top:2px}
+.pf-menu{padding:4px 0}.pf-row{display:flex;align-items:center;gap:14px;width:100%;padding:14px 16px;border:0;border-top:1px solid #131d16;background:none;color:var(--ink);font:inherit;text-align:left;cursor:pointer}
+.pf-row:first-child{border-top:0}.pf-row b{display:block;font-size:15.5px}.pf-row small{display:block;margin-top:2px;color:var(--mut);font-size:12.5px}
+.pf-ic{width:38px;height:38px;border-radius:12px;background:#0e1b11;display:grid;place-items:center;color:#6fe82c;flex:none}.pf-row>span:nth-child(2){flex:1;min-width:0}.pf-ch{color:var(--mut);font-size:22px}
+.pf-back{border:0;background:none;color:#6fe82c;font:600 15px Inter,sans-serif;padding:6px 0;margin-bottom:6px;cursor:pointer}
 </style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script></head>
-<body><header><div class="bw"><button class="lgb" aria-label="Home" onclick="go('home')"><img id="lgi" alt="Dan Han Trading" width="44" height="44"></button><div class="brand"><div class="bn"><b>DHT Edge</b><span class="dot" role="status" aria-label="Online" title="Online"></span></div><small>Your intelligent trading partner.</small></div></div><button class="gear" aria-label="Settings" onclick="go('set')"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2"/></svg></button></header>
+<body><header><div class="bw"><button class="lgb" aria-label="Home" onclick="go('home')"><img id="lgi" alt="Dan Han Trading" width="44" height="44"></button><div class="brand"><div class="bn"><b>DHT Edge</b><span class="dot" role="status" aria-label="Online" title="Online"></span></div><small>Your intelligent trading partner.</small></div></div><button class="gear" aria-label="Profile" onclick="go('set')"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.6"/><path d="M4.500 20c.8-3.600 3.800-5.500 7.500-5.500s6.700 1.900 7.500 5.500"/></svg></button></header>
 <main><div id="v"></div></main>
 <nav id="nav" class="bnav" aria-label="Main"></nav>
 <script>
@@ -411,11 +450,11 @@ return`<div class="card"><div style="display:flex;justify-content:space-between;
 <p class="cmsg">${esc(m[0])} <span style="color:var(--${m[2]})">${esc(m[1])}</span></p></div>`}
 function del(id){T=T.filter(t=>t.id!=id);save();render()}
 const TABS=['home','journal','flight','accts','coach'];
-function go(k){tab=k;msg='';if(k=='flight')PF=null;render();window.scrollTo(0,0)}
+function go(k){tab=k;msg='';if(k=='set')PSEC='';if(k=='flight')PF=null;render();window.scrollTo(0,0)}
 function render(){if(document.body&&document.body.classList)document.body.classList.toggle('auth',!UID);if(!UID)return authView();
 document.getElementById('nav').innerHTML=TABS.map(k=>`<button class="${tab==k?'on':''}" aria-label="${k}" onclick="go('${k}')"><svg class="i" viewBox="0 0 24 24">${IC[k]}</svg></button>`).join('');
 let h=msg?`<div class="msg">${esc(msg)}</div>`:'';
-h+=tab=='home'?homeView():tab=='journal'?journalView():tab=='flight'?flightView():tab=='accts'?acctView():tab=='coach'?`<div class="hd"><h1>AI Coach</h1></div>`+coachView():settingsView();
+h+=tab=='home'?homeView():tab=='journal'?journalView():tab=='flight'?flightView():tab=='accts'?acctView():tab=='coach'?`<div class="hd"><h1>AI Coach</h1></div>`+coachView():profileView();
 document.getElementById('v').innerHTML=h}
 const TSP={50:{size:50000,mll:2000,tgt:3000,dll:1000,pay:[2000,3000]},100:{size:100000,mll:3000,tgt:6000,dll:2000,pay:[3000,4000]},150:{size:150000,mll:4500,tgt:9000,dll:3000,pay:[5000,6000]}},KL={futures:'Futures prop (Topstep)',prop:'Prop challenge',funded:'Funded',live:'Live',demo:'Demo'},DN=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 const sm=n=>(n<0?'−':'+')+'$'+Math.abs(Math.round(n)).toLocaleString('en-US');
@@ -430,14 +469,56 @@ if(S.open)b=`<div class="lab" style="color:var(--up)">● Kill zone open</div><d
 else b=`<div class="lab">Next kill zone</div><div class="sz">${S.w[1]}</div><div>${S.d==0?'Today':S.d==1?'Tomorrow':DN[S.dow]} at ${fmt(S.w[3])} ET · in <b>${cd(S.in)}</b></div>${S.d==0?winLine(S.w):''}${wd?'':'<p class="mut small" style="margin-top:8px">Weekend: markets are closed.</p>'}`;
 return`<div class="clk"><span>Eastern Time</span><span>${tm} ${e.abbr}</span></div>`+b}
 function kpi(ts){ts=ts.filter(t=>!(t.flt&&t.flt.open));const Rs=ts.map(Rv).filter(x=>x!=null),w=ts.filter(t=>t.p>0).length;return{n:ts.length,wr:ts.length?w/ts.length*100:0,ar:Rs.length?avg(Rs):null,net:sum(ts.map(t=>t.p))}}
+
+const BRAIN='<svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="#7dff2e" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.5 3.5A3 3 0 0 0 6.6 6 3.2 3.2 0 0 0 4.5 9a3.2 3.2 0 0 0 .9 2.2A3.3 3.3 0 0 0 5 14.5a3.2 3.2 0 0 0 2.2 2.9A3 3 0 0 0 10 20.5a2.5 2.5 0 0 0 2-.9V4.4a2.4 2.4 0 0 0-2.5-.9Z"/><path d="M14.5 3.5A3 3 0 0 1 17.4 6 3.2 3.2 0 0 1 19.5 9a3.2 3.2 0 0 1-.9 2.2A3.3 3.3 0 0 1 19 14.5a3.2 3.2 0 0 1-2.2 2.9A3 3 0 0 1 14 20.5a2.5 2.5 0 0 1-2-.9"/><path d="M9 9.5h3M12 13h3.5M9.5 16h2.5M12 6.5h2.5"/></svg>';
+function insightData(){
+const e=etInfo(),mins=e.h*60+e.m,dow=e.dow,sunEve=dow==0&&mins>=1080,closed=dow==6||(dow==0&&mins<1080)||(dow==5&&mins>=1020);
+const a=analyze(T),A=a.A,H=a.H||{},q=stat(T),S=sess(),op=T.filter(isOpen).length,ev=NEWS().map(x=>({...x,m:tmin(x.t)})),n=A.length;
+const Rs=A.map(Rv).filter(x=>x!=null),exp=avg(Rs),wr=n?Math.round(A.filter(t=>t.p>0).length/n*100):null;
+const good=a.out.filter(o=>o.l=='good'),warn=a.out.filter(o=>o.l=='warn'),tt=q.tt.filter(t=>!isOpen(t)),dayR=fm(q.dR)+'R',tc=tt.length+' trade'+(tt.length==1?'':'s');
+let sd=0;for(const c of etNow().slice(0,10))sd=(sd*31+c.charCodeAt(0))>>>0;const pk=r=>r[sd%r.length];
+const tips=['Let the market prove the week’s direction before you commit.','Consistency beats intensity. Repeat your process.','Midweek tests discipline. Stay selective.','Protect what you have made this week. Do not force it.','Lock in the week. No revenge trades, no late entries.'];
+let tone='ready',pill='READY',head,body;
+const near=S&&(S.open||(S.d==0&&S.in<=90)),blk=ev.find(x=>(mins>=x.m&&mins<x.m+30)||Math.floor(x.m/60)==Math.floor(mins/60));
+if(sunEve){tone='wait';pill='SOON';head='Markets reopen soon.';body='Mark your levels, set your risk and stay patient. Your first window opens Monday at 3:00 AM ET.'}
+else if(closed){tone='rest';pill='REST';
+if(dow==6){head='Today’s focus: Capital preservation.';body=pk(['Markets are closed for the weekend. Use today to review your previous trades, prepare your levels, and define your risk before the next session.','No market, no pressure. Review last week, mark your levels and rest. Preparation is your edge.'])}
+else if(dow==0){head='Today’s focus: Prepare the week.';body=pk(['Markets are closed. Prepare your levels and review your execution before Monday.','Sunday reset: review last week’s trades, set your weekly bias and decide your risk before Monday.'])}
+else{head='Week complete. Review it.';body='You finished the week at '+fm(q.wR)+'R. Journal what worked and what did not before the weekend.'}}
+else if(q.dl){tone='stop';pill='STOP';head='Stop trading for today.';body='You hit your daily limit (two stop-outs or −1%). Protecting capital is the trade. Close the platform and journal what happened.'}
+else if(q.wl){tone='stop';pill='STOP';head='Weekly limit reached.';body='You are at −2% this week. You are done until Monday. Review your trades and reset.'}
+else if(op){tone='live';pill='OPEN';head='You have '+op+' open trade'+(op>1?'s':'')+'.';body='Manage the risk you already have. Do not add. Log the result in your Journal when it closes.'}
+else if(blk&&near){tone='wait';pill='NEWS';head=blk.n+' at '+fmt(blk.m)+' ET. Stand aside.';body='No entries until '+fmt(blk.m+30)+' ET. Waiting is a position too.'}
+else if(S.open){tone='live';pill='LIVE';head=S.w[1]+' is open. Only A+ setups.';body=cd(S.left)+' left. Run Pre-Flight, confirm your level and risk 1R. '+(tt.length?'You have '+tc+' today ('+dayR+').':'No trades yet today.')}
+else if(near){tone='wait';pill='SOON';head=S.w[1]+' opens in '+cd(S.in)+'.';body='Check the red-folder news, mark your levels and decide your bias before the bell. Let the setup come to you.'}
+else if(mins<180){tone='rest';pill='REST';if(dow==1){head='Fresh week. Start with patience.';body='A clean slate. Your first window opens at 3:00 AM ET. Prepare your levels and let the setup come to you.'}else{head='Outside trading hours.';body='No window is open. Rest and let your levels do the work. London opens at 3:00 AM ET.'}}
+else if(mins<600){head=tt.length?'London is done. '+dayR+' so far.':'Prepare for New York.';body=tt.length?'You took '+tc+'. Review them before the NY window and decide whether you take another.':'No trades yet. Mark your levels, check the red-folder news and wait for the NY window at 10:00 AM ET.'}
+else if(mins<1020){tone='rest';pill='DONE';head='Trading windows are closed.';body=tt.length?'You took '+tc+' today, net '+dayR+'. Journal them while they are fresh.':'No trades today. Staying out is a position. Review your plan and levels instead.'}
+else{tone='rest';pill='REVIEW';head='Debrief the day.';body=tt.length?'Today closed at '+dayR+'. Note what you did well and one thing to improve, then switch off.':'No trades today. Review the charts, mark tomorrow’s levels and switch off.'}
+const th=S?(S.open?e.h:Math.floor(S.w[3]/60)):e.h;let pre;
+if(H.weak&&H.weak.includes(th))pre='Your results are weakest around '+th+':00. Be extra selective and cut size if unsure.';
+else if(H.revenge)pre='After a loss, wait at least 30 minutes before the next entry. No sizing up.';
+else if(H.cut)pre='Cap yourself at '+(H.cut-1)+' trades. Your results fade after that.';
+else if(H.streak)pre='After two losses in a row, stop and reset. Your win rate drops there.';
+else pre=closed||sunEve?'Write down your bias, your levels and your risk before the next session.':'Run Pre-Flight: confirm your level, the news and your risk (1R = 0.5%). '+tips[Math.max(0,dow-1)];
+const G=good.find(o=>!/follow your plan|No strong/.test(o.t))||good[0],W=warn[0],P=a.out.find(o=>o!==G&&o!==W&&/strongest|weakest|fade|hold losers|adherence/i.test(o.t)&&!/^Plan breach/.test(o.t));
+const tx=o=>o.t+'. '+o.x;
+const perf=[['Today',dayR,cls(q.dR)],['Week',fm(q.wR)+'R',cls(q.wR)],['Win rate',wr==null?'–':wr+'%',''],['Expectancy',Rs.length?fm(exp)+'R':'–',Rs.length?cls(exp):'']];
+return{tone,pill,head,body,pre,perf,str:G?tx(G):(n<5?'Your strengths show up after you log a few trades.':'No standout strength yet. Keep following your plan.'),imp:W?tx(W):(n<15?'Areas to improve become reliable after about 15 trades.':'No major leaks found. Keep your process.'),pat:P?tx(P):null}}
+function insightInner(){let d;try{d=insightData()}catch(x){return''}
+return`<div class="ai-h"><div class="ai-ic">${BRAIN}</div><div class="ai-t"><b>DHT AI INSIGHT</b><span>YOUR DAILY TRADING BRIEFING</span></div><span class="ai-pill ${d.tone}">${d.pill}</span></div><h2 class="ai-head">${esc(d.head)}</h2><p class="ai-body">${esc(d.body)}</p>`}
+function insightDetail(){let d;try{d=insightData()}catch(x){return''}
+const sec=(l,t,k)=>`<div class="ai-s"><span class="ai-l ${k||''}">${l}</span><p>${esc(t)}</p></div>`;
+return`<div class="ai-s"><span class="ai-l">Performance</span><div class="ai-perf">${d.perf.map(p=>`<div><b class="${p[2]}">${esc(p[1])}</b><span>${p[0]}</span></div>`).join('')}</div></div>`+sec('Strength',d.str,'up')+(d.pat?sec('Pattern',d.pat,'cy'):'')+sec('Improve',d.imp,'dn')}
 function homeView(){const a=analyze(T),A=a.A,q=stat(T),e=etInfo(),g=e.h<12?'morning':e.h<18?'afternoon':'evening',top1=a.out.find(o=>o.l=='warn'),ev=NEWS(),n=A.length,op=T.filter(isOpen).length;
 const lim=q.dl?card(['warn','Daily limit reached','Two stop-outs or -1% today. Close the platform.']):q.wl?card(['warn','Weekly limit reached','-2% this week. Done until Monday.']):'';
 return`<div class="hero" style="margin:4px 0 18px"><div class="eyebrow">${new Date().toLocaleDateString('en-US',{timeZone:'America/New_York',weekday:'long',month:'long',day:'numeric'})}</div><h1>Good ${g}, ${esc(PREF.name||'Trader')}</h1><p class="mut">“You are a professional risk manager.”</p></div>
+<div class="card ai" id="insai">${insightInner()}</div>
 <div class="card sess ${sess().open?'open':''}" id="sess">${sessInner()}</div>${lim}${op?`<div class="card wa" onclick="go('journal')" style="cursor:pointer"><b>${op} open trade${op>1?'s':''}</b><p class="mut">Add the result when ${op>1?'they close':'it closes'}. Tap to open the Journal.</p></div>`:''}
 <div class="sec"><h3>Today</h3></div><div class="tiles"><div class="tile"><b>${q.tt.length}</b><span>Trades</span></div><div class="tile"><b class="${cls(q.dR)}">${fm(q.dR)}R</b><span>Net · ${fm(q.dR*.5)}%</span></div><div class="tile"><b>${q.ls}/2</b><span>Stop-outs</span></div></div>
 <div style="margin:-4px 0 18px"><button class="b" style="margin-top:0" onclick="go('flight')">Run Pre-Flight</button><button class="b alt" style="margin-top:0" onclick="go('coach')">Ask your coach</button></div>
 <div class="card"><div class="sec"><h3>Red-folder news (ET)</h3></div>`+newsBody(ev)+WIN.map(winLine).join('')+`<p class="mut small" style="margin-top:8px">Red-folder events load automatically from Forex Factory, in ET. Entries are blocked inside the hour and for 30 minutes after a release.</p></div>
-<div class="card" onclick="go('coach')" style="cursor:pointer"><div class="lab">AI Coach</div><h2 style="margin-top:8px">${n?'Your coach has notes':'Ready to build your edge'}</h2><p class="mut">${n?esc(top1?top1.t+'. '+top1.x:'No strong bad habits so far. Keep journaling.'):'Log your first trades via the Pre-Flight check. Your coach will analyze your edge and habits.'}</p></div>`}
+<div class="card aid" id="insdet">${insightDetail()}</div>`}
 function eqChart(ts,base){const cut=JR=='all'?'':iso(new Date(Date.now()-(JR=='1w'?7:30)*864e5)),pre=cut?ts.filter(t=>t.d<cut):[],L=cut?ts.filter(t=>t.d>=cut):ts,val=t=>JU=='r'?(Rv(t)||0):t.p;
 if(L.length<2)return`<div class="mut" style="padding:40px 0;text-align:center">Log at least two trades to see your equity curve.</div>`;
 const y0=(JU=='r'?0:base)+sum(pre.map(val));let c=y0;const v=[y0,...L.map(t=>c+=val(t))];let pk=v[0],dd=0;v.forEach(y=>{pk=Math.max(pk,y);dd=Math.max(dd,pk-y)});
@@ -543,11 +624,20 @@ const amt=Math.round((+v||0)*100)/100;if(!(amt>0)){msg='Enter or pick the payout
 if(!confirm('Request a payout of '+money(amt)+'? A new 14-day window will start with your next first trade.'))return;
 a.hist=[...(a.hist||[]),{d:etNow().slice(0,10),t:etNow().slice(0,16),e:'Payout requested',pl:amt,pay:true}];PA[id]=0;saveAcc();msg='Payout of '+money(amt)+' requested.';render()}
 function acctView(){return`<div class="hd"><h1>Accounts</h1><button class="plus" aria-label="Add account" onclick="showAF=!showAF;render()">${showAF?'×':'+'}</button></div>`+(showAF?afForm():'')+(AT.length?AT.map(acCard).join(''):'<div class="card empty">No accounts yet. Tap + to add a prop challenge, funded or live account. You can add as many as you need.</div>')}
-function settingsView(){const e=etInfo(),row=(x,y)=>`<div class="tr"><span>${x}</span><b>${y}</b></div>`;
-return`<div class="hd"><h1>Settings</h1></div>
-<div class="card"><div class="sec"><h3>Preferences</h3></div><form onsubmit="return false"><label class="w">Your name<input value="${esc(PREF.name)}" placeholder="Trader" onchange="PREF.name=this.value.trim();savePref()"></label><label class="w">Time format<select onchange="PREF.h24=this.value=='24';savePref();render()"><option value="12" ${PREF.h24?'':'selected'}>12-hour</option><option value="24" ${PREF.h24?'selected':''}>24-hour</option></select></label></form><p class="mut small" style="margin-top:10px">All times follow Eastern Time (${e.abbr}), including daylight saving changes.</p></div>
-<div class="card"><div class="sec"><h3>Trading plan</h3></div>${row('London kill zone',fmt(180)+'–'+fmt(240)+' ET')}${row('New York kill zone',fmt(600)+'–'+fmt(660)+' ET')}${row('Days','Mon–Fri (markets open)')}${row('Risk per trade','0.5%')}${row('Daily loss limit','−1% (two stop-outs)')}${row('Weekly loss limit','−2%')}${row('Targets','50% at 1:3 · rest at 1:10')}<p class="mut small" style="margin-top:10px">These come from your plan and are read-only. The plan says not to change them mid-week.</p></div>
-<div class="card"><div class="sec"><h3>Data</h3></div><p class="mut small" style="margin-bottom:12px">Back up about once a month. Restore adds back anything missing and never deletes what you have.</p><form onsubmit="return false"><label class="w">Balance when no account is selected<input type="number" value="${CFG.bal||''}" onchange="CFG.bal=+this.value||0;saveCfg();render()"></label><label class="w">Hours to add to imported CSV times to get ET<input type="number" value="${CFG.off}" onchange="CFG.off=+this.value||0;saveCfg()"></label></form><label style="display:flex;flex-direction:column;gap:6px;margin-top:14px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--mut);font-weight:700">Put imported trades in<select onchange="IMPACC=this.value">${AT.map(a=>`<option value="${a.id}" ${(IMPACC||AT[0].id)==a.id?'selected':''}>${esc(a.name)}</option>`).join('')}</select></label><label class="btn alt" tabindex="0">Import CSV<input type="file" accept=".csv,text/csv" hidden onchange="onFile(this)"></label><button class="b" onclick="backup()">Back up everything</button><label class="btn alt" tabindex="0">Restore backup<input type="file" accept=".json,application/json" hidden onchange="restore(this)"></label><button class="b alt" onclick="exp()">Export trades CSV</button><button class="b alt" onclick="T=sample();save();render()">Load sample data</button><button class="b alt" onclick="if(confirm('Delete ALL trades?')){T=[];save();render()}">Delete all trades</button></div>`+(MEM?`<div class="card"><div class="sec"><h3>What your coach remembers</h3></div><p>${esc(MEM).replace(/\n/g,'<br>')}</p></div>`:'')+`<div class="card"><div class="sec"><h3>Profile</h3></div><p class="mut" style="margin-bottom:8px">${esc(UEMAIL||'Signed in')}</p><button class="b" style="margin-top:0" onclick="out()">Sign out</button></div>`}
+let PSEC='';
+function pfIc(d){return`<svg class="i" viewBox="0 0 24 24">${d}</svg>`}
+function pfBack(t){return`<button class="pf-back" onclick="PSEC='';render();window.scrollTo(0,0)">‹ Profile</button><div class="hd"><h1>${t}</h1></div>`}
+function profileView(){const e=etInfo(),row=(x,y)=>`<div class="tr"><span>${x}</span><b>${y}</b></div>`,nm=(PREF.name||'').trim(),ini=(nm||UEMAIL||'T').trim()[0].toUpperCase();
+if(PSEC=='info')return pfBack('Personal info')+`<div class="card"><form onsubmit="return false"><label class="w">Your name<input value="${esc(PREF.name)}" placeholder="Trader" onchange="PREF.name=this.value.trim();savePref()"></label><div class="tr" style="margin-top:6px"><span>Email</span><b style="word-break:break-all;text-align:right">${esc(UEMAIL||'Signed in')}</b></div></form></div><button class="b alt" onclick="out()">Sign out</button>`;
+if(PSEC=='accts')return pfBack('Trading accounts')+`<div class="card">${AT.length?AT.map(a=>`<div class="tr"><span>${esc(a.name)}</span><b class="mut">${esc((a.phase=='f'&&a.kind!='funded'?'Funded':KL[a.kind])||'')}</b></div>`).join(''):'<p class="mut">No accounts yet.</p>'}</div><button class="b" onclick="go('accts')">Open Accounts</button>`;
+if(PSEC=='plan')return pfBack('Trading plan')+`<div class="card"><div class="sec"><h3>Trading plan</h3></div>${row('London kill zone',fmt(180)+'–'+fmt(240)+' ET')}${row('New York kill zone',fmt(600)+'–'+fmt(660)+' ET')}${row('Days','Mon–Fri (markets open)')}${row('Risk per trade','0.5%')}${row('Daily loss limit','−1% (two stop-outs)')}${row('Weekly loss limit','−2%')}${row('Targets','50% at 1:3 · rest at 1:10')}<p class="mut small" style="margin-top:10px">These come from your plan and are read-only. The plan says not to change them mid-week.</p></div>`;
+if(PSEC=='settings')return pfBack('Settings')+`<div class="card"><div class="sec"><h3>Preferences</h3></div><form onsubmit="return false"><label class="w">Time format<select onchange="PREF.h24=this.value=='24';savePref();render()"><option value="12" ${PREF.h24?'':'selected'}>12-hour</option><option value="24" ${PREF.h24?'selected':''}>24-hour</option></select></label></form><p class="mut small" style="margin-top:10px">All times follow Eastern Time (${e.abbr}), including daylight saving changes.</p></div>
+<div class="card"><div class="sec"><h3>Data</h3></div><p class="mut small" style="margin-bottom:12px">Back up about once a month. Restore adds back anything missing and never deletes what you have.</p><form onsubmit="return false"><label class="w">Balance when no account is selected<input type="number" value="${CFG.bal||''}" onchange="CFG.bal=+this.value||0;saveCfg();render()"></label><label class="w">Hours to add to imported CSV times to get ET<input type="number" value="${CFG.off}" onchange="CFG.off=+this.value||0;saveCfg()"></label></form><label style="display:flex;flex-direction:column;gap:6px;margin-top:14px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--mut);font-weight:700">Put imported trades in<select onchange="IMPACC=this.value">${AT.map(a=>`<option value="${a.id}" ${(IMPACC||(AT[0]&&AT[0].id))==a.id?'selected':''}>${esc(a.name)}</option>`).join('')}</select></label><label class="btn alt" tabindex="0">Import CSV<input type="file" accept=".csv,text/csv" hidden onchange="onFile(this)"></label><button class="b" onclick="backup()">Back up everything</button><label class="btn alt" tabindex="0">Restore backup<input type="file" accept=".json,application/json" hidden onchange="restore(this)"></label><button class="b alt" onclick="exp()">Export trades CSV</button><button class="b alt" onclick="T=sample();save();render()">Load sample data</button><button class="b alt" onclick="if(confirm('Delete ALL trades?')){T=[];save();render()}">Delete all trades</button></div>`;
+if(PSEC=='memory')return pfBack('Coach memory')+`<div class="card">${MEM?`<p>${esc(MEM).replace(/\n/g,'<br>')}</p>`:'<p class="mut">Your coach has not saved anything yet. It learns as you chat and journal.</p>'}</div>`;
+const m=(k,ic,t,d)=>`<button class="pf-row" onclick="PSEC='${k}';render();window.scrollTo(0,0)"><span class="pf-ic">${pfIc(ic)}</span><span><b>${t}</b><small>${d}</small></span><span class="pf-ch">›</span></button>`;
+return`<div class="hd"><h1>Profile</h1></div><div class="card pf-top"><div class="pf-av">${esc(ini)}</div><div><b>${esc(nm||'Trader')}</b><span>${esc(UEMAIL||'Signed in')}</span></div></div>
+<div class="card pf-menu">${m('info','<circle cx="12" cy="8" r="3.6"/><path d="M4.5 20c.8-3.6 3.8-5.5 7.5-5.5s6.7 1.9 7.5 5.5"/>','Personal info','Your name and email')}${m('accts','<rect x="3" y="6" width="18" height="13" rx="3"/><path d="M3 10h18M7 15h3"/>','Trading accounts',AT.length+' account'+(AT.length==1?'':'s'))}${m('plan','<path d="M6 3h9l4 4v14H6z"/><path d="M9 12h7M9 16h7"/>','Trading plan','Kill zones and risk rules')}${m('settings','<circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2"/>','Settings','Time format, data and backup')}${m('memory','<path d="M9.5 4A3 3 0 0 0 6 7a3 3 0 0 0-1 5 3 3 0 0 0 2 5 3 3 0 0 0 5 2V5a2 2 0 0 0-2.500-1Z"/><path d="M14.500 4A3 3 0 0 1 18 7a3 3 0 0 1 1 5 3 3 0 0 1-2 5 3 3 0 0 1-5 2"/>','Coach memory','What your coach remembers')}</div>
+<button class="b alt" onclick="out()">Sign out</button>`}
 function exp(){const q=v=>'"'+String(v==null?'':v).replace(/"/g,'""')+'"';
 const csv='date,symbol,side,pnl,size,duration,emotion,plan,note\n'+T.map(t=>[t.d,t.s,t.side,t.p,t.z,t.m,t.e,t.f==null?'':t.f?'yes':'no',t.n].map(q).join(',')).join('\n');
 msg='Copy of your data is below the list.';const u=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));const a=document.createElement('a');a.href=u;a.download='trades.csv';a.click()}
@@ -571,13 +661,18 @@ return`Current time ET: ${et}. Journal timestamps are ET${CFG.off?' after a '+CF
 async function ask(e,pre){if(e)e.preventDefault();let q=pre||document.getElementById('q').value.trim();if(!q&&IMGS.length)q='Review the attached chart(s) against my plan.';if(!q||busy)return;CH.push({role:'user',text:q,imgs:IMGS.map(i=>({m:i.m,d:i.d})),th:IMGS.map(i=>i.u)});IMGS=[];busy=true;render();
 try{const ses=(await sb.auth.getSession()).data.session,r=await fetch(SUPABASE_URL+'/functions/v1/'+((window.CFG&&CFG.fn)||'rapid-worker'),{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+ses.access_token,apikey:SUPABASE_KEY},body:JSON.stringify({messages:CH.slice(-10).map((m,i,z)=>({role:m.role,text:m.text,imgs:i==z.length-1?m.imgs||[]:[]})),ctx:buildCtx(analyze(T)),setup:SETUP})});
 const j=await r.json();if(!r.ok)throw new Error(j.error||r.status);CH.push({role:'coach',text:j.reply});if(j.memory)MEM=j.memory;if(j.setup)SETUP=j.setup}catch(err){CH.push({role:'coach',text:'Coach error: '+err.message})}busy=false;render()}
+let LASTEM='';
 function authView(){document.getElementById('nav').innerHTML='';
-document.getElementById('v').innerHTML=`<div style="text-align:center;margin:8px 0 22px"><img src="${LOGO}" alt="Dan Han Trading" width="132" height="132" style="border-radius:28px"><h1 style="font-size:28px;margin:14px 0 4px">DHT AI app</h1><p class="mut">Sign in to your trading coach · v14</p></div>`+(msg?`<div class="msg">${esc(msg)}</div>`:'')+`<form onsubmit="return false"><label class="w">Email<input id="em" type="email" autocomplete="email"></label><label class="w">Password (8 or more characters)<input id="pw" type="password" autocomplete="current-password"></label><div class="w"><button class="b" onclick="auth('in')">Sign in</button><button class="b alt" onclick="auth('up')">Create account</button></div></form>`}
-async function auth(m){const e=document.getElementById('em').value.trim(),p=document.getElementById('pw').value;
-const r=m=='in'?await sb.auth.signInWithPassword({email:e,password:p}):await sb.auth.signUp({email:e,password:p});
-if(r.error){msg=r.error.message;return render()}
+document.getElementById('v').innerHTML=`<div class="au"><div class="au-top"><img src="${LOGO}" alt="Dan Han Trading" width="104" height="104"><h1>DHT Edge</h1><p>YOUR INTELLIGENT TRADING PARTNER.</p></div>${msg?`<div class="au-msg" role="alert">${esc(msg)}</div>`:''}<form class="au-card" onsubmit="auth('in');return false" novalidate><label>Email<input id="em" type="email" autocomplete="email" inputmode="email" autocapitalize="none" autocorrect="off" spellcheck="false" placeholder="you@email.com" value="${esc(LASTEM)}"></label><label>Password<span class="au-pw"><input id="pw" type="password" autocomplete="current-password" placeholder="8 or more characters"><button type="button" class="au-eye" aria-label="Show password" onclick="togglePw()">Show</button></span></label><button class="b" type="submit" id="aub">Sign in</button><button class="b alt" type="button" onclick="auth('up')">Create account</button></form><p class="au-foot">Your trades are private and stored securely.</p></div>`}
+function togglePw(){const p=document.getElementById('pw'),b=document.querySelector('.au-eye');if(!p||!b)return;const h=p.type=='password';p.type=h?'text':'password';b.textContent=h?'Hide':'Show';b.setAttribute('aria-label',h?'Hide password':'Show password')}
+async function auth(m){const e=document.getElementById('em').value.trim(),p=document.getElementById('pw').value;LASTEM=e;
+if(!e||!p){msg='Enter your email and password.';return render()}
+if(m=='up'&&p.length<8){msg='Use 8 or more characters for your password.';return render()}
+const bt=document.getElementById('aub');if(bt){bt.disabled=true;bt.textContent='Please wait…'}
+try{const r=m=='in'?await sb.auth.signInWithPassword({email:e,password:p}):await sb.auth.signUp({email:e,password:p});
+if(r.error){msg=/invalid login/i.test(r.error.message)?'Wrong email or password.':r.error.message;return render()}
 if(!r.data.session){msg='Check your email to confirm your account, then sign in.';return render()}
-await boot()}
+msg='';await boot()}catch(x){msg='Cannot reach the server. Check your connection and try again.';render()}}
 async function boot(){tab='home';if(SUPABASE_URL.includes('PASTE')){msg='Setup needed: paste your Supabase URL and anon key at the top of the script (see README).';return render()}
 sb=sb||supabase.createClient(SUPABASE_URL,SUPABASE_KEY);const g=await sb.auth.getSession();UID=g.data.session?g.data.session.user.id:null;UEMAIL=g.data.session?g.data.session.user.email:'';T=[];SRV=new Set();AT=[];SRVA=new Set();
 if(UID){const a=await sb.from('trades').select('*').order('d').range(0,4999);T=(a.data||[]).map(x=>({...x,p:+x.p,z:+x.z,m:+x.m,r:x.r==null?null:+x.r}));SRV=new Set(T.map(t=>t.id));
@@ -589,5 +684,5 @@ document.getElementById('lgi').src=LOGO;{const fi=document.createElement('link')
 function setOnline(){const d=document.querySelector('.dot');if(!d||typeof navigator=='undefined')return;const on=navigator.onLine!==false;d.classList.toggle('off',!on);d.title=on?'Online':'Offline';d.setAttribute('aria-label',on?'Online':'Offline')}
 if(window.addEventListener){window.addEventListener('online',setOnline);window.addEventListener('offline',setOnline)}
 setOnline();
-boot();loadNews();document.addEventListener('visibilitychange',()=>{if(!document.hidden)loadNews()});setInterval(loadNews,6e5);
+boot();loadNews();document.addEventListener('visibilitychange',()=>{if(!document.hidden)loadNews()});setInterval(loadNews,6e5);setInterval(()=>{const el=document.getElementById('insai'),el2=document.getElementById('insdet');if(!document.hidden){try{if(el)el.innerHTML=insightInner();if(el2)el2.innerHTML=insightDetail()}catch(x){}}},60000);
 </script></body></html>
