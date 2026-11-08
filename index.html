@@ -224,106 +224,120 @@ main{padding-bottom:118px}
 .card.sess .sz{color:#eef6ee}
 .card.sess b{color:#a8ff6a}
 .card.sess.open{background:linear-gradient(160deg,#0e1b11,#090d0b);border-color:#2a7d2a;box-shadow:0 0 16px rgba(125,255,46,.08)}
-/* ===================================================
-   DESKTOP (PC) MULTI-VIEW STYLING (Screen >= 1024px)
-   =================================================== */
+/* ===================================================================
+   DHT EDGE - PROFESSIONAL PC DESKTOP COCKPIT (Screen >= 1024px)
+   =================================================================== */
 @media (min-width: 1024px) {
 
-  /* 1. Global Container */
-  main {
-    max-width: 1320px !important;
-    margin: 0 auto !important;
-    padding: 20px 40px 60px !important;
+  /* 1. Page Frame: Shift content right to make room for the fixed left sidebar */
+  body {
+    padding-left: 100px !important;
+    background: #080b09 !important;
   }
 
+  /* 2. Top Header */
   header {
-    max-width: 1320px !important;
+    max-width: 1400px !important;
     margin: 0 auto !important;
-    padding: 20px 40px !important;
+    padding: 24px 40px !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
   }
 
-  /* 2. Top-docked Navigation Bar */
+  /* 3. CONVERT BOTTOM NAV INTO A FIXED LEFT SIDEBAR */
   nav.bnav {
-    position: static !important;
-    transform: none !important;
-    left: auto !important;
-    bottom: auto !important;
-    max-width: 1320px !important;
-    margin: 0 auto 28px auto !important;
-    border-radius: 14px !important;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    bottom: 0 !important;
+    width: 80px !important;
+    height: 100vh !important;
+    max-width: 80px !important;
+    border-radius: 0 !important;
+    border-top: none !important;
+    border-right: 1px solid rgba(255, 255, 255, 0.08) !important;
+    background: #0d120f !important;
+    display: flex !important;
+    flex-direction: column !important;
     justify-content: flex-start !important;
-    gap: 16px !important;
-    padding: 10px 24px !important;
-    background: #0f1411 !important;
-    box-shadow: none !important;
+    align-items: center !important;
+    padding: 32px 0 !important;
+    gap: 20px !important;
+    z-index: 9999 !important;
+    transform: none !important;
+    box-shadow: 2px 0 16px rgba(0, 0, 0, 0.4) !important;
   }
 
   nav.bnav button {
-    flex: 0 0 auto !important;
-    width: 60px !important;
-    height: 44px !important;
+    width: 52px !important;
+    height: 52px !important;
+    border-radius: 12px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transition: all 0.2s ease !important;
   }
 
-  /* 3. Base reset: keep views single-column clean by default */
-  #v {
-    display: block !important;
-    max-width: 1000px;
-    margin: 0 auto;
+  nav.bnav button:hover {
+    background: rgba(46, 213, 115, 0.12) !important;
   }
 
-  /* 4. Home View ONLY: enable 2-column cockpit */
-  #v:has(> .hero),
-  #v:has(> .sess),
-  #v.view-home {
+  /* 4. Main Content Canvas */
+  main {
+    max-width: 1400px !important;
+    margin: 0 auto !important;
+    padding: 10px 40px 60px !important;
+  }
+
+  /* 5. FIX THE SCREENS / VIEWS */
+
+  /* View A: AI COACH TAB (Your active screen) */
+  #v:has(#coachSend),
+  #v:has(button:contains("Ask your coach")),
+  #v:has(.coach-chat) {
     display: grid !important;
-    max-width: 1320px !important;
-    grid-template-columns: 1.4fr 1fr !important;
-    gap: 24px !important;
+    grid-template-columns: 1.8fr 1.2fr !important;
+    gap: 32px !important;
     align-items: start !important;
   }
 
+  /* View B: HOME DASHBOARD */
+  #v:has(> .hero),
+  #v:has(> .sess) {
+    display: grid !important;
+    grid-template-columns: 1.5fr 1fr !important;
+    gap: 28px !important;
+    align-items: start !important;
+  }
+
+  /* Wide components span full-width across grid */
   #v > .hero,
   #v > .hd,
   #v > .dday,
-  #v > .chips {
+  #v > .chips,
+  #v > h1 {
     grid-column: 1 / -1 !important;
   }
 
-  /* 5. Journal & Log Trade: widescreen table and form spacing */
-  .jnl-table, 
-  table {
-    width: 100% !important;
-    border-collapse: collapse;
-    font-size: 14px;
-  }
-
-  .jnl-table th, 
-  .jnl-table td,
-  table th, 
-  table td {
-    padding: 12px 16px !important;
-  }
-
-  /* Forms and modals on PC */
-  .form-row,
-  .modal-body {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-  }
-
-  /* 6. Analytics & Coach Views: proper desktop card sizing */
-  .chart-box,
-  .stat-grid {
+  /* View C: DEFAULT FALLBACK (Journal, Analytics, Settings) */
+  #v {
     display: grid !important;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)) !important;
-    gap: 18px !important;
+    grid-template-columns: repeat(auto-fit, minmax(420px, 1fr)) !important;
+    gap: 24px !important;
   }
 
+  /* 6. Card Polish & Form Controls */
   .card {
     padding: 24px !important;
-    border-radius: 16px !important;
-    margin-bottom: 20px;
+    border-radius: 14px !important;
+    background: #111713 !important;
+    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+  }
+
+  /* Full width tables and wide textareas */
+  textarea, input[type="text"] {
+    font-size: 14px !important;
   }
 }
 </style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script></head>
