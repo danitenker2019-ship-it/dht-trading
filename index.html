@@ -224,6 +224,55 @@ main{padding-bottom:118px}
 .card.sess .sz{color:#eef6ee}
 .card.sess b{color:#a8ff6a}
 .card.sess.open{background:linear-gradient(160deg,#0e1b11,#090d0b);border-color:#2a7d2a;box-shadow:0 0 16px rgba(125,255,46,.08)}
+ /* ===================================================
+   DESKTOP (PC) LAYOUT - Active on screen >= 1024px
+   =================================================== */
+@media (min-width: 1024px) {
+  /* Expand the page width for monitors */
+  main {
+    max-width: 1280px !important;
+    padding: 24px 32px 60px !important;
+  }
+
+  header {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 16px 32px;
+  }
+
+  /* Move bottom navigation to a clean top bar on PC */
+  nav.bnav {
+    position: static !important;
+    max-width: 1280px;
+    margin: 0 auto 20px;
+    border-radius: 18px !important;
+    border: 1px solid #141a16 !important;
+    padding: 8px 16px !important;
+    justify-content: flex-start !important;
+    gap: 12px !important;
+  }
+
+  nav.bnav button {
+    max-width: 100px !important;
+    height: 44px !important;
+  }
+
+  /* Turn dashboard into a 2-column layout */
+  #v {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 20px;
+    align-items: start;
+  }
+
+  /* Keep full-width cards stretched across both columns */
+  #v > .hero,
+  #v > .hd,
+  #v > .chips,
+  #v > .dday {
+    grid-column: 1 / -1;
+  }
+} 
 </style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script></head>
 <body><header><div class="bw"><button class="lgb" aria-label="Home" onclick="go('home')"><img id="lgi" alt="Dan Han Trading" width="44" height="44"></button><div class="brand"><div class="bn"><b>DHT Edge</b><span class="dot" role="status" aria-label="Online" title="Online"></span></div><small>Your intelligent trading partner.</small></div></div><button class="gear" aria-label="Profile" onclick="go('set')"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.6"/><path d="M4.500 20c.8-3.600 3.800-5.500 7.500-5.500s6.700 1.900 7.500 5.500"/></svg></button></header>
 <main><div id="v"></div></main>
