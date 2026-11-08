@@ -224,55 +224,108 @@ main{padding-bottom:118px}
 .card.sess .sz{color:#eef6ee}
 .card.sess b{color:#a8ff6a}
 .card.sess.open{background:linear-gradient(160deg,#0e1b11,#090d0b);border-color:#2a7d2a;box-shadow:0 0 16px rgba(125,255,46,.08)}
- /* ===================================================
-   DESKTOP (PC) LAYOUT - Active on screen >= 1024px
+/* ===================================================
+   DESKTOP (PC) MULTI-VIEW STYLING (Screen >= 1024px)
    =================================================== */
 @media (min-width: 1024px) {
-  /* Expand the page width for monitors */
+
+  /* 1. Global Container */
   main {
-    max-width: 1280px !important;
-    padding: 24px 32px 60px !important;
+    max-width: 1320px !important;
+    margin: 0 auto !important;
+    padding: 20px 40px 60px !important;
   }
 
   header {
-    max-width: 1280px;
-    margin: 0 auto;
-    padding: 16px 32px;
+    max-width: 1320px !important;
+    margin: 0 auto !important;
+    padding: 20px 40px !important;
   }
 
-  /* Move bottom navigation to a clean top bar on PC */
+  /* 2. Top-docked Navigation Bar */
   nav.bnav {
     position: static !important;
-    max-width: 1280px;
-    margin: 0 auto 20px;
-    border-radius: 18px !important;
-    border: 1px solid #141a16 !important;
-    padding: 8px 16px !important;
+    transform: none !important;
+    left: auto !important;
+    bottom: auto !important;
+    max-width: 1320px !important;
+    margin: 0 auto 28px auto !important;
+    border-radius: 14px !important;
     justify-content: flex-start !important;
-    gap: 12px !important;
+    gap: 16px !important;
+    padding: 10px 24px !important;
+    background: #0f1411 !important;
+    box-shadow: none !important;
   }
 
   nav.bnav button {
-    max-width: 100px !important;
+    flex: 0 0 auto !important;
+    width: 60px !important;
     height: 44px !important;
   }
 
-  /* Turn dashboard into a 2-column layout */
+  /* 3. Base reset: keep views single-column clean by default */
   #v {
-    display: grid;
-    grid-template-columns: 1.4fr 1fr;
-    gap: 20px;
-    align-items: start;
+    display: block !important;
+    max-width: 1000px;
+    margin: 0 auto;
   }
 
-  /* Keep full-width cards stretched across both columns */
+  /* 4. Home View ONLY: enable 2-column cockpit */
+  #v:has(> .hero),
+  #v:has(> .sess),
+  #v.view-home {
+    display: grid !important;
+    max-width: 1320px !important;
+    grid-template-columns: 1.4fr 1fr !important;
+    gap: 24px !important;
+    align-items: start !important;
+  }
+
   #v > .hero,
   #v > .hd,
-  #v > .chips,
-  #v > .dday {
-    grid-column: 1 / -1;
+  #v > .dday,
+  #v > .chips {
+    grid-column: 1 / -1 !important;
   }
-} 
+
+  /* 5. Journal & Log Trade: widescreen table and form spacing */
+  .jnl-table, 
+  table {
+    width: 100% !important;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+
+  .jnl-table th, 
+  .jnl-table td,
+  table th, 
+  table td {
+    padding: 12px 16px !important;
+  }
+
+  /* Forms and modals on PC */
+  .form-row,
+  .modal-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  /* 6. Analytics & Coach Views: proper desktop card sizing */
+  .chart-box,
+  .stat-grid {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)) !important;
+    gap: 18px !important;
+  }
+
+  .card {
+    padding: 24px !important;
+    border-radius: 16px !important;
+    margin-bottom: 20px;
+  }
+}
 </style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script></head>
 <body><header><div class="bw"><button class="lgb" aria-label="Home" onclick="go('home')"><img id="lgi" alt="Dan Han Trading" width="44" height="44"></button><div class="brand"><div class="bn"><b>DHT Edge</b><span class="dot" role="status" aria-label="Online" title="Online"></span></div><small>Your intelligent trading partner.</small></div></div><button class="gear" aria-label="Profile" onclick="go('set')"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.6"/><path d="M4.500 20c.8-3.600 3.800-5.500 7.500-5.500s6.700 1.900 7.500 5.500"/></svg></button></header>
 <main><div id="v"></div></main>
