@@ -26,7 +26,7 @@ jobs:
                   continue
               out.append({'d': dt.strftime('%Y-%m-%d'), 't': dt.strftime('%H:%M'), 'c': e.get('country', ''), 'n': e.get('title', '')})
           out.sort(key=lambda x: (x['d'], x['t']))
-          json.dump({'events': out}, open('news.json', 'w'), indent=1)
+          json.dump({'updated': datetime.datetime.now(datetime.timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ'), 'events': out}, open('news.json', 'w'), indent=1)
           PY
           rm -f raw.json
       - name: Save if changed
