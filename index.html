@@ -295,10 +295,13 @@ const savePref=()=>{try{localStorage.setItem('thc_prefs',JSON.stringify(PREF))}c
 const etNow=()=>{const p=Object.fromEntries(new Intl.DateTimeFormat('en-CA',{timeZone:'America/New_York',hourCycle:'h23',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'}).formatToParts(new Date()).map(x=>[x.type,x.value]));return p.year+'-'+p.month+'-'+p.day+'T'+p.hour+':'+p.minute};
 const tmin=t=>+t.slice(0,2)*60+ +t.slice(3,5),etMin=d=>+d.slice(11,13)*60+ +d.slice(14,16),money=n=>(n<0?'−$':'$')+Math.abs(Math.round(n)).toLocaleString('en-US');
 const nk=()=>'thc_news_'+etNow().slice(0,10);
-const NEWS=()=>{try{return JSON.parse(localStorage.getItem(nk())||'[]')}catch(e){return[]}};
+const NEWSM=()=>{try{return JSON.parse(localStorage.getItem(nk())||'[]')}catch(e){return[]}};
+let AUTO=[];const NEWS_CCY=['USD'],NEWS_URLS=['https://raw.githubusercontent.com/danitenker2019-ship-it/dht-trading/main/news.json','news.json'];
+const NEWS=()=>[...NEWSM(),...AUTO].sort((x,y)=>x.t<y.t?-1:x.t>y.t?1:0);
+async function loadNews(){for(const u of NEWS_URLS){try{const r=await fetch(u+'?t='+Math.floor(Date.now()/3e5),{cache:'no-store'});if(!r.ok)continue;const d=await r.json(),td=etNow().slice(0,10),a=(d.events||[]).filter(e=>e.d==td&&NEWS_CCY.includes(e.c)).map(e=>({t:e.t,n:e.c+' '+e.n,auto:true})),ch=JSON.stringify(a)!=JSON.stringify(AUTO);AUTO=a;const el=document.activeElement;if(ch&&typeof UID!='undefined'&&UID&&!(el&&/INPUT|TEXTAREA|SELECT/.test(el.tagName)))render();return}catch(e){}}}
 const setNews=a=>{try{localStorage.setItem(nk(),JSON.stringify(a))}catch(e){}};
-function addNews(){const t=document.getElementById('nt').value,n=document.getElementById('nn').value.trim();if(!t)return;const a=NEWS();a.push({t,n});a.sort((x,y)=>x.t<y.t?-1:1);setNews(a);render()}
-function delNews(i){const a=NEWS();a.splice(i,1);setNews(a);render()}
+function addNews(){const t=document.getElementById('nt').value,n=document.getElementById('nn').value.trim();if(!t)return;const a=NEWSM();a.push({t,n});a.sort((x,y)=>x.t<y.t?-1:1);setNews(a);render()}
+function delNews(i){const x=NEWS()[i];if(!x||x.auto)return;const a=NEWSM(),k=a.findIndex(y=>y.t==x.t&&y.n==x.n);if(k>=0)a.splice(k,1);setNews(a);render()}
 function newsAt(m){return NEWS().some(e=>{const x=tmin(e.t);return(m>=x&&m<x+30)||Math.floor(x/60)==Math.floor(m/60)})}
 function winLine(w){const ev=NEWS().map(x=>({...x,m:tmin(x.t)})),lb=`${w[0]} ${fmt(w[3])}–${fmt(w[4])}`,inn=ev.find(x=>x.m>=w[3]&&x.m<w[4]);
 if(inn)return`<div class="wl dn">${lb}: blocked (${inn.t} release inside the hour)</div>`;
@@ -424,7 +427,7 @@ return`<div class="hero" style="margin:4px 0 18px"><div class="eyebrow">${new Da
 <div class="card sess ${sess().open?'open':''}" id="sess">${sessInner()}</div>${lim}${op?`<div class="card wa" onclick="go('journal')" style="cursor:pointer"><b>${op} open trade${op>1?'s':''}</b><p class="mut">Add the result when ${op>1?'they close':'it closes'}. Tap to open the Journal.</p></div>`:''}
 <div class="sec"><h3>Today</h3></div><div class="tiles"><div class="tile"><b>${q.tt.length}</b><span>Trades</span></div><div class="tile"><b class="${cls(q.dR)}">${fm(q.dR)}R</b><span>Net · ${fm(q.dR*.5)}%</span></div><div class="tile"><b>${q.ls}/2</b><span>Stop-outs</span></div></div>
 <div style="margin:-4px 0 18px"><button class="b" style="margin-top:0" onclick="go('flight')">Run Pre-Flight</button><button class="b alt" style="margin-top:0" onclick="go('coach')">Ask your coach</button></div>
-<div class="card"><div class="sec"><h3>Red-folder news (ET)</h3></div>`+(ev.length?ev.map((x,i)=>`<div class="tr"><span>${esc(x.t)} ${esc(x.n)}</span><button onclick="delNews(${i})">Remove</button></div>`).join(''):'<p class="mut">No red-folder events added for today.</p>')+WIN.map(winLine).join('')+`<form class="nf" onsubmit="addNews();return false" style="display:flex"><input id="nt" type="time" aria-label="Time ET"><input id="nn" placeholder="Event name"><button class="b" style="margin:0">Add</button></form><p class="mut small" style="margin-top:8px">Add today’s red-folder events from Forex Factory, in ET. Entries are blocked inside the hour and for 30 minutes after a release.</p></div>
+<div class="card"><div class="sec"><h3>Red-folder news (ET)</h3></div>`+(ev.length?ev.map((x,i)=>`<div class="tr"><span>${esc(x.t)} ${esc(x.n)}</span>${x.auto?'<span class="mut small">Forex Factory</span>':`<button onclick="delNews(${i})">Remove</button>`}</div>`).join(''):'<p class="mut">No red-folder events for today.</p>')+WIN.map(winLine).join('')+`<form class="nf" onsubmit="addNews();return false" style="display:flex"><input id="nt" type="time" aria-label="Time ET"><input id="nn" placeholder="Event name"><button class="b" style="margin:0">Add</button></form><p class="mut small" style="margin-top:8px">Red-folder events load automatically from Forex Factory, in ET. You can still add your own. Entries are blocked inside the hour and for 30 minutes after a release.</p></div>
 <div class="card" onclick="go('coach')" style="cursor:pointer"><div class="lab">AI Coach</div><h2 style="margin-top:8px">${n?'Your coach has notes':'Ready to build your edge'}</h2><p class="mut">${n?esc(top1?top1.t+'. '+top1.x:'No strong bad habits so far. Keep journaling.'):'Log your first trades via the Pre-Flight check. Your coach will analyze your edge and habits.'}</p></div>`}
 function eqChart(ts,base){const cut=JR=='all'?'':iso(new Date(Date.now()-(JR=='1w'?7:30)*864e5)),pre=cut?ts.filter(t=>t.d<cut):[],L=cut?ts.filter(t=>t.d>=cut):ts,val=t=>JU=='r'?(Rv(t)||0):t.p;
 if(L.length<2)return`<div class="mut" style="padding:40px 0;text-align:center">Log at least two trades to see your equity curve.</div>`;
@@ -577,5 +580,5 @@ document.getElementById('lgi').src=LOGO;{const fi=document.createElement('link')
 function setOnline(){const d=document.querySelector('.dot');if(!d||typeof navigator=='undefined')return;const on=navigator.onLine!==false;d.classList.toggle('off',!on);d.title=on?'Online':'Offline';d.setAttribute('aria-label',on?'Online':'Offline')}
 if(window.addEventListener){window.addEventListener('online',setOnline);window.addEventListener('offline',setOnline)}
 setOnline();
-boot();
+boot();loadNews();document.addEventListener('visibilitychange',()=>{if(!document.hidden)loadNews()});setInterval(loadNews,6e5);
 </script></body></html>
