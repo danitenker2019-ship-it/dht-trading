@@ -747,7 +747,11 @@ if(!a.size){msg='Enter the account size.';return render()}AT.push(a);saveAcc();s
 function adv(id){const a=AT.find(x=>x.id==id),s=accStat(a),nx=a.phase=='p1'?(a.steps==2?'p2':'f'):a.phase=='p2'?'f':null;if(!nx)return;
 if(!s.hit&&!confirm('The profit target is not reached yet. Move to the next phase anyway?'))return;
 a.hist=[...(a.hist||[]),{d:etNow().slice(0,10),e:'Finished '+ph(a),pl:Math.round(s.pl)}];a.phase=nx;a.ps=etNow();saveAcc();msg=nx=='f'?'🎉 Funded! Congratulations.':'Moved to '+ph(a)+'. Good luck.';render()}
-function delAcc(id){if(confirm('Delete this account and its phase history? Its trades stay in your journal until you delete them.')){AT=AT.filter(a=>a.id!=id);saveAcc();render()}}
+function delAcc(id){const a=AT.find(x=>x.id==id);if(!a)return;const n=T.filter(t=>t.acc==id).length;
+if(!confirm('Are you sure you want to delete "'+a.name+'"?\n\nThis permanently deletes the account, its phase history, and its '+n+' trade'+(n==1?'':'s')+' (recent trades and journal entries). This cannot be undone.'))return;
+T=T.filter(t=>t.acc!=id);AT=AT.filter(x=>x.id!=id);
+if(JA==id)JA='all';if(PF&&PF.acc==id)PF.acc='';if(IMPACC==id)IMPACC='';
+save();sv.then(()=>saveAcc());render()}
 function acCard(a){const s=accStat(a),pc=(v,mx)=>mx>0?Math.min(100,Math.max(0,v/mx*100)):0,seq=a.phase=='live'?[]:a.steps==1?['p1','f']:['p1','p2','f'],ix=seq.indexOf(a.phase),lb=a.kind=='futures'?{p1:'Trading Combine',f:'Express Funded'}:{p1:'Phase 1',p2:'Phase 2',f:'Funded'};
 const bar=(l,t,p,c)=>`<div class="bl"><span>${l}</span><span style="color:var(--${c=='dn'?'dn':c=='up'?'up':'mut'})">${t}</span></div><div class="bar"><i style="width:${p}%;background:var(--${c})"></i></div>`;
 const dp=pc(s.dUsed,s.dLim),mUsed=Math.max(0,s.mLim-s.mLeft),mp=pc(mUsed,s.mLim);
