@@ -306,6 +306,15 @@ body[data-tab=home] #gauges{grid-column:1/-1}
 .gg-z{font-size:13.5px;font-weight:700;margin-top:2px}.gg-s{font-size:13px;color:#829586;margin-top:3px}
 }
 
+/* ===== phone: floating pill bottom menu ===== */
+@media (max-width:1023px){
+nav.bnav{left:14px;right:14px;bottom:calc(12px + env(safe-area-inset-bottom,0px));padding:7px;gap:4px;justify-content:space-between;border:1px solid #1a2a1d;border-radius:999px;background:rgba(8,11,9,.92);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);box-shadow:0 10px 30px rgba(0,0,0,.55),0 0 0 1px rgba(255,255,255,.02)}
+nav.bnav button{flex:1;max-width:none;height:52px;border-radius:999px;color:#9aa89c;background:none;box-shadow:none}
+nav.bnav button.on{background:#1f2a22;color:#7dff2e;box-shadow:none}
+nav.bnav svg.i{width:27px;height:27px}
+main{padding-bottom:124px}
+}
+
 /* ===== animations ===== */
 .newsbar{padding:11px 14px;border-radius:14px;background:#2a1013;border:1px solid #6a2630;color:#ff8a95;font-weight:700;font-size:14px;margin-bottom:14px}
 @media (min-width:1024px){.newsbar{display:none}}
