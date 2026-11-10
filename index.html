@@ -299,11 +299,11 @@ body[data-tab=flight] #v>.pfcol{display:flex;flex-direction:column;gap:20px;grid
 body[data-tab=home] #gauges{grid-column:1/-1}
 .gauges .sec{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:6px}
 .gg-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
-.gg-c{text-align:center;padding:16px 14px 16px;border:1px solid #131d16;border-radius:20px;background:#0a0e0c}
+.gg-c{text-align:center;padding:16px 14px 16px;border:1px solid #12262c;border-radius:20px;background:radial-gradient(ellipse at 50% 38%,#0b1a20 0%,#060808 70%)}
 .gg-t{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#829586;margin-bottom:6px}
 .gg{display:block;width:100%;max-width:170px;margin:0 auto 10px}
 
-.gg-z{font-size:13.5px;font-weight:700;margin-top:2px}.gg-s{font-size:13px;color:#829586;margin-top:3px}
+.gg-z{font-size:12.5px;font-weight:700;margin-top:2px;letter-spacing:.2em;text-transform:uppercase}.gg-s{font-size:13px;color:#829586;margin-top:3px}
 }
 
 /* ===== phone: floating pill bottom menu ===== */
@@ -654,8 +654,10 @@ return`<div class="ai-h"><div class="ai-ic">${BRAIN}</div><div class="ai-t"><b>D
 function insightDetail(){let d;try{d=insightData()}catch(x){return''}
 const sec=(l,t,k)=>`<div class="ai-s"><span class="ai-l ${k||''}">${l}</span><p>${esc(t)}</p></div>`;
 return`<div class="ai-s"><span class="ai-l">Performance</span><div class="ai-perf">${d.perf.map(p=>`<div><b class="${p[2]}">${esc(p[1])}</b><span>${p[0]}</span></div>`).join('')}</div></div>`+sec('Strength',d.str,'up')+(d.pat?sec('Pattern',d.pat,'cy'):'')+sec('Improve',d.imp,'dn')}
-function gaugeSVG(v,min,max,txt,col,id){const p=v==null?0:Math.max(0,Math.min(1,(v-min)/(max-min))),R=74,da=(p*100).toFixed(1)+' 100',arc=(r,w,st,x)=>`<circle ${x||''} cx="100" cy="100" r="${r}" fill="none" stroke="${st}" stroke-width="${w}" stroke-linecap="round" pathLength="100" stroke-dasharray="${da}" transform="rotate(-90 100 100)"/>`;
-return`<svg viewBox="0 0 200 200" class="gg" role="img" aria-label="${esc(txt)}"><defs><linearGradient id="gh${id}" gradientUnits="userSpaceOnUse" x1="40" y1="30" x2="150" y2="180"><stop offset="0" stop-color="#fff" stop-opacity=".85"/><stop offset=".55" stop-color="#fff" stop-opacity=".12"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient><linearGradient id="gs${id}" gradientUnits="userSpaceOnUse" x1="100" y1="10" x2="100" y2="190"><stop offset="0" stop-color="#1b2620"/><stop offset="1" stop-color="#070a08"/></linearGradient></defs><circle cx="100" cy="100" r="${R}" fill="none" stroke="url(#gs${id})" stroke-width="20"/><circle cx="100" cy="100" r="${R+8}" fill="none" stroke="#fff" stroke-opacity=".05" stroke-width="1"/><circle cx="100" cy="100" r="${R-8}" fill="none" stroke="#000" stroke-opacity=".55" stroke-width="1"/>${p>0?`<g class="gg-arc" style="filter:drop-shadow(0 3px 5px rgba(0,0,0,.55)) drop-shadow(0 0 8px ${col}66)">${arc(R,20,col,'style="filter:brightness(.62)"')}${arc(R,15,col)}${arc(R-2,6,'url(#gh'+id+')')}</g>`:''}<text x="100" y="100" text-anchor="middle" dominant-baseline="central" font-size="40" font-weight="800" fill="${col}" style="font-variant-numeric:tabular-nums">${esc(txt)}</text></svg>`}
+function gaugeSVG(v,min,max,txt,col,id){const p=v==null?0:Math.max(0,Math.min(1,(v-min)/(max-min))),N=48,on=p>0?Math.max(1,Math.round(p*N)):0,R=76,pt=(a,r)=>[(100+r*Math.cos(a)).toFixed(2),(100+r*Math.sin(a)).toFixed(2)],seg=(i,r,w,st)=>{const a0=-Math.PI/2+i/N*2*Math.PI+.022,a1=-Math.PI/2+(i+1)/N*2*Math.PI-.022,A=pt(a0,r),B=pt(a1,r);return`<path d="M${A[0]} ${A[1]}A${r} ${r} 0 0 1 ${B[0]} ${B[1]}" fill="none" stroke="${st}" stroke-width="${w}"/>`};
+let tr='',fl='';for(let i=0;i<N;i++){tr+=seg(i,R,9,'#16262b');if(i<on)fl+=seg(i,R,9,i==on-1&&on<N?'#fff':col)}
+const m=/^([\d.]+)(%?)$/.exec(txt),num=m?m[1]:txt,suf=m&&m[2]?`<tspan font-size="17" font-weight="500" dx="2" fill="${col}">%</tspan>`:'';
+return`<svg viewBox="0 0 200 200" class="gg" role="img" aria-label="${esc(txt)}"><circle cx="100" cy="100" r="${R+11}" fill="none" stroke="${col}" stroke-opacity=".22" stroke-width="1"/><circle cx="100" cy="100" r="${R-11}" fill="none" stroke="${col}" stroke-opacity=".4" stroke-width="1"/>${tr}<g class="gg-arc" style="filter:drop-shadow(0 0 4px ${col}cc)">${fl}</g><text x="100" y="100" text-anchor="middle" dominant-baseline="central" font-family="Inter,system-ui,sans-serif" font-size="46" font-weight="600" fill="#fff" style="font-variant-numeric:tabular-nums">${esc(num)}${suf}</text></svg>`}
 function gaugesInner(){const A=analyze(T).A,n=A.length;if(!n)return'<div class="sec"><h3>Performance gauges</h3></div><p class="mut">Log trades to fill your gauges.</p>';
 const w=A.filter(t=>t.p>0).length,l=A.filter(t=>t.p<0).length,vi=A.filter(isViol).length,gp=sum(A.filter(t=>t.p>0).map(t=>t.p)),gl=Math.abs(sum(A.filter(t=>t.p<0).map(t=>t.p))),wr=Math.round(w/n*100),di=Math.round((n-vi)/n*100),pf=gl?gp/gl:(gp>0?3:0);
 const G=[['Win rate',wr,0,100,wr+'%',w+'W / '+l+'L',[40,55]],['Plan discipline',di,0,100,di+'%',(n-vi)+' of '+n+' trades on plan',[70,90]],['Profit factor',Math.min(pf,3),0,3,pf.toFixed(2),cm(gp)+' won · '+cm(-gl)+' lost',[1,1.5]]];
