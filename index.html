@@ -315,6 +315,22 @@ nav.bnav svg.i{width:27px;height:27px}
 main{padding-bottom:104px}
 }
 
+/* ===== gray kill zone + AI insight ===== */
+.card.ai{background:linear-gradient(160deg,#181b1c 0%,#111314 65%,#0d0f10 100%);border-color:#2a2e30}
+.card.ai .ai-ic{background:#1f2325;border-color:#30363a;color:#c5cdd0}
+.ai-pill{background:#23282b;color:#aab3b6}
+.ai-head{color:#e9eced}.ai-body{color:#9aa3a6}
+.ai-div{background:#262a2c}.ai-s{border-top-color:#212527}
+.ai-perf>div{background:#0e1011}
+.card.aid{background:#111314;border-color:#2a2e30}
+.card.sess{background:linear-gradient(160deg,#181b1c,#111314);border-color:#2a2e30}
+.card.sess .lab{color:#9aa3a6}.card.sess .sz{color:#e9eced}.card.sess b{color:#e6eaeb}
+.card.sess .bar{background:#23282a}
+.card.sess.open{background:linear-gradient(160deg,#1d2122,#131516);border-color:#444b4f;box-shadow:0 0 16px rgba(255,255,255,.04)}
+.card.sess .mut,.card.sess .clk{color:#9aa3a6}
+.hol{padding:12px 14px;border-radius:14px;background:#17191a;border:1px solid #30363a;color:#d2d9db;margin-bottom:12px;font-size:14.5px}.hol b{display:block;margin-bottom:2px;color:#eef1f2}
+.newsbar.holb{background:#17191a;border-color:#30363a;color:#c5cdd0;animation:none}
+
 /* ===== launch splash ===== */
 #splash{position:fixed;inset:0;z-index:100;background:#060808;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;transition:opacity .4s}
 #splash.out{opacity:0;pointer-events:none}
@@ -486,16 +502,21 @@ const cloudPref=()=>{clearTimeout(_pt);_pt=setTimeout(()=>{try{if(UID&&sb)sb.aut
 const savePref=()=>{savePrefLocal();cloudPref()};
 const etNow=()=>{const p=Object.fromEntries(new Intl.DateTimeFormat('en-CA',{timeZone:'America/New_York',hourCycle:'h23',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'}).formatToParts(new Date()).map(x=>[x.type,x.value]));return p.year+'-'+p.month+'-'+p.day+'T'+p.hour+':'+p.minute};
 const tmin=t=>+t.slice(0,2)*60+ +t.slice(3,5),etMin=d=>+d.slice(11,13)*60+ +d.slice(14,16),money=n=>(n<0?'−$':'$')+Math.abs(Math.round(n)).toLocaleString('en-US');
-let AUTO=[],NSTAT={s:'loading',u:''};const NEWS_CCY=['USD'],NEWS_URLS=['https://raw.githubusercontent.com/danitenker2019-ship-it/dht-trading/main/news.json','news.json'],NEWS_MAX_AGE=4*36e5,NCK='thc_news_cache';
+let AUTO=[],HOL=[],NSTAT={s:'loading',u:''};const HOLC=['USD'];let FFH={t:0,list:[]};try{FFH.list=JSON.parse(localStorage.getItem('thc_ffh')||'[]')}catch(e){}
+async function loadFFHol(){if(Date.now()-FFH.t<18e5)return;FFH.t=Date.now();try{const r=await fetch('https://nfs.faireconomy.media/ff_calendar_thisweek.json',{cache:'no-store'});if(!r.ok)return;const j=await r.json();if(!Array.isArray(j))return;FFH.list=j.filter(e=>String(e.impact).toLowerCase()=='holiday').map(e=>({d:String(e.date).slice(0,10),c:e.country,n:e.title}));try{localStorage.setItem('thc_ffh',JSON.stringify(FFH.list))}catch(x){}}catch(e){}}const NEWS_CCY=['USD'],NEWS_URLS=['https://raw.githubusercontent.com/danitenker2019-ship-it/dht-trading/main/news.json','news.json'],NEWS_MAX_AGE=4*36e5,NCK='thc_news_cache';
 const NEWS=()=>[...AUTO].sort((x,y)=>x.t<y.t?-1:x.t>y.t?1:0);
 function nlast(u){if(!u)return'unknown';const d=new Date(u);return isNaN(d)?'unknown':d.toLocaleString('en-US',{timeZone:'America/New_York',month:'short',day:'numeric',hour:'numeric',minute:'2-digit'})+' ET'}
-function newsBody(ev){const rows=ev.map(x=>`<div class="tr"><span class="dn" style="font-weight:600">${esc(x.t)} ${esc(x.n)}</span><span class="mut small">Forex Factory</span></div>`).join('');
+function holBox(){if(!HOL.length)return'';return`<div class="hol"><b>Bank holiday today</b><div>${HOL.map(h=>esc(h.c+' '+h.n)).join(', ')}</div><p class="small" style="margin-top:4px;color:#9aa3a6">${HOL.some(h=>h.c=='USD')?'US banks are closed. Expect thin, choppy trading and fake moves.':'Liquidity can be thinner than usual. Be selective.'}</p></div>`}
+function holBar(){return HOL.length?`<div class="newsbar holb" role="status">Bank holiday today: ${esc([...new Set(HOL.map(h=>h.c))].join(', '))}. Expect thin markets.</div>`:''}
+function tickNews(){const els=document.querySelectorAll('.ncd');if(!els.length)return;const e=etInfo(),now=e.h*60+e.m+e.s/60;els.forEach(el=>{const d=+el.dataset.m-now;let t,c;if(d>0){t='in '+cd(d);c=d<=60?'dn':'mut'}else if(d>-30){t='Now · stand aside';c='dn'}else{t='Released';c='mut'}el.textContent=t;el.className='ncd small '+c;el.style.fontWeight=(d>0&&d<=60)||(d<=0&&d>-30)?'700':''})}
+function newsBody(ev){return holBox()+newsBody0(ev)}
+function newsBody0(ev){const rows=ev.map(x=>`<div class="tr"><span class="dn" style="font-weight:600">${esc(fmt(tmin(x.t)))} ${esc(x.n)}</span><span class="ncd small" data-m="${tmin(x.t)}"></span></div>`).join('');
 if(NSTAT.s=='loading')return'<p class="mut">Loading news…</p>';
 if(NSTAT.s=='bad')return`<p class="dn" style="font-weight:700;margin:0">News unavailable</p><p class="mut small" style="margin:4px 0 10px">Last update: ${esc(nlast(NSTAT.u))}</p>`+rows;
 return ev.length?rows:'<p class="mut">No red folder event for today.</p>'}
-async function loadNews(){let d=null;for(const u of NEWS_URLS){try{const r=await fetch(u+'?t='+Math.floor(Date.now()/3e5),{cache:'no-store'});if(!r.ok)continue;const j=await r.json();if(j&&Array.isArray(j.events)){d=j;break}}catch(e){}}
+async function loadNews(){try{await Promise.race([loadFFHol(),new Promise(r=>setTimeout(r,3500))])}catch(e){}let d=null;for(const u of NEWS_URLS){try{const r=await fetch(u+'?t='+Math.floor(Date.now()/3e5),{cache:'no-store'});if(!r.ok)continue;const j=await r.json();if(j&&Array.isArray(j.events)){d=j;break}}catch(e){}}
 let st,src;if(d){try{localStorage.setItem(NCK,JSON.stringify(d))}catch(e){}const age=d.updated?Date.now()-Date.parse(d.updated):Infinity;st=age<=NEWS_MAX_AGE?'ok':'bad';src=d}else{st='bad';try{src=JSON.parse(localStorage.getItem(NCK)||'null')}catch(e){src=null}}
-const td=etNow().slice(0,10),a=src?(src.events||[]).filter(e=>e.d==td&&NEWS_CCY.includes(e.c)).map(e=>({t:e.t,n:e.c+' '+e.n,auto:true})):[],u=src&&src.updated||'',ch=JSON.stringify([a,st,u])!=JSON.stringify([AUTO,NSTAT.s,NSTAT.u]);AUTO=a;NSTAT={s:st,u};const el=document.activeElement;if(ch&&typeof UID!='undefined'&&UID&&!(el&&/INPUT|TEXTAREA|SELECT/.test(el.tagName)))render()}
+const td=etNow().slice(0,10),isH=e=>/holiday/i.test((e.n||e.title||'')+' '+(e.i||'')+' '+(e.impact||'')),a=src?(src.events||[]).filter(e=>e.d==td&&NEWS_CCY.includes(e.c)&&!isH(e)).map(e=>({t:e.t,n:e.c+' '+e.n,auto:true})):[],hm={};[...(src?[...(src.events||[]),...(src.holidays||[])].filter(e=>e.d==td&&isH(e)).map(e=>({c:e.c,n:e.n})):[]),...FFH.list.filter(e=>e.d==td).map(e=>({c:e.c,n:e.n}))].filter(e=>HOLC.includes(e.c)).forEach(e=>hm[e.c+'|'+e.n]=e);const hs=Object.values(hm),u=src&&src.updated||'',ch=JSON.stringify([a,hs,st,u])!=JSON.stringify([AUTO,HOL,NSTAT.s,NSTAT.u]);AUTO=a;HOL=hs;NSTAT={s:st,u};const el=document.activeElement;if(ch&&typeof UID!='undefined'&&UID&&!(el&&/INPUT|TEXTAREA|SELECT/.test(el.tagName)))render()}
 function newsAt(m){return NEWS().some(e=>{const x=tmin(e.t);return(m>=x&&m<x+30)||Math.floor(x/60)==Math.floor(m/60)})}
 function winLine(w){const ev=NEWS().map(x=>({...x,m:tmin(x.t)})),lb=`${w[0]} ${fmt(w[3])}–${fmt(w[4])}`,inn=ev.find(x=>x.m>=w[3]&&x.m<w[4]);
 if(NSTAT.s=='bad')return`<div class="wl yl">${lb}: news unknown, feed unavailable</div>`;
@@ -597,12 +618,18 @@ return`<div class="card"><div style="display:flex;justify-content:space-between;
 <p class="cmsg">${esc(m[0])} <span style="color:var(--${m[2]})">${esc(m[1])}</span></p></div>`}
 function del(id){T=T.filter(t=>t.id!=id);save();render()}
 const TABS=['home','journal','flight','accts','coach'];
+function chime(){try{const C=window.AudioContext||window.webkitAudioContext;if(!C)return;const c=new C(),t=c.currentTime;[[523.25,0],[659.25,.2],[783.99,.4]].forEach(([f,d])=>{const o=c.createOscillator(),g=c.createGain();o.type='sine';o.frequency.value=f;g.gain.setValueAtTime(0,t+d);g.gain.linearRampToValueAtTime(.12,t+d+.04);g.gain.exponentialRampToValueAtTime(.0001,t+d+1.2);o.connect(g);g.connect(c.destination);o.start(t+d);o.stop(t+d+1.3)});setTimeout(()=>{try{c.close()}catch(e){}},2400)}catch(e){}}
+async function notifyLimit(title,body,tag){try{if(typeof Notification=='undefined'||Notification.permission!='granted')return;const o={body,tag,icon:'icon-v2-180.png',badge:'icon-v2-32.png',requireInteraction:true,vibrate:[200,100,200]},reg='serviceWorker' in navigator?await navigator.serviceWorker.getRegistration():null;if(reg)await reg.showNotification(title,o);else new Notification(title,o)}catch(e){}}
+function checkLimits(){if(!UID||!T.length)return;const q=stat(T),td=etNow().slice(0,10),m=new Date(td+'T00:00:00Z');m.setUTCDate(m.getUTCDate()-((m.getUTCDay()+6)%7));const wk=m.toISOString().slice(0,10);let k={};try{k=JSON.parse(localStorage.getItem('thc_limn')||'{}')}catch(e){}
+let ch=false;if(q.dl&&k.dl!=td){k.dl=td;ch=true;chime();notifyLimit('You protected your capital today','You stuck to your plan, and that is the win. Close the platform, note one thing you did well, and go enjoy your day. You are done.','dht-daily')}
+if(q.wl&&k.wl!=wk){k.wl=wk;ch=true;chime();notifyLimit('Week complete. Well protected','You respected your limits this week. Step away, rest, and review your trades with a clear head. Come back fresh on Monday.','dht-weekly')}
+if(ch)try{localStorage.setItem('thc_limn',JSON.stringify(k))}catch(e){}}
 function go(k){tab=k;msg='';if(k=='set')PSEC='';if(k=='flight')PF=null;render();window.scrollTo(0,0)}
 function drawTop(){const t=document.getElementById('dtop');if(!t)return;const TT={home:'Dashboard',journal:'Journal',flight:'Pre-Flight',accts:'Accounts',coach:'AI Coach',set:'Profile'};
 let S=null;try{S=sess()}catch(x){}const e=etInfo(),mins=e.h*60+e.m,closed=e.dow==6||(e.dow==0&&mins<1080)||(e.dow==5&&mins>=1020);
 const sp=closed?['Markets closed','rest']:S&&S.open?['Kill zone open','live']:S?['Next kill zone in '+cd(S.in),'wait']:['','rest'];
-const nw=NSTAT.s=='bad'?['News unavailable','bad']:NSTAT.s=='loading'?['Loading news…','rest']:(AUTO.length?(newsAt(mins)?['Red news now','bad hot']:[AUTO.length+' red-folder event'+(AUTO.length>1?'s':'')+' today','bad']):['No red-folder news today','ok']);
-t.innerHTML=`<div><h1>${TT[tab]||''}</h1><span>${new Date().toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric',timeZone:'America/New_York'})}</span></div><div class="dt-r"><span class="dt-p ${nw[1]}">${esc(nw[0])}</span>${sp[0]?`<span class="dt-p ${sp[1]}">${esc(sp[0])}</span>`:''}<span class="dt-clock" id="dtclk"></span></div>`;{const nbEl=document.querySelector('.newsbar');if(nbEl)nbEl.classList.toggle('hot',/hot/.test(nw[1]))}tickTop()}
+const nw=NSTAT.s=='bad'?['News unavailable','bad']:NSTAT.s=='loading'?['Loading news…','rest']:(AUTO.length?(newsAt(mins)?['Red news now','bad hot']:(()=>{const nx=AUTO.map(x=>tmin(x.t)).filter(m=>m>mins).sort((x,y)=>x-y)[0];if(nx==null)return[AUTO.length+' red-folder event'+(AUTO.length>1?'s':'')+' today','bad'];const t=Math.ceil(nx-(mins+e.s/60));return['Red news in '+(t>=60?Math.floor(t/60)+'h '+p2(t%60)+'m':t+'m'),'bad']})()):['No red-folder news today','ok']);
+t.innerHTML=`<div><h1>${TT[tab]||''}</h1><span>${new Date().toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric',timeZone:'America/New_York'})}</span></div><div class="dt-r">${HOL.length?`<span class="dt-p rest">Bank holiday · ${esc([...new Set(HOL.map(h=>h.c))].join(', '))}</span>`:''}<span class="dt-p ${nw[1]}">${esc(nw[0])}</span>${sp[0]?`<span class="dt-p ${sp[1]}">${esc(sp[0])}</span>`:''}<span class="dt-clock" id="dtclk"></span></div>`;{const nbEl=document.querySelector('.newsbar');if(nbEl)nbEl.classList.toggle('hot',/hot/.test(nw[1]))}tickTop()}
 function tickTop(){const c=document.getElementById('dtclk');if(c)c.textContent=new Date().toLocaleTimeString('en-US',{timeZone:'America/New_York',hour:'numeric',minute:'2-digit',second:'2-digit'})+' ET'}
 function render(){if(document.body&&document.body.classList)document.body.classList.toggle('auth',!UID);if(!UID)return authView();
 const NL={home:'Dashboard',journal:'Journal',flight:'Pre-Flight',accts:'Accounts',coach:'AI Coach'},ini=((PREF.name||'').trim()||UEMAIL||'T').trim()[0].toUpperCase();
@@ -610,7 +637,7 @@ document.getElementById('nav').innerHTML=`<div class="sb-only sb-brand"><img src
 document.body.dataset.tab=tab;drawTop();
 let h=msg?`<div class="msg">${esc(msg)}</div>`:'';
 h+=tab=='home'?homeView():tab=='journal'?journalView():tab=='flight'?flightView():tab=='accts'?acctView():tab=='coach'?`<div class="hd"><h1>AI Coach</h1></div>`+coachView():profileView();
-const V=document.getElementById('v');V.innerHTML=h;if(LASTTAB!==tab){LASTTAB=tab;V.classList.remove('enter');void V.offsetWidth;V.classList.add('enter');clearTimeout(window._et);window._et=setTimeout(()=>V.classList.remove('enter'),1500)}}
+const V=document.getElementById('v');V.innerHTML=h;try{checkLimits()}catch(e){}try{tickNews()}catch(e){}if(LASTTAB!==tab){LASTTAB=tab;V.classList.remove('enter');void V.offsetWidth;V.classList.add('enter');clearTimeout(window._et);window._et=setTimeout(()=>V.classList.remove('enter'),1500)}}
 const TSP={50:{size:50000,mll:2000,tgt:3000,dll:1000,pay:[2000,3000]},100:{size:100000,mll:3000,tgt:6000,dll:2000,pay:[3000,4000]},150:{size:150000,mll:4500,tgt:9000,dll:3000,pay:[5000,6000]}},KL={futures:'Futures prop (Topstep)',prop:'Prop challenge',funded:'Funded',live:'Live',demo:'Demo'},DN=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 const sm=n=>(n<0?'−':'+')+'$'+Math.abs(Math.round(n)).toLocaleString('en-US');
 const fmt=m=>{m=Math.round(m);const h=Math.floor(m/60)%24,mi=m%60;return PREF.h24?p2(h)+':'+p2(mi):((h%12)||12)+':'+p2(mi)+' '+(h<12?'AM':'PM')};
@@ -642,6 +669,7 @@ else if(dow==0){head='Today’s focus: Prepare the week.';body=pk(['Markets are 
 else{head='Week complete. Review it.';body='You finished the week at '+fm(q.wR)+'R. Journal what worked and what did not before the weekend.'}}
 else if(q.dl){tone='stop';pill='STOP';head='Stop trading for today.';body='You hit your daily limit (two stop-outs or −1%). Protecting capital is the trade. Close the platform and journal what happened.'}
 else if(q.wl){tone='stop';pill='STOP';head='Weekly limit reached.';body='You are at −2% this week. You are done until Monday. Review your trades and reset.'}
+else if(HOL.some(h=>h.c=='USD')){tone='wait';pill='HOLIDAY';head='US bank holiday. Expect thin markets.';body='Liquidity is low and moves can be fake. Trade smaller, take only A+ setups, or sit today out. Protecting capital is a position.'}
 else if(op){tone='live';pill='OPEN';head='You have '+op+' open trade'+(op>1?'s':'')+'.';body='Manage the risk you already have. Do not add. Log the result in your Journal when it closes.'}
 else if(S&&!S.open&&S.d==0&&S.in<=90&&ev.find(x=>x.m>=S.w[3]&&x.m<S.w[4])){const x=ev.find(x=>x.m>=S.w[3]&&x.m<S.w[4]);tone='wait';pill='NEWS';head=x.n+' at '+fmt(x.m)+' ET lands inside your next trading hour.';body='Your plan says no trade in that hour. Use the time to review your levels and wait for the next window.'}
 else if(blk&&near){tone='wait';pill='NEWS';head=blk.n+' at '+fmt(blk.m)+' ET. Stand aside.';body=(S&&S.open&&blk.m>=S.w[3]&&blk.m<S.w[4])?'Your plan says no trade in this hour. Review your levels and wait for the next window.':'No entries until '+fmt(blk.m+30)+' ET. Waiting is a position too.'}
@@ -680,7 +708,7 @@ const body=G.map((g,i)=>{const lv=g[1]<g[6][0]?0:g[1]<g[6][1]?1:2,col=['#ff5563'
 return`<div class="sec"><h3>Performance gauges</h3><span class="mut small">All accounts · ${n} closed trade${n==1?'':'s'}</span></div><div class="gg-row">${body}</div>`}
 function homeView(){const a=analyze(T),A=a.A,q=stat(T),e=etInfo(),g=e.h<12?'morning':e.h<18?'afternoon':'evening',top1=a.out.find(o=>o.l=='warn'),ev=NEWS(),n=A.length,op=T.filter(isOpen).length;
 const lim=q.dl?card(['warn','Daily limit reached','Two stop-outs or -1% today. Close the platform.']):q.wl?card(['warn','Weekly limit reached','-2% this week. Done until Monday.']):'';
-const nb=AUTO.length?`<div class="newsbar${newsAt(e.h*60+e.m)?' hot':''}" role="alert">Red-folder news today: ${AUTO.map(x=>fmt(tmin(x.t))).join(', ')} ET. Stand aside around the release.</div>`:'';
+const nb=holBar()+(AUTO.length?`<div class="newsbar${newsAt(e.h*60+e.m)?' hot':''}" role="alert">Red-folder news today: ${AUTO.map(x=>fmt(tmin(x.t))).join(', ')} ET. Stand aside around the release.</div>`:'');
 return nb+`<div class="hero" style="margin:4px 0 18px"><div class="eyebrow">${new Date().toLocaleDateString('en-US',{timeZone:'America/New_York',weekday:'long',month:'long',day:'numeric'})}</div><h1>Good ${g}, <span class="nm">${esc(PREF.name||'Trader')}</span></h1><p class="mut">“You are a professional risk manager.”</p></div>
 <div class="card ai ${insightTone()}" id="insai">${insightInner()}</div>
 <div class="card sess ${sess().open?'open':''}" id="sess">${sessInner()}</div>${lim}${op?`<div class="card wa" onclick="go('journal')" style="cursor:pointer"><b>${op} open trade${op>1?'s':''}</b><p class="mut">Add the result when ${op>1?'they close':'it closes'}. Tap to open the Journal.</p></div>`:''}
@@ -881,5 +909,5 @@ document.getElementById('lgi').src=LOGO;{const fi=document.createElement('link')
 function setOnline(){const d=document.querySelector('.dot');if(!d||typeof navigator=='undefined')return;const on=navigator.onLine!==false;d.classList.toggle('off',!on);d.title=on?'Online':'Offline';d.setAttribute('aria-label',on?'Online':'Offline')}
 if(window.addEventListener){window.addEventListener('online',setOnline);window.addEventListener('offline',setOnline)}
 setOnline();
-if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});setTimeout(syncPush,4000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)syncPush()});boot().catch(e=>{msg='Cannot reach the server. Check your connection and try again.';try{render()}catch(x){}}).finally(hideSplash);setTimeout(hideSplash,12000);loadNews();document.addEventListener('visibilitychange',()=>{if(!document.hidden)loadNews()});setInterval(loadNews,6e5);setInterval(tickTop,1000);setInterval(()=>{if(typeof UID!='undefined'&&UID)drawTop()},30000);setInterval(()=>{const el=document.getElementById('insai'),el2=document.getElementById('insdet');if(!document.hidden){try{if(el){el.innerHTML=insightInner();el.className='card ai '+insightTone()}if(el2)el2.innerHTML=insightDetail()}catch(x){}}},60000);
+if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});setTimeout(syncPush,4000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)syncPush()});boot().catch(e=>{msg='Cannot reach the server. Check your connection and try again.';try{render()}catch(x){}}).finally(hideSplash);setTimeout(hideSplash,12000);loadNews();document.addEventListener('visibilitychange',()=>{if(!document.hidden)loadNews()});setInterval(loadNews,6e5);setInterval(tickTop,1000);setInterval(tickNews,1000);setInterval(()=>{if(typeof UID!='undefined'&&UID)drawTop()},30000);setInterval(()=>{const el=document.getElementById('insai'),el2=document.getElementById('insdet');if(!document.hidden){try{if(el){el.innerHTML=insightInner();el.className='card ai '+insightTone()}if(el2)el2.innerHTML=insightDetail()}catch(x){}}},60000);
 </script></body></html>
