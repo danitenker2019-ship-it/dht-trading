@@ -2,7 +2,7 @@
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>DHT Edge</title>
-<script src="config.js?v=14"></script>
+<script src="config.js?v=17"></script>
 <link rel="apple-touch-icon" href="icon-v2-180.png">
 <link rel="icon" type="image/png" sizes="32x32" href="icon-v2-32.png"><link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#060808">
 <meta name="color-scheme" content="light dark">
@@ -288,9 +288,9 @@ body[data-tab=set] #v>*{grid-column:3/11}
 .pfside{display:block}
 body[data-tab=flight] #v>.pfcol{display:flex;flex-direction:column;gap:20px;grid-column:span 6}
 /* calendar: squarish day boxes */
-.cal{grid-template-columns:repeat(6,minmax(0,1fr));gap:8px;max-width:1040px}
-.cal .cd,.cal .cw{aspect-ratio:1.12/1;min-height:0;padding:10px;border-radius:14px}
-.cd .dn0{font-size:14px}.cd b,.cw b{font-size:18px}.cd small,.cw small{font-size:12px}
+.cal{grid-template-columns:repeat(6,minmax(0,1fr));gap:6px;max-width:1040px}
+.cal .cd,.cal .cw{aspect-ratio:2.5/1;min-height:0;padding:6px 10px;border-radius:12px}
+.cd .dn0{font-size:12px}.cd b,.cw b{font-size:15px}.cd small,.cw small{font-size:11px}
 }
 
 .gauges{display:none}
@@ -304,6 +304,28 @@ body[data-tab=home] #gauges{grid-column:1/-1}
 .gg{display:block;width:100%;max-width:300px;margin:0 auto}
 .gg-fill{filter:drop-shadow(0 0 5px rgba(125,255,46,.3))}
 .gg-z{font-size:13.5px;font-weight:700;margin-top:2px}.gg-s{font-size:13px;color:#829586;margin-top:3px}
+}
+
+/* ===== animations ===== */
+.newsbar{padding:11px 14px;border-radius:14px;background:#2a1013;border:1px solid #6a2630;color:#ff8a95;font-weight:700;font-size:14px;margin-bottom:14px}
+@media (min-width:1024px){.newsbar{display:none}}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes grow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes draw{from{stroke-dashoffset:100}to{stroke-dashoffset:0}}
+@keyframes redpulse{0%,100%{box-shadow:0 0 0 0 rgba(255,85,99,.5)}50%{box-shadow:0 0 0 7px rgba(255,85,99,0)}}
+@keyframes livepulse{50%{box-shadow:0 0 26px rgba(125,255,46,.22)}}
+@keyframes softpulse{50%{opacity:.6}}
+.b,.btn,.plus,.chips button,.sc button,.tog,.mbtn,.rw,.tile,.cd,.cw,nav button{transition:transform .15s,background .2s,border-color .2s,color .2s,box-shadow .2s}
+.b:active,.btn:active,.plus:active,.chips button:active,.sc button:active,.tog:active,.rw:active,nav button:active{transform:scale(.96)}
+@media (hover:hover){.tile:hover,.rw:hover,.cd:hover,.cw:hover{transform:translateY(-2px)}}
+@media (prefers-reduced-motion:no-preference){
+#v.enter>*{animation:rise .5s cubic-bezier(.2,.7,.2,1) backwards}
+#v.enter>*:nth-child(2){animation-delay:.06s}#v.enter>*:nth-child(3){animation-delay:.12s}#v.enter>*:nth-child(4){animation-delay:.18s}#v.enter>*:nth-child(5){animation-delay:.24s}#v.enter>*:nth-child(6){animation-delay:.3s}#v.enter>*:nth-child(n+7){animation-delay:.36s}
+#v.enter>*:not(#sess) .bar i{transform-origin:left;animation:grow .9s .2s cubic-bezier(.2,.7,.2,1) backwards}
+#v.enter .gg-fill{animation:draw 1.2s .25s ease-out backwards}
+.dt-p.bad,.newsbar,.ai-pill.stop,.card.no{animation:redpulse 1.8s ease-in-out infinite}
+.dt-p.live,.dt-p.wait,.ai-pill.live,.ai-pill.wait{animation:softpulse 2s ease-in-out infinite}
+.card.sess.open{animation:livepulse 3s ease-in-out infinite}
 }
 </style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script></head>
 <body><header><div class="bw"><button class="lgb" aria-label="Home" onclick="go('home')"><img id="lgi" alt="Dan Han Trading" width="44" height="44"></button><div class="brand"><div class="bn"><b>DHT Edge</b><span class="dot" role="status" aria-label="Online" title="Online"></span></div><small>Your intelligent trading partner.</small></div></div><button class="gear" aria-label="Profile" onclick="go('set')"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.6"/><path d="M4.500 20c.8-3.600 3.800-5.500 7.500-5.500s6.700 1.900 7.500 5.500"/></svg></button></header>
@@ -443,7 +465,7 @@ const tmin=t=>+t.slice(0,2)*60+ +t.slice(3,5),etMin=d=>+d.slice(11,13)*60+ +d.sl
 let AUTO=[],NSTAT={s:'loading',u:''};const NEWS_CCY=['USD'],NEWS_URLS=['https://raw.githubusercontent.com/danitenker2019-ship-it/dht-trading/main/news.json','news.json'],NEWS_MAX_AGE=4*36e5,NCK='thc_news_cache';
 const NEWS=()=>[...AUTO].sort((x,y)=>x.t<y.t?-1:x.t>y.t?1:0);
 function nlast(u){if(!u)return'unknown';const d=new Date(u);return isNaN(d)?'unknown':d.toLocaleString('en-US',{timeZone:'America/New_York',month:'short',day:'numeric',hour:'numeric',minute:'2-digit'})+' ET'}
-function newsBody(ev){const rows=ev.map(x=>`<div class="tr"><span>${esc(x.t)} ${esc(x.n)}</span><span class="mut small">Forex Factory</span></div>`).join('');
+function newsBody(ev){const rows=ev.map(x=>`<div class="tr"><span class="dn" style="font-weight:600">${esc(x.t)} ${esc(x.n)}</span><span class="mut small">Forex Factory</span></div>`).join('');
 if(NSTAT.s=='loading')return'<p class="mut">Loading news…</p>';
 if(NSTAT.s=='bad')return`<p class="dn" style="font-weight:700;margin:0">News unavailable</p><p class="mut small" style="margin:4px 0 10px">Last update: ${esc(nlast(NSTAT.u))}</p>`+rows;
 return ev.length?rows:'<p class="mut">No red folder event for today.</p>'}
@@ -452,6 +474,7 @@ let st,src;if(d){try{localStorage.setItem(NCK,JSON.stringify(d))}catch(e){}const
 const td=etNow().slice(0,10),a=src?(src.events||[]).filter(e=>e.d==td&&NEWS_CCY.includes(e.c)).map(e=>({t:e.t,n:e.c+' '+e.n,auto:true})):[],u=src&&src.updated||'',ch=JSON.stringify([a,st,u])!=JSON.stringify([AUTO,NSTAT.s,NSTAT.u]);AUTO=a;NSTAT={s:st,u};const el=document.activeElement;if(ch&&typeof UID!='undefined'&&UID&&!(el&&/INPUT|TEXTAREA|SELECT/.test(el.tagName)))render()}
 function newsAt(m){return NEWS().some(e=>{const x=tmin(e.t);return(m>=x&&m<x+30)||Math.floor(x/60)==Math.floor(m/60)})}
 function winLine(w){const ev=NEWS().map(x=>({...x,m:tmin(x.t)})),lb=`${w[0]} ${fmt(w[3])}–${fmt(w[4])}`,inn=ev.find(x=>x.m>=w[3]&&x.m<w[4]);
+if(NSTAT.s=='bad')return`<div class="wl yl">${lb}: news unknown, feed unavailable</div>`;
 if(inn)return`<div class="wl dn">${lb}: blocked (${inn.t} release inside the hour)</div>`;
 const bf=ev.filter(x=>x.m<w[3]&&x.m+30>w[3]).pop();if(bf){const u=bf.m+30;return`<div class="wl yl">${lb}: wait until ${fmt(u)}</div>`}
 return`<div class="wl up">${lb}: clear</div>`}
@@ -553,8 +576,8 @@ const TABS=['home','journal','flight','accts','coach'];
 function go(k){tab=k;msg='';if(k=='set')PSEC='';if(k=='flight')PF=null;render();window.scrollTo(0,0)}
 function drawTop(){const t=document.getElementById('dtop');if(!t)return;const TT={home:'Dashboard',journal:'Journal',flight:'Pre-Flight',accts:'Accounts',coach:'AI Coach',set:'Profile'};
 let S=null;try{S=sess()}catch(x){}const e=etInfo(),mins=e.h*60+e.m,closed=e.dow==6||(e.dow==0&&mins<1080)||(e.dow==5&&mins>=1020);
-const sp=closed?['Markets closed','rest']:S&&S.open?['Kill zone open · '+S.w[1],'live']:S?['Next · '+S.w[1]+' in '+cd(S.in),'wait']:['','rest'];
-const nw=NSTAT.s=='bad'?['News unavailable','bad']:NSTAT.s=='loading'?['Loading news…','rest']:[AUTO.length?AUTO.length+' red-folder event'+(AUTO.length>1?'s':'')+' today':'No red-folder news today','ok'];
+const sp=closed?['Markets closed','rest']:S&&S.open?['Kill zone open','live']:S?['Next kill zone in '+cd(S.in),'wait']:['','rest'];
+const nw=NSTAT.s=='bad'?['News unavailable','bad']:NSTAT.s=='loading'?['Loading news…','rest']:(AUTO.length?[AUTO.length+' red-folder event'+(AUTO.length>1?'s':'')+' today','bad']:['No red-folder news today','ok']);
 t.innerHTML=`<div><h1>${TT[tab]||''}</h1><span>${new Date().toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric',timeZone:'America/New_York'})}</span></div><div class="dt-r"><span class="dt-p ${nw[1]}">${esc(nw[0])}</span>${sp[0]?`<span class="dt-p ${sp[1]}">${esc(sp[0])}</span>`:''}<span class="dt-clock" id="dtclk"></span></div>`;tickTop()}
 function tickTop(){const c=document.getElementById('dtclk');if(c)c.textContent=new Date().toLocaleTimeString('en-US',{timeZone:'America/New_York',hour:'numeric',minute:'2-digit',second:'2-digit'})+' ET'}
 function render(){if(document.body&&document.body.classList)document.body.classList.toggle('auth',!UID);if(!UID)return authView();
@@ -563,7 +586,7 @@ document.getElementById('nav').innerHTML=`<div class="sb-only sb-brand"><img src
 document.body.dataset.tab=tab;drawTop();
 let h=msg?`<div class="msg">${esc(msg)}</div>`:'';
 h+=tab=='home'?homeView():tab=='journal'?journalView():tab=='flight'?flightView():tab=='accts'?acctView():tab=='coach'?`<div class="hd"><h1>AI Coach</h1></div>`+coachView():profileView();
-document.getElementById('v').innerHTML=h}
+const V=document.getElementById('v');V.innerHTML=h;if(LASTTAB!==tab){LASTTAB=tab;V.classList.remove('enter');void V.offsetWidth;V.classList.add('enter');clearTimeout(window._et);window._et=setTimeout(()=>V.classList.remove('enter'),1500)}}
 const TSP={50:{size:50000,mll:2000,tgt:3000,dll:1000,pay:[2000,3000]},100:{size:100000,mll:3000,tgt:6000,dll:2000,pay:[3000,4000]},150:{size:150000,mll:4500,tgt:9000,dll:3000,pay:[5000,6000]}},KL={futures:'Futures prop (Topstep)',prop:'Prop challenge',funded:'Funded',live:'Live',demo:'Demo'},DN=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 const sm=n=>(n<0?'−':'+')+'$'+Math.abs(Math.round(n)).toLocaleString('en-US');
 const fmt=m=>{m=Math.round(m);const h=Math.floor(m/60)%24,mi=m%60;return PREF.h24?p2(h)+':'+p2(mi):((h%12)||12)+':'+p2(mi)+' '+(h<12?'AM':'PM')};
@@ -588,7 +611,7 @@ let sd=0;for(const c of etNow().slice(0,10))sd=(sd*31+c.charCodeAt(0))>>>0;const
 const tips=['Let the market prove the week’s direction before you commit.','Consistency beats intensity. Repeat your process.','Midweek tests discipline. Stay selective.','Protect what you have made this week. Do not force it.','Lock in the week. No revenge trades, no late entries.'];
 let tone='ready',pill='READY',head,body;
 const near=S&&(S.open||(S.d==0&&S.in<=90)),blk=ev.find(x=>(mins>=x.m&&mins<x.m+30)||Math.floor(x.m/60)==Math.floor(mins/60));
-if(sunEve){tone='wait';pill='SOON';head='Markets reopen soon.';body='Mark your levels, set your risk and stay patient. Your first window opens Monday at 3:00 AM ET.'}
+if(sunEve){tone='wait';pill='SOON';head='Markets reopen soon.';body='Mark your levels, set your risk and stay patient. Prepare tonight so Monday starts calm.'}
 else if(closed){tone='rest';pill='REST';
 if(dow==6){head='Today’s focus: Capital preservation.';body=pk(['Markets are closed for the weekend. Use today to review your previous trades, prepare your levels, and define your risk before the next session.','No market, no pressure. Review last week, mark your levels and rest. Preparation is your edge.'])}
 else if(dow==0){head='Today’s focus: Prepare the week.';body=pk(['Markets are closed. Prepare your levels and review your execution before Monday.','Sunday reset: review last week’s trades, set your weekly bias and decide your risk before Monday.'])}
@@ -596,11 +619,12 @@ else{head='Week complete. Review it.';body='You finished the week at '+fm(q.wR)+
 else if(q.dl){tone='stop';pill='STOP';head='Stop trading for today.';body='You hit your daily limit (two stop-outs or −1%). Protecting capital is the trade. Close the platform and journal what happened.'}
 else if(q.wl){tone='stop';pill='STOP';head='Weekly limit reached.';body='You are at −2% this week. You are done until Monday. Review your trades and reset.'}
 else if(op){tone='live';pill='OPEN';head='You have '+op+' open trade'+(op>1?'s':'')+'.';body='Manage the risk you already have. Do not add. Log the result in your Journal when it closes.'}
-else if(blk&&near){tone='wait';pill='NEWS';head=blk.n+' at '+fmt(blk.m)+' ET. Stand aside.';body='No entries until '+fmt(blk.m+30)+' ET. Waiting is a position too.'}
-else if(S.open){tone='live';pill='LIVE';head=S.w[1]+' is open. Only A+ setups.';body=cd(S.left)+' left. Run Pre-Flight, confirm your level and risk 1R. '+(tt.length?'You have '+tc+' today ('+dayR+').':'No trades yet today.')}
-else if(near){tone='wait';pill='SOON';head=S.w[1]+' opens in '+cd(S.in)+'.';body='Check the red-folder news, mark your levels and decide your bias before the bell. Let the setup come to you.'}
-else if(mins<180){tone='rest';pill='REST';if(dow==1){head='Fresh week. Start with patience.';body='A clean slate. Your first window opens at 3:00 AM ET. Prepare your levels and let the setup come to you.'}else{head='Outside trading hours.';body='No window is open. Rest and let your levels do the work. London opens at 3:00 AM ET.'}}
-else if(mins<600){head=tt.length?'London is done. '+dayR+' so far.':'Prepare for New York.';body=tt.length?'You took '+tc+'. Review them before the NY window and decide whether you take another.':'No trades yet. Mark your levels, check the red-folder news and wait for the NY window at 10:00 AM ET.'}
+else if(S&&!S.open&&S.d==0&&S.in<=90&&ev.find(x=>x.m>=S.w[3]&&x.m<S.w[4])){const x=ev.find(x=>x.m>=S.w[3]&&x.m<S.w[4]);tone='wait';pill='NEWS';head=x.n+' at '+fmt(x.m)+' ET lands inside your next trading hour.';body='Your plan says no trade in that hour. Use the time to review your levels and wait for the next window.'}
+else if(blk&&near){tone='wait';pill='NEWS';head=blk.n+' at '+fmt(blk.m)+' ET. Stand aside.';body=(S&&S.open&&blk.m>=S.w[3]&&blk.m<S.w[4])?'Your plan says no trade in this hour. Review your levels and wait for the next window.':'No entries until '+fmt(blk.m+30)+' ET. Waiting is a position too.'}
+else if(S.open){tone='live';pill='LIVE';head='Be selective. Only A+ setups.';body=cd(S.left)+' left. Run Pre-Flight, confirm your level and risk 1R. '+(tt.length?'You have '+tc+' today ('+dayR+').':'No trades yet today.')}
+else if(near){tone='wait';pill='SOON';head='Get ready. Your window opens in '+cd(S.in)+'.';body='Check the red-folder news, mark your levels and decide your bias before the bell. Let the setup come to you.'+(NSTAT.s=='bad'?' The news feed is unavailable, so check Forex Factory yourself.':'')}
+else if(mins<180){tone='rest';pill='REST';if(dow==1){head='Fresh week. Start with patience.';body='A clean slate. Prepare your levels, check the news and let the setup come to you.'}else{head='Outside trading hours.';body='No window is open. Rest and let your levels do the work.'}}
+else if(mins<600){head=tt.length?'Review before you trade again. '+dayR+' so far.':'Prepare your levels.';body=tt.length?'You took '+tc+'. Review them first and only take another if it is an A+ setup.':'No trades yet. Mark your levels, check the red-folder news and wait for your setup.'}
 else if(mins<1020){tone='rest';pill='DONE';head='Trading windows are closed.';body=tt.length?'You took '+tc+' today, net '+dayR+'. Journal them while they are fresh.':'No trades today. Staying out is a position. Review your plan and levels instead.'}
 else{tone='rest';pill='REVIEW';head='Debrief the day.';body=tt.length?'Today closed at '+dayR+'. Note what you did well and one thing to improve, then switch off.':'No trades today. Review the charts, mark tomorrow’s levels and switch off.'}
 const th=S?(S.open?e.h:Math.floor(S.w[3]/60)):e.h;let pre;
@@ -629,7 +653,8 @@ const body=G.map((g,i)=>{const lv=g[1]<g[6][0]?0:g[1]<g[6][1]?1:2,col=['#ff5563'
 return`<div class="sec"><h3>Performance gauges</h3><span class="mut small">All accounts · ${n} closed trade${n==1?'':'s'}</span></div><div class="gg-row">${body}</div>`}
 function homeView(){const a=analyze(T),A=a.A,q=stat(T),e=etInfo(),g=e.h<12?'morning':e.h<18?'afternoon':'evening',top1=a.out.find(o=>o.l=='warn'),ev=NEWS(),n=A.length,op=T.filter(isOpen).length;
 const lim=q.dl?card(['warn','Daily limit reached','Two stop-outs or -1% today. Close the platform.']):q.wl?card(['warn','Weekly limit reached','-2% this week. Done until Monday.']):'';
-return`<div class="hero" style="margin:4px 0 18px"><div class="eyebrow">${new Date().toLocaleDateString('en-US',{timeZone:'America/New_York',weekday:'long',month:'long',day:'numeric'})}</div><h1>Good ${g}, <span class="nm">${esc(PREF.name||'Trader')}</span></h1><p class="mut">“You are a professional risk manager.”</p></div>
+const nb=AUTO.length?`<div class="newsbar" role="alert">Red-folder news today: ${AUTO.map(x=>fmt(tmin(x.t))).join(', ')} ET. Stand aside around the release.</div>`:'';
+return nb+`<div class="hero" style="margin:4px 0 18px"><div class="eyebrow">${new Date().toLocaleDateString('en-US',{timeZone:'America/New_York',weekday:'long',month:'long',day:'numeric'})}</div><h1>Good ${g}, <span class="nm">${esc(PREF.name||'Trader')}</span></h1><p class="mut">“You are a professional risk manager.”</p></div>
 <div class="card ai ${insightTone()}" id="insai">${insightInner()}</div>
 <div class="card sess ${sess().open?'open':''}" id="sess">${sessInner()}</div>${lim}${op?`<div class="card wa" onclick="go('journal')" style="cursor:pointer"><b>${op} open trade${op>1?'s':''}</b><p class="mut">Add the result when ${op>1?'they close':'it closes'}. Tap to open the Journal.</p></div>`:''}
 <div class="sec"><h3>Today</h3></div><div class="tiles"><div class="tile"><b>${q.tt.length}</b><span>Trades</span></div><div class="tile"><b class="${cls(q.dR)}">${fm(q.dR)}R</b><span>Net · ${fm(q.dR*.5)}%</span></div><div class="tile"><b>${q.ls}/2</b><span>Stop-outs</span></div></div>
@@ -801,8 +826,8 @@ return`Current time ET: ${et}. Journal timestamps are ET${CFG.off?' after a '+CF
 async function ask(e,pre){if(e)e.preventDefault();let q=pre||document.getElementById('q').value.trim();if(!q&&IMGS.length)q='Review the attached chart(s) against my plan.';if(!q||busy)return;CH.push({role:'user',text:q,imgs:IMGS.map(i=>({m:i.m,d:i.d})),th:IMGS.map(i=>i.u)});IMGS=[];busy=true;render();
 try{const ses=(await sb.auth.getSession()).data.session,r=await fetch(SUPABASE_URL+'/functions/v1/'+((window.CFG&&CFG.fn)||'rapid-worker'),{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+ses.access_token,apikey:SUPABASE_KEY},body:JSON.stringify({messages:CH.slice(-10).map((m,i,z)=>({role:m.role,text:m.text,imgs:i==z.length-1?m.imgs||[]:[]})),ctx:buildCtx(analyze(T)),setup:SETUP})});
 const j=await r.json();if(!r.ok)throw new Error(j.error||r.status);CH.push({role:'coach',text:j.reply});if(j.memory)MEM=j.memory;if(j.setup)SETUP=j.setup}catch(err){CH.push({role:'coach',text:'Coach error: '+err.message})}busy=false;render()}
-let LASTEM='';
-function authView(){document.getElementById('nav').innerHTML='';
+let LASTEM='',LASTTAB='';
+function authView(){LASTTAB='';document.getElementById('nav').innerHTML='';
 document.getElementById('v').innerHTML=`<div class="au"><div class="au-top"><img src="${LOGO}" alt="Dan Han Trading" width="104" height="104"><h1>DHT Edge</h1><p>YOUR INTELLIGENT TRADING PARTNER.</p></div>${msg?`<div class="au-msg" role="alert">${esc(msg)}</div>`:''}<form class="au-card" onsubmit="auth('in');return false" novalidate><label>Email<input id="em" type="email" autocomplete="email" inputmode="email" autocapitalize="none" autocorrect="off" spellcheck="false" placeholder="you@email.com" value="${esc(LASTEM)}"></label><label>Password<span class="au-pw"><input id="pw" type="password" autocomplete="current-password" placeholder="8 or more characters"><button type="button" class="au-eye" aria-label="Show password" onclick="togglePw()">Show</button></span></label><button class="b" type="submit" id="aub">Sign in</button><button class="b alt" type="button" onclick="auth('up')">Create account</button></form><p class="au-foot">Your trades are private and stored securely.</p></div>`}
 function togglePw(){const p=document.getElementById('pw'),b=document.querySelector('.au-eye');if(!p||!b)return;const h=p.type=='password';p.type=h?'text':'password';b.textContent=h?'Hide':'Show';b.setAttribute('aria-label',h?'Hide password':'Show password')}
 async function auth(m){const e=document.getElementById('em').value.trim(),p=document.getElementById('pw').value;LASTEM=e;
