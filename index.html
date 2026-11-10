@@ -435,7 +435,9 @@ MF=[['ssmt','Cycle SSMT','Confirmed on 4H, 1H, 15m or 5m?'],['pd','1H Prem/Disc'
 WIN=[['London','London Silver Bullet','3:00 AM',180,240],['NY','NY Silver Bullet','10:00 AM',600,660]];
 let AT=[],SRVA=new Set(),svA=Promise.resolve(),JA='all',JU='usd',JR='all',showTR=false,showAF=false,PF=null,UEMAIL='';
 let PREF={name:'',h24:false};try{PREF=Object.assign(PREF,JSON.parse(localStorage.getItem('thc_prefs')||'{}'))}catch(e){}
-const savePref=()=>{try{localStorage.setItem('thc_prefs',JSON.stringify(PREF))}catch(e){}};
+const savePrefLocal=()=>{try{localStorage.setItem('thc_prefs',JSON.stringify(PREF))}catch(e){}};let _pt=null;
+const cloudPref=()=>{clearTimeout(_pt);_pt=setTimeout(()=>{try{if(UID&&sb)sb.auth.updateUser({data:{prefs:PREF}})}catch(e){}},800)};
+const savePref=()=>{savePrefLocal();cloudPref()};
 const etNow=()=>{const p=Object.fromEntries(new Intl.DateTimeFormat('en-CA',{timeZone:'America/New_York',hourCycle:'h23',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'}).formatToParts(new Date()).map(x=>[x.type,x.value]));return p.year+'-'+p.month+'-'+p.day+'T'+p.hour+':'+p.minute};
 const tmin=t=>+t.slice(0,2)*60+ +t.slice(3,5),etMin=d=>+d.slice(11,13)*60+ +d.slice(14,16),money=n=>(n<0?'−$':'$')+Math.abs(Math.round(n)).toLocaleString('en-US');
 let AUTO=[],NSTAT={s:'loading',u:''};const NEWS_CCY=['USD'],NEWS_URLS=['https://raw.githubusercontent.com/danitenker2019-ship-it/dht-trading/main/news.json','news.json'],NEWS_MAX_AGE=4*36e5,NCK='thc_news_cache';
@@ -812,11 +814,12 @@ if(r.error){msg=/invalid login/i.test(r.error.message)?'Wrong email or password.
 if(!r.data.session){msg='Check your email to confirm your account, then sign in.';return render()}
 msg='';await boot()}catch(x){msg='Cannot reach the server. Check your connection and try again.';render()}}
 async function boot(){tab='home';if(SUPABASE_URL.includes('PASTE')){msg='Setup needed: paste your Supabase URL and anon key at the top of the script (see README).';return render()}
-sb=sb||supabase.createClient(SUPABASE_URL,SUPABASE_KEY);const g=await sb.auth.getSession();UID=g.data.session?g.data.session.user.id:null;UEMAIL=g.data.session?g.data.session.user.email:'';T=[];SRV=new Set();AT=[];SRVA=new Set();
+sb=sb||supabase.createClient(SUPABASE_URL,SUPABASE_KEY);const g=await sb.auth.getSession();UID=g.data.session?g.data.session.user.id:null;UEMAIL=g.data.session?g.data.session.user.email:'';
+if(UID){const cp=(g.data.session.user.user_metadata||{}).prefs;if(cp&&Object.keys(cp).length){PREF=Object.assign({name:'',h24:false},PREF,cp);savePrefLocal()}else if(PREF.name||PREF.h24)cloudPref()}T=[];SRV=new Set();AT=[];SRVA=new Set();
 if(UID){const a=await sb.from('trades').select('*').order('d').range(0,4999);T=(a.data||[]).map(x=>({...x,p:+x.p,z:+x.z,m:+x.m,r:x.r==null?null:+x.r}));SRV=new Set(T.map(t=>t.id));
 const c=await sb.from('settings').select('*').maybeSingle();if(c.data)CFG={bal:+c.data.bal,off:+c.data.tzoff};const mm=await sb.from('coach_memory').select('notes').maybeSingle();MEM=mm.data?mm.data.notes:'';const ac=await sb.from('accounts').select('*').order('created');AT=(ac.data||[]).map(a=>({...a,size:+a.size,ddd:+a.ddd,dmx:+a.dmx,t1:+a.t1,t2:+a.t2,steps:+a.steps,hist:a.hist||[]}));SRVA=new Set(AT.map(a=>a.id))}
 msg=msg.startsWith('Setup')?msg:'';render()}
-async function out(){await sb.auth.signOut();UID=null;T=[];AT=[];CK={};CH=[];MEM='';SETUP={};IMGS=[];PF=null;tab='home';render()}
+async function out(){await sb.auth.signOut();PREF={name:'',h24:false};try{localStorage.removeItem('thc_prefs')}catch(e){}UID=null;T=[];AT=[];CK={};CH=[];MEM='';SETUP={};IMGS=[];PF=null;tab='home';render()}
 setInterval(()=>{if(UID&&tab=='home'){const e=document.getElementById('sess');if(e){e.innerHTML=sessInner();e.className='card sess'+(sess().open?' open':'')}}},1000);
 document.getElementById('lgi').src=LOGO;{const fi=document.createElement('link');fi.rel='icon';fi.href=LOGO;document.head.appendChild(fi)}
 function setOnline(){const d=document.querySelector('.dot');if(!d||typeof navigator=='undefined')return;const on=navigator.onLine!==false;d.classList.toggle('off',!on);d.title=on?'Online':'Offline';d.setAttribute('aria-label',on?'Online':'Offline')}
