@@ -323,7 +323,6 @@ nav.bnav.hide{transform:translateY(calc(100% + 32px));opacity:0;pointer-events:n
 @keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 @keyframes grow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
 @keyframes riseop{from{opacity:0}}
-@keyframes dialin{from{transform:rotate(0deg)}}
 @keyframes redpulse{0%,100%{box-shadow:0 0 0 0 rgba(255,85,99,.5)}50%{box-shadow:0 0 0 7px rgba(255,85,99,0)}}
 @keyframes livepulse{50%{box-shadow:0 0 26px rgba(125,255,46,.22)}}
 @keyframes softpulse{50%{opacity:.6}}
@@ -334,8 +333,6 @@ nav.bnav.hide{transform:translateY(calc(100% + 32px));opacity:0;pointer-events:n
 #v.enter>*{animation:rise .5s cubic-bezier(.2,.7,.2,1) backwards}
 #v.enter>*:nth-child(2){animation-delay:.06s}#v.enter>*:nth-child(3){animation-delay:.12s}#v.enter>*:nth-child(4){animation-delay:.18s}#v.enter>*:nth-child(5){animation-delay:.24s}#v.enter>*:nth-child(6){animation-delay:.3s}#v.enter>*:nth-child(n+7){animation-delay:.36s}
 #v.enter>*:not(#sess) .bar i{transform-origin:left;animation:grow .9s .2s cubic-bezier(.2,.7,.2,1) backwards}
-#v.enter .sg{animation:riseop .4s var(--d,0s) backwards}
-#v.enter .dial{animation:dialin 1.2s cubic-bezier(.2,.8,.2,1) backwards}
 .dt-p.hot,.newsbar.hot,.ai-pill.stop,.card.no{animation:redpulse 1.2s ease-in-out infinite}
 .dt-p.live,.dt-p.wait,.ai-pill.live,.ai-pill.wait{animation:softpulse 2s ease-in-out infinite}
 .card.sess.open{animation:livepulse 3s ease-in-out infinite}
@@ -599,7 +596,7 @@ document.getElementById('nav').innerHTML=`<div class="sb-only sb-brand"><img src
 document.body.dataset.tab=tab;drawTop();
 let h=msg?`<div class="msg">${esc(msg)}</div>`:'';
 h+=tab=='home'?homeView():tab=='journal'?journalView():tab=='flight'?flightView():tab=='accts'?acctView():tab=='coach'?`<div class="hd"><h1>AI Coach</h1></div>`+coachView():profileView();
-const V=document.getElementById('v');V.innerHTML=h;if(LASTTAB!==tab){LASTTAB=tab;V.classList.remove('enter');void V.offsetWidth;V.classList.add('enter');clearTimeout(window._et);window._et=setTimeout(()=>V.classList.remove('enter'),1500)}}
+const V=document.getElementById('v');V.innerHTML=h;try{animGauges()}catch(e){}if(LASTTAB!==tab){LASTTAB=tab;V.classList.remove('enter');void V.offsetWidth;V.classList.add('enter');clearTimeout(window._et);window._et=setTimeout(()=>V.classList.remove('enter'),1500)}}
 const TSP={50:{size:50000,mll:2000,tgt:3000,dll:1000,pay:[2000,3000]},100:{size:100000,mll:3000,tgt:6000,dll:2000,pay:[3000,4000]},150:{size:150000,mll:4500,tgt:9000,dll:3000,pay:[5000,6000]}},KL={futures:'Futures prop (Topstep)',prop:'Prop challenge',funded:'Funded',live:'Live',demo:'Demo'},DN=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 const sm=n=>(n<0?'−':'+')+'$'+Math.abs(Math.round(n)).toLocaleString('en-US');
 const fmt=m=>{m=Math.round(m);const h=Math.floor(m/60)%24,mi=m%60;return PREF.h24?p2(h)+':'+p2(mi):((h%12)||12)+':'+p2(mi)+' '+(h<12?'AM':'PM')};
@@ -660,8 +657,12 @@ function gaugeSVG(v,min,max,txt,col,id,lab){const cx=150,cy=96,rx=124,ry=50,N=46
 pt=(k,th,dy)=>(cx+rx*k*Math.cos(rad(th))).toFixed(1)+','+(cy+(dy||0)+ry*k*Math.sin(rad(th))).toFixed(1),
 arcP=(k,t1,t2,dy)=>`M${pt(k,t1,dy)} A${(rx*k).toFixed(1)} ${(ry*k).toFixed(1)} 0 0 ${t2<t1?0:1} ${pt(k,t2,dy)}`;
 let seg='',tip='';for(let i=0;i<N;i++){const th=S0-SW*i/(N-1),on=i<lit,isT=i==lit-1,f=lit>1?i/(lit-1):1,i1=pt(.84,th).split(','),o1=pt(.98,th).split(','),
-ln=`<line ${on?'class="sg" style="--d:'+(i*14)+'ms"':''} x1="${i1[0]}" y1="${i1[1]}" x2="${o1[0]}" y2="${o1[1]}" stroke="${isT?'#fff':col}" stroke-opacity="${on?(isT?1:(.4+.6*f).toFixed(2)):.14}" stroke-width="${isT?5.5:3.4}"/>`;if(isT)tip=ln;else seg+=ln}
-return`<svg viewBox="0 0 300 190" class="gg" role="img" aria-label="${esc(txt)}"><g class="dial" style="transform-origin:150px 96px;transform:rotate(${((p-.5)*30).toFixed(1)}deg)"><g fill="none" stroke="${col}" stroke-linecap="round"><ellipse cx="${cx}" cy="${cy}" rx="${rx*1.06}" ry="${ry*1.06}" stroke-opacity=".28" stroke-width="1.2"/><path d="${arcP(.74,205,-25)}" stroke-opacity=".45" stroke-width="1.2"/><g style="filter:drop-shadow(0 0 5px ${col})"><path d="${arcP(1.1,172,128)}" stroke-width="3"/><path d="${arcP(1.1,-28,-62)}" stroke-width="3" stroke-opacity=".8"/></g></g><g style="filter:drop-shadow(0 0 4px ${col}cc)">${seg}${tip}</g></g><text x="${cx}" y="${cy-12}" text-anchor="middle" dominant-baseline="central" font-size="46" font-weight="800" fill="#f0f4f0" style="font-variant-numeric:tabular-nums">${esc(txt)}</text>${lab?`<text x="${cx}" y="${cy+22}" text-anchor="middle" font-size="12" font-weight="700" letter-spacing="2.5" fill="${col}">${esc(String(lab).toUpperCase())}</text>`:''}</svg>`}
+ln=`<line class="sgm" data-i="${i}" x1="${i1[0]}" y1="${i1[1]}" x2="${o1[0]}" y2="${o1[1]}" stroke="${isT?'#fff':col}" stroke-opacity="${on?(isT?1:(.4+.6*f).toFixed(2)):.14}" stroke-width="${isT?5.5:3.4}"/>`;if(isT)tip=ln;else seg+=ln}
+return`<svg viewBox="0 0 300 190" class="gg" data-id="${id}" data-lit="${lit}" data-col="${col}" role="img" aria-label="${esc(txt)}"><g fill="none" stroke="${col}" stroke-linecap="round"><ellipse cx="${cx}" cy="${cy}" rx="${rx*1.06}" ry="${ry*1.06}" stroke-opacity=".28" stroke-width="1.2"/><path d="${arcP(.74,205,-25)}" stroke-opacity=".45" stroke-width="1.2"/><g style="filter:drop-shadow(0 0 5px ${col})"><path d="${arcP(1.1,172,128)}" stroke-width="3"/><path d="${arcP(1.1,-28,-62)}" stroke-width="3" stroke-opacity=".8"/></g></g><g style="filter:drop-shadow(0 0 4px ${col}cc)">${seg}${tip}</g><text x="${cx}" y="${cy-12}" text-anchor="middle" dominant-baseline="central" font-size="46" font-weight="800" fill="#f0f4f0" style="font-variant-numeric:tabular-nums">${esc(txt)}</text>${lab?`<text x="${cx}" y="${cy+22}" text-anchor="middle" font-size="12" font-weight="700" letter-spacing="2.5" fill="${col}">${esc(String(lab).toUpperCase())}</text>`:''}</svg>`}
+const GPREV={};
+function animGauges(){if(window.matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches)return;document.querySelectorAll('svg.gg[data-lit]').forEach(sv=>{const id=sv.dataset.id,to=+sv.dataset.lit,col=sv.dataset.col,from=GPREV[id]==null?0:GPREV[id];GPREV[id]=to;if(from===to)return;const segs=sv.querySelectorAll('.sgm');
+const paint=c=>{const n=Math.round(c);segs.forEach(l=>{const i=+l.dataset.i,on=i<n,tip=i==n-1;l.setAttribute('stroke',tip?'#fff':col);l.setAttribute('stroke-opacity',on?(tip?1:(n>1?.4+.6*i/(n-1):1).toFixed(2)):.14);l.setAttribute('stroke-width',tip?5.5:3.4)})};
+paint(from);const t0=performance.now(),D=900+Math.abs(to-from)*10;(function f(t){const k=Math.min(1,Math.max(0,(t-t0)/D)),e=1-Math.pow(1-k,3);paint(from+(to-from)*e);if(k<1&&sv.isConnected)requestAnimationFrame(f)})(t0)})}
 function gaugesInner(){const A=analyze(T).A,n=A.length;if(!n)return'<div class="sec"><h3>Performance gauges</h3></div><p class="mut">Log trades to fill your gauges.</p>';
 const w=A.filter(t=>t.p>0).length,l=A.filter(t=>t.p<0).length,vi=A.filter(isViol).length,gp=sum(A.filter(t=>t.p>0).map(t=>t.p)),gl=Math.abs(sum(A.filter(t=>t.p<0).map(t=>t.p))),wr=Math.round(w/n*100),di=Math.round((n-vi)/n*100),pf=gl?gp/gl:(gp>0?3:0);
 const G=[['Win rate',wr,0,100,wr+'%',w+'W / '+l+'L',[40,55]],['Plan discipline',di,0,100,di+'%',(n-vi)+' of '+n+' trades on plan',[70,90]],['Profit factor',Math.min(pf,3),0,3,pf.toFixed(2),cm(gp)+' won · '+cm(-gl)+' lost',[1,1.5]]];
