@@ -299,9 +299,9 @@ body[data-tab=flight] #v>.pfcol{display:flex;flex-direction:column;gap:20px;grid
 body[data-tab=home] #gauges{grid-column:1/-1}
 .gauges .sec{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:6px}
 .gg-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
-.gg-c{text-align:center;padding:16px 14px 16px;border:1px solid #12262c;border-radius:20px;background:radial-gradient(ellipse at 50% 38%,#0b1a20 0%,#060808 70%)}
+.gg-c{text-align:center;padding:16px 14px 16px;border:1px solid #12262c;border-radius:20px;background:#0a0e0c}
 .gg-t{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#829586;margin-bottom:6px}
-.gg{display:block;width:100%;max-width:170px;margin:0 auto 10px}
+.gg{display:block;width:100%;max-width:340px;margin:0 auto 4px}
 
 .gg-z{font-size:12.5px;font-weight:700;margin-top:2px;letter-spacing:.2em;text-transform:uppercase}.gg-s{font-size:13px;color:#829586;margin-top:3px}
 }
@@ -333,7 +333,7 @@ nav.bnav.hide{transform:translateY(calc(100% + 32px));opacity:0;pointer-events:n
 #v.enter>*{animation:rise .5s cubic-bezier(.2,.7,.2,1) backwards}
 #v.enter>*:nth-child(2){animation-delay:.06s}#v.enter>*:nth-child(3){animation-delay:.12s}#v.enter>*:nth-child(4){animation-delay:.18s}#v.enter>*:nth-child(5){animation-delay:.24s}#v.enter>*:nth-child(6){animation-delay:.3s}#v.enter>*:nth-child(n+7){animation-delay:.36s}
 #v.enter>*:not(#sess) .bar i{transform-origin:left;animation:grow .9s .2s cubic-bezier(.2,.7,.2,1) backwards}
-#v.enter .gg-arc{animation:riseop .9s ease-out backwards}
+#v.enter .sg{animation:riseop .4s var(--d,0s) backwards}
 .dt-p.hot,.newsbar.hot,.ai-pill.stop,.card.no{animation:redpulse 1.2s ease-in-out infinite}
 .dt-p.live,.dt-p.wait,.ai-pill.live,.ai-pill.wait{animation:softpulse 2s ease-in-out infinite}
 .card.sess.open{animation:livepulse 3s ease-in-out infinite}
@@ -654,14 +654,16 @@ return`<div class="ai-h"><div class="ai-ic">${BRAIN}</div><div class="ai-t"><b>D
 function insightDetail(){let d;try{d=insightData()}catch(x){return''}
 const sec=(l,t,k)=>`<div class="ai-s"><span class="ai-l ${k||''}">${l}</span><p>${esc(t)}</p></div>`;
 return`<div class="ai-s"><span class="ai-l">Performance</span><div class="ai-perf">${d.perf.map(p=>`<div><b class="${p[2]}">${esc(p[1])}</b><span>${p[0]}</span></div>`).join('')}</div></div>`+sec('Strength',d.str,'up')+(d.pat?sec('Pattern',d.pat,'cy'):'')+sec('Improve',d.imp,'dn')}
-function gaugeSVG(v,min,max,txt,col,id){const p=v==null?0:Math.max(0,Math.min(1,(v-min)/(max-min))),N=48,on=p>0?Math.max(1,Math.round(p*N)):0,R=76,pt=(a,r)=>[(100+r*Math.cos(a)).toFixed(2),(100+r*Math.sin(a)).toFixed(2)],seg=(i,r,w,st)=>{const a0=-Math.PI/2+i/N*2*Math.PI+.022,a1=-Math.PI/2+(i+1)/N*2*Math.PI-.022,A=pt(a0,r),B=pt(a1,r);return`<path d="M${A[0]} ${A[1]}A${r} ${r} 0 0 1 ${B[0]} ${B[1]}" fill="none" stroke="${st}" stroke-width="${w}"/>`};
-let tr='',fl='';for(let i=0;i<N;i++){tr+=seg(i,R,9,'#16262b');if(i<on)fl+=seg(i,R,9,i==on-1&&on<N?'#fff':col)}
-const m=/^([\d.]+)(%?)$/.exec(txt),num=m?m[1]:txt,suf=m&&m[2]?`<tspan font-size="17" font-weight="500" dx="2" fill="${col}">%</tspan>`:'';
-return`<svg viewBox="0 0 200 200" class="gg" role="img" aria-label="${esc(txt)}"><circle cx="100" cy="100" r="${R+11}" fill="none" stroke="${col}" stroke-opacity=".22" stroke-width="1"/><circle cx="100" cy="100" r="${R-11}" fill="none" stroke="${col}" stroke-opacity=".4" stroke-width="1"/>${tr}<g class="gg-arc" style="filter:drop-shadow(0 0 4px ${col}cc)">${fl}</g><text x="100" y="100" text-anchor="middle" dominant-baseline="central" font-family="Inter,system-ui,sans-serif" font-size="46" font-weight="600" fill="#fff" style="font-variant-numeric:tabular-nums">${esc(num)}${suf}</text></svg>`}
+function gaugeSVG(v,min,max,txt,col,id,lab){const cx=150,cy=96,rx=124,ry=50,N=46,S0=195,SW=210,p=v==null?0:Math.max(0,Math.min(1,(v-min)/(max-min))),lit=v==null?0:Math.max(p>0?1:0,Math.round(p*N)),rad=d=>d*Math.PI/180,
+pt=(k,th,dy)=>(cx+rx*k*Math.cos(rad(th))).toFixed(1)+','+(cy+(dy||0)+ry*k*Math.sin(rad(th))).toFixed(1),
+arcP=(k,t1,t2,dy)=>`M${pt(k,t1,dy)} A${(rx*k).toFixed(1)} ${(ry*k).toFixed(1)} 0 0 ${t2<t1?0:1} ${pt(k,t2,dy)}`;
+let seg='',tip='';for(let i=0;i<N;i++){const th=S0-SW*i/(N-1),on=i<lit,isT=i==lit-1,f=lit>1?i/(lit-1):1,i1=pt(.84,th).split(','),o1=pt(.98,th).split(','),
+ln=`<line ${on?'class="sg" style="--d:'+(i*14)+'ms"':''} x1="${i1[0]}" y1="${i1[1]}" x2="${o1[0]}" y2="${o1[1]}" stroke="${isT?'#fff':col}" stroke-opacity="${on?(isT?1:(.4+.6*f).toFixed(2)):.14}" stroke-width="${isT?5.5:3.4}"/>`;if(isT)tip=ln;else seg+=ln}
+return`<svg viewBox="0 0 300 190" class="gg" role="img" aria-label="${esc(txt)}"><g fill="none" stroke="${col}" stroke-linecap="round"><ellipse cx="${cx}" cy="${cy}" rx="${rx*1.06}" ry="${ry*1.06}" stroke-opacity=".28" stroke-width="1.2"/><path d="${arcP(.74,205,-25)}" stroke-opacity=".45" stroke-width="1.2"/><g style="filter:drop-shadow(0 0 5px ${col})"><path d="${arcP(1.1,172,128)}" stroke-width="3"/><path d="${arcP(1.1,-28,-62)}" stroke-width="3" stroke-opacity=".8"/></g></g><g style="filter:drop-shadow(0 0 4px ${col}cc)">${seg}${tip}</g><text x="${cx}" y="${cy-12}" text-anchor="middle" dominant-baseline="central" font-size="46" font-weight="800" fill="#f0f4f0" style="font-variant-numeric:tabular-nums">${esc(txt)}</text>${lab?`<text x="${cx}" y="${cy+22}" text-anchor="middle" font-size="12" font-weight="700" letter-spacing="2.5" fill="${col}">${esc(String(lab).toUpperCase())}</text>`:''}</svg>`}
 function gaugesInner(){const A=analyze(T).A,n=A.length;if(!n)return'<div class="sec"><h3>Performance gauges</h3></div><p class="mut">Log trades to fill your gauges.</p>';
 const w=A.filter(t=>t.p>0).length,l=A.filter(t=>t.p<0).length,vi=A.filter(isViol).length,gp=sum(A.filter(t=>t.p>0).map(t=>t.p)),gl=Math.abs(sum(A.filter(t=>t.p<0).map(t=>t.p))),wr=Math.round(w/n*100),di=Math.round((n-vi)/n*100),pf=gl?gp/gl:(gp>0?3:0);
 const G=[['Win rate',wr,0,100,wr+'%',w+'W / '+l+'L',[40,55]],['Plan discipline',di,0,100,di+'%',(n-vi)+' of '+n+' trades on plan',[70,90]],['Profit factor',Math.min(pf,3),0,3,pf.toFixed(2),cm(gp)+' won · '+cm(-gl)+' lost',[1,1.5]]];
-const body=G.map((g,i)=>{const lv=g[1]<g[6][0]?0:g[1]<g[6][1]?1:2,col=['#ff5563','#facc15','#7dff2e'][lv],wd=['Needs work','Building','Strong'][lv];return`<div class="gg-c"><div class="gg-t">${g[0]}</div>${gaugeSVG(g[1],g[2],g[3],g[4],col,i)}<div class="gg-z" style="color:${col}">${wd}</div><div class="gg-s">${esc(g[5])}</div></div>`}).join('');
+const body=G.map((g,i)=>{const lv=g[1]<g[6][0]?0:g[1]<g[6][1]?1:2,col=['#ff5563','#facc15','#7dff2e'][lv],wd=['Needs work','Building','Strong'][lv];return`<div class="gg-c"><div class="gg-t">${g[0]}</div>${gaugeSVG(g[1],g[2],g[3],g[4],col,i,wd)}<div class="gg-s">${esc(g[5])}</div></div>`}).join('');
 return`<div class="sec"><h3>Performance gauges</h3><span class="mut small">All accounts · ${n} closed trade${n==1?'':'s'}</span></div><div class="gg-row">${body}</div>`}
 function homeView(){const a=analyze(T),A=a.A,q=stat(T),e=etInfo(),g=e.h<12?'morning':e.h<18?'afternoon':'evening',top1=a.out.find(o=>o.l=='warn'),ev=NEWS(),n=A.length,op=T.filter(isOpen).length;
 const lim=q.dl?card(['warn','Daily limit reached','Two stop-outs or -1% today. Close the platform.']):q.wl?card(['warn','Weekly limit reached','-2% this week. Done until Monday.']):'';
