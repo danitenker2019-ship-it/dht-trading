@@ -1,37 +1,64 @@
-name: Update red-folder news
+name: Update news
 on:
   schedule:
-    - cron: '7 * * * *'
+    - cron: '*/30 * * * *'
   workflow_dispatch:
 permissions:
   contents: write
+concurrency:
+  group: news
+  cancel-in-progress: false
 jobs:
-  news:
+  update:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Build news.json
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Fetch red-folder news
         run: |
-          curl -fsSL --retry 3 -A "Mozilla/5.0" https://nfs.faireconomy.media/ff_calendar_thisweek.json -o raw.json
-          python3 - <<'PY'
-          import json, datetime
-          from zoneinfo import ZoneInfo
-          et = ZoneInfo('America/New_York')
-          out = []
-          for e in json.load(open('raw.json')):
-              if e.get('impact') != 'High':
-                  continue
-              dt = datetime.datetime.fromisoformat(e['date']).astimezone(et)
-              if dt.hour == 0 and dt.minute == 0:
-                  continue
-              out.append({'d': dt.strftime('%Y-%m-%d'), 't': dt.strftime('%H:%M'), 'c': e.get('country', ''), 'n': e.get('title', '')})
-          out.sort(key=lambda x: (x['d'], x['t']))
-          json.dump({'updated': datetime.datetime.now(datetime.timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ'), 'events': out}, open('news.json', 'w'), indent=1)
-          PY
-          rm -f raw.json
+          cat > update-news.mjs <<'EOF'
+          import fs from 'node:fs';
+          const URLS = [
+            'https://nfs.faireconomy.media/ff_calendar_thisweek.json',
+            'https://nfs.faireconomy.media/ff_calendar_nextweek.json'
+          ];
+          const fmt = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/New_York', hourCycle: 'h23', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' });
+          const all = [];
+          let loaded = 0;
+          for (const u of URLS) {
+            try {
+              const r = await fetch(u, { headers: { 'User-Agent': 'Mozilla/5.0 (dht-news-bot)' } });
+              if (!r.ok) { console.log(u, 'HTTP', r.status); continue; }
+              const j = await r.json();
+              if (!Array.isArray(j)) continue;
+              loaded++;
+              for (const e of j) {
+                if (String(e.impact).toLowerCase() !== 'high') continue;
+                const d = new Date(e.date);
+                if (isNaN(d)) continue;
+                const p = Object.fromEntries(fmt.formatToParts(d).map(x => [x.type, x.value]));
+                all.push({ d: p.year + '-' + p.month + '-' + p.day, t: p.hour + ':' + p.minute, c: String(e.country || '').toUpperCase(), n: String(e.title || '').trim() });
+              }
+            } catch (err) { console.log(u, 'failed:', err.message); }
+          }
+          if (!loaded) { console.error('Could not load the calendar. Keeping the old news.json.'); process.exit(1); }
+          const seen = new Set();
+          const events = all.filter(e => { const k = JSON.stringify(e); if (seen.has(k)) return false; seen.add(k); return true; })
+            .sort((a, b) => (a.d + a.t + a.c + a.n).localeCompare(b.d + b.t + b.c + b.n));
+          let old = null;
+          try { old = JSON.parse(fs.readFileSync('news.json', 'utf8')); } catch {}
+          const same = old && JSON.stringify(old.events) === JSON.stringify(events);
+          const fresh = old && old.updated && Date.now() - Date.parse(old.updated) < 2 * 3600 * 1000;
+          if (same && fresh) { console.log('No change.'); process.exit(0); }
+          fs.writeFileSync('news.json', JSON.stringify({ updated: new Date().toISOString(), source: 'Forex Factory', events }, null, 1) + '\n');
+          console.log('Wrote', events.length, 'red-folder events');
+          EOF
+          node update-news.mjs
       - name: Save if changed
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config user.name "dht-news-bot"
+          git config user.email "dht-news-bot@users.noreply.github.com"
           git add news.json
-          git diff --cached --quiet || (git commit -m "Update news.json" && git push)
+          git diff --cached --quiet || (git commit -m "Update news" && git push)
