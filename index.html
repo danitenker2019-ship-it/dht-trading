@@ -5,7 +5,7 @@
 <script src="config.js?v=17"></script>
 <link rel="apple-touch-icon" href="icon-v2-180.png">
 <link rel="icon" type="image/png" sizes="32x32" href="icon-v2-32.png"><link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#060808">
-<meta name="color-scheme" content="light dark">
+<meta name="color-scheme" content="light dark"><script>try{var _p=JSON.parse(localStorage.getItem("thc_prefs")||"{}");if(_p.theme)document.documentElement.setAttribute("data-theme",_p.theme)}catch(e){}</script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#060808;--sf:#0a0e0c;--ink:#f0f4f0;--mut:#7f9482;--line:#171f1a;--up:#62dc34;--dn:#ff5563;--acc:#6fe82c;--cy:#38bdf8;--yl:#facc15;color-scheme:dark}
@@ -333,6 +333,16 @@ body.hol-day .card.sess .mut,body.hol-day .card.sess .clk{color:#9aa3a6}
 .hol{padding:12px 14px;border-radius:14px;background:#17191a;border:1px solid #30363a;color:#d2d9db;margin-bottom:12px;font-size:14.5px}.hol b{display:block;margin-bottom:2px;color:#eef1f2}
 .newsbar.holb{background:#17191a;border-color:#30363a;color:#c5cdd0;animation:none}
 
+/* ===== remember me + face id lock ===== */
+.au-card label.au-rm{flex-direction:row;align-items:center;gap:10px;font-weight:500;color:#a9b9ab;cursor:pointer;min-height:28px}
+.au-card .au-rm input{width:20px;height:20px;min-width:20px;padding:0;margin:0;accent-color:#7dff2e}
+#lock{position:fixed;inset:0;z-index:90;background:#060808;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:24px;text-align:center}
+#lock img{border-radius:22px;box-shadow:0 0 0 1px #16301a;margin-bottom:6px}
+#lock b{font-size:26px;font-weight:500;color:#DCE3E8}
+#lock .lk-e{margin:0 0 14px;font-size:13.5px;color:#829586;word-break:break-all}
+#lock .b{width:100%;max-width:320px;height:50px;margin:0}
+#lock .lk-m{min-height:20px;margin:4px 0 0;font-size:13px;color:#ffb3ba}
+
 /* ===== launch splash ===== */
 #splash{position:fixed;inset:0;z-index:100;background:#060808;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;transition:opacity .4s}
 #splash.out{opacity:0;pointer-events:none}
@@ -367,6 +377,154 @@ body.hol-day .card.sess .mut,body.hol-day .card.sess .clk{color:#9aa3a6}
 .dt-p.live,.dt-p.wait,.ai-pill.live,.ai-pill.wait{animation:softpulse 2s ease-in-out infinite}
 .card.sess.open{animation:livepulse 3s ease-in-out infinite}
 }
+
+/* ===== colour theme: monochrome ===== */
+html[data-theme="mono"]{--bg:#070707;--sf:#0c0c0c;--ink:#f2f2f2;--mut:#8a8a8a;--line:#1b1b1b;--up:#f1f3f3;--acc:#f1f3f3}
+:where(html[data-theme="mono"]) .card.go{box-shadow:0 0 24px #64646433}
+:where(html[data-theme="mono"]) .chips button.on{color:#0b0c0c}
+:where(html[data-theme="mono"]) .rw.on .ck{color:#0b0c0c}
+:where(html[data-theme="mono"]) .seg button.l.on{background:#232323}
+:where(html[data-theme="mono"]) .stp span.on{color:#0b0c0c}
+:where(html[data-theme="mono"]) .b,:where(html[data-theme="mono"]) .btn{color:#0b0c0c}
+:where(html[data-theme="mono"]) .sess.open{box-shadow:0 8px 30px #64646422}
+:where(html[data-theme="mono"]) .cd.g{background:#1d1d1d;border-color:#454545}
+:where(html[data-theme="mono"]) ::selection{background:#f1f3f3;color:#0b0c0c}
+:where(html[data-theme="mono"]) *{scrollbar-color:#252525 #070707}
+html[data-theme="mono"]{background:#070707}
+:where(html[data-theme="mono"]) body{background:#070707}
+:where(html[data-theme="mono"]) header{background:rgba(7,7,7,.92);border-bottom:1px solid #171717}
+:where(html[data-theme="mono"]) .lg{background:linear-gradient(135deg,#7e7e7e,#4c4c4c)}
+:where(html[data-theme="mono"]) nav{background:#0c0c0c;border-color:#1a1a1a}
+:where(html[data-theme="mono"]) nav button.on{background:#141414;color:#f1f3f3;box-shadow:0 0 0 1px #353535}
+:where(html[data-theme="mono"]) nav button.on svg{filter:drop-shadow(0 0 3px rgba(241,243,243,.45))}
+:where(html[data-theme="mono"]) .gear{border-color:#353535;background:#101010;color:#f1f3f3}
+:where(html[data-theme="mono"]) .card{background:#0c0c0c}
+:where(html[data-theme="mono"]) .card:hover{border-color:#252525}
+:where(html[data-theme="mono"]) .card.g1{background:linear-gradient(135deg,#1b1b1b,#3e3e3e)}
+:where(html[data-theme="mono"]) .card.g2{background:linear-gradient(135deg,#101010,#292929)}
+:where(html[data-theme="mono"]) .card.go{border-color:#545454;box-shadow:0 0 14px rgba(241,243,243,.10)}
+:where(html[data-theme="mono"]) .card.empty{border-color:#232323}
+:where(html[data-theme="mono"]) .lab{color:#f1f3f3}
+:where(html[data-theme="mono"]) .eyebrow{color:#7a7a7a}
+:where(html[data-theme="mono"]) .plus{background:#101010;color:#f1f3f3;box-shadow:0 0 0 1px #353535}
+:where(html[data-theme="mono"]) .chips button{background:#0c0c0c;color:#8a8a8a}
+:where(html[data-theme="mono"]) .chips button.on{background:#141414;color:#f1f3f3;border-color:#545454}
+:where(html[data-theme="mono"]) .sc button.on{background:#141414;color:#f1f3f3;border-color:#353535}
+:where(html[data-theme="mono"]) .rw{background:#0b0b0b}
+:where(html[data-theme="mono"]) .rw.on{border-color:#353535}
+:where(html[data-theme="mono"]) .rw .ck{border-color:#303030}
+:where(html[data-theme="mono"]) .rw.on .ck{background:#f1f3f3;border-color:#f1f3f3;color:#0b0c0c}
+:where(html[data-theme="mono"]) .seg{background:#0b0b0b}
+:where(html[data-theme="mono"]) .seg button.l.on{background:#1c1c1c;color:#f1f3f3}
+:where(html[data-theme="mono"]) .bar{background:#141414}
+:where(html[data-theme="mono"]) .msg,:where(html[data-theme="mono"]) .ins{background:#0c0c0c}
+:where(html[data-theme="mono"]) input,:where(html[data-theme="mono"]) select{background:#080808}
+:where(html[data-theme="mono"]) input:focus,:where(html[data-theme="mono"]) select:focus{border-color:#545454}
+:where(html[data-theme="mono"]) .b,:where(html[data-theme="mono"]) .btn{background:#f1f3f3;border-color:#f1f3f3;color:#0b0c0c}
+:where(html[data-theme="mono"]) .b:hover,:where(html[data-theme="mono"]) .btn:hover{background:#f1f3f3}
+:where(html[data-theme="mono"]) .b.alt,:where(html[data-theme="mono"]) .btn.alt{border-color:#252525}
+:where(html[data-theme="mono"]) .b.alt:hover,:where(html[data-theme="mono"]) .btn.alt:hover{border-color:#545454}
+:where(html[data-theme="mono"]) .tog:hover{border-color:#252525}
+:where(html[data-theme="mono"]) .mbtn{color:#f1f3f3}
+:where(html[data-theme="mono"]) .stp span.on{background:#f1f3f3;border-color:#f1f3f3;color:#0b0c0c}
+:where(html[data-theme="mono"]) .stp span.dn2{color:#f1f3f3;border-color:#353535}
+:where(html[data-theme="mono"]) .sess{background:#0c0c0c}
+:where(html[data-theme="mono"]) .sess.open{border-color:#545454;box-shadow:0 0 16px rgba(241,243,243,.10)}
+:where(html[data-theme="mono"]) .tile,:where(html[data-theme="mono"]) .kt4>div,:where(html[data-theme="mono"]) .dday{background:#0b0b0b}
+:where(html[data-theme="mono"]) .cd,:where(html[data-theme="mono"]) .cw{background:#0b0b0b}
+:where(html[data-theme="mono"]) .cd:hover,:where(html[data-theme="mono"]) .cw:hover{border-color:#353535}
+:where(html[data-theme="mono"]) .cd.off{border-color:#101010}
+:where(html[data-theme="mono"]) .cd.g{background:#1a1a1a;border-color:#444444}
+:where(html[data-theme="mono"]) .cd.g .dn0,:where(html[data-theme="mono"]) .cd.g b{color:#f1f3f3}
+:where(html[data-theme="mono"]) .cd.td{outline-color:#f1f3f3}
+:where(html[data-theme="mono"]) svg.eq polyline{filter:drop-shadow(0 0 3px rgba(241,243,243,.5))}
+:where(html[data-theme="mono"]) svg path[stroke="#7dff2e"]{filter:drop-shadow(0 0 4px rgba(241,243,243,.55))}
+:where(html[data-theme="mono"]) .lab{color:#9a9a9a}
+:where(html[data-theme="mono"]) .pay{background:#0b0b0b}
+:where(html[data-theme="mono"]) .pay.ready{border-color:#545454;box-shadow:0 0 14px rgba(241,243,243,.10)}
+:where(html[data-theme="mono"]) .dot{background:#f1f3f3;box-shadow:0 0 10px rgba(241,243,243,.85)}
+:where(html[data-theme="mono"]) .dot.off{background:#8a8a8a}
+:where(html[data-theme="mono"]) nav.bnav{border-top:1px solid #171717;background:rgba(7,7,7,.94)}
+:where(html[data-theme="mono"]) .brand small{color:#8c8c8c}
+:where(html[data-theme="mono"]) .ai-ic{background:#141414;border:1px solid #232323}
+:where(html[data-theme="mono"]) .ai-t b{color:#f2f2f2}
+:where(html[data-theme="mono"]) .ai-t span{color:#8c8c8c}
+:where(html[data-theme="mono"]) .ai-pill{background:#212121;color:#f1f3f3}
+:where(html[data-theme="mono"]) .ai-pill.live{background:#242424;color:#f1f3f3}
+:where(html[data-theme="mono"]) .ai-pill.rest{background:#1c1c1c;color:#9a9a9a}
+:where(html[data-theme="mono"]) .ai-head{color:#f2f2f2}
+:where(html[data-theme="mono"]) .ai-body{color:#989898}
+:where(html[data-theme="mono"]) .ai-div{background:#222222}
+:where(html[data-theme="mono"]) .ai-s{border-top:1px solid #181818}
+:where(html[data-theme="mono"]) .ai-l{color:#8c8c8c}
+:where(html[data-theme="mono"]) .ai-s p{color:#d0d0d0}
+:where(html[data-theme="mono"]) .ai-perf>div{background:#0b0b0b}
+:where(html[data-theme="mono"]) .ai-perf span{color:#8c8c8c}
+:where(html[data-theme="mono"]) .au-top img{box-shadow:0 0 0 1px #232323}
+:where(html[data-theme="mono"]) .au-top p{color:#8c8c8c}
+:where(html[data-theme="mono"]) .au-card{background:#0c0c0c}
+:where(html[data-theme="mono"]) .au-card label{color:#b1b1b1}
+:where(html[data-theme="mono"]) .au-eye{color:#f1f3f3}
+:where(html[data-theme="mono"]) .au-foot{color:#7a7a7a}
+:where(html[data-theme="mono"]) .pf-av{background:#141414;border:1px solid #353535;color:#f1f3f3}
+:where(html[data-theme="mono"]) .pf-row{border-top:1px solid #181818}
+:where(html[data-theme="mono"]) .pf-ic{background:#141414;color:#f1f3f3}
+:where(html[data-theme="mono"]) .pf-back{color:#f1f3f3}
+:where(html[data-theme="mono"]) .hero::before{background:radial-gradient(closest-side,rgba(241,243,243,.07),transparent)}
+:where(html[data-theme="mono"]) .hero .eyebrow{color:#f1f3f3}
+:where(html[data-theme="mono"]) .hero h1 .nm{background:linear-gradient(90deg,#f1f3f3,#f1f3f3);-webkit-background-clip:text;background-clip:text}
+:where(html[data-theme="mono"]) .hero p.mut{color:#8c8c8c}
+:where(html[data-theme="mono"]) .card.ai{background:linear-gradient(160deg,#141414 0%,#0d0d0d 60%,#0b0b0b 100%);border-color:#2c2c2c}
+:where(html[data-theme="mono"]) .card.ai .ai-ic{background:#212121;border-color:#343434;color:#f1f3f3}
+:where(html[data-theme="mono"]) .card.sess{background:#0c0c0c}
+:where(html[data-theme="mono"]) .card.sess .lab{color:#9a9a9a}
+:where(html[data-theme="mono"]) .card.sess .sz{color:#f2f2f2}
+:where(html[data-theme="mono"]) .card.sess b{color:#f1f3f3}
+:where(html[data-theme="mono"]) .card.sess.open{background:linear-gradient(160deg,#141414,#0b0b0b);border-color:#545454;box-shadow:0 0 16px rgba(241,243,243,.08)}
+@media (min-width:1024px){:where(html[data-theme="mono"]) nav.bnav{border-right:1px solid #171717;background:#080808}
+:where(html[data-theme="mono"]) nav.bnav .sb-brand img{box-shadow:0 0 0 1px #232323}
+:where(html[data-theme="mono"]) nav.bnav .sb-brand small{color:#8c8c8c}
+:where(html[data-theme="mono"]) nav.bnav .sb-sec{color:#686868}
+:where(html[data-theme="mono"]) nav.bnav button:hover{background:#0f0f0f}
+:where(html[data-theme="mono"]) nav.bnav button.on{background:#141414;color:#f1f3f3;box-shadow:inset 3px 0 0 #f1f3f3,0 0 0 1px #2c2c2c}
+:where(html[data-theme="mono"]) nav.bnav button.sb-prof{border:1px solid #171717;background:#0c0c0c}
+:where(html[data-theme="mono"]) nav.bnav button.sb-prof.on{border-color:#353535}
+:where(html[data-theme="mono"]) .sb-av{background:#141414;border:1px solid #353535;color:#f1f3f3}
+:where(html[data-theme="mono"]) nav.bnav .sb-prof .nl small{color:#8c8c8c}
+:where(html[data-theme="mono"]) .dtop{background:rgba(7,7,7,.88);border-bottom:1px solid #171717}
+:where(html[data-theme="mono"]) .dtop div>span{color:#8c8c8c}
+:where(html[data-theme="mono"]) .dt-p{background:#1c1c1c;color:#a5a5a5;border:1px solid #242424}
+:where(html[data-theme="mono"]) .dt-p.ok,:where(html[data-theme="mono"]) .dt-p.live{background:#1c1c1c;color:#f1f3f3;border-color:#343434}
+:where(html[data-theme="mono"]) .dt-clock{border:1px solid #242424;background:#0c0c0c}}
+:where(html[data-theme="mono"]) .pfs-b{border-top:1px solid #181818}
+:where(html[data-theme="mono"]) .pfs-l{color:#8c8c8c}
+@media (min-width:1024px){:where(html[data-theme="mono"]) .gg-t{color:#8c8c8c}
+:where(html[data-theme="mono"]) .gg-s{color:#8c8c8c}}
+@media (max-width:1023px){:where(html[data-theme="mono"]) nav.bnav{border-top:1px solid #222222;background:rgba(10,10,10,.96)}
+:where(html[data-theme="mono"]) nav.bnav button{color:#a1a1a1}
+:where(html[data-theme="mono"]) nav.bnav button.on{background:#242424;color:#f1f3f3}}
+:where(html[data-theme="mono"]) .au-card label.au-rm{color:#b1b1b1}
+:where(html[data-theme="mono"]) .au-card .au-rm input{accent-color:#f1f3f3}
+:where(html[data-theme="mono"]) #lock{background:#070707}
+:where(html[data-theme="mono"]) #lock img{box-shadow:0 0 0 1px #232323}
+:where(html[data-theme="mono"]) #lock .lk-e{color:#8c8c8c}
+:where(html[data-theme="mono"]) #splash{background:#070707}
+:where(html[data-theme="mono"]) #splash img{box-shadow:0 0 0 1px #232323,0 0 40px rgba(241,243,243,.12)}
+:where(html[data-theme="mono"]) #splash small{color:#8c8c8c}
+:where(html[data-theme="mono"]) .spl-bar{background:#141414}
+:where(html[data-theme="mono"]) .spl-bar i{background:linear-gradient(90deg,#666666,#f1f3f3);box-shadow:0 0 10px rgba(241,243,243,.6)}
+html[data-theme="mono"] svg.gg [stroke="#18211c"]{stroke:#1f2021}
+html[data-theme="mono"] svg.gg [stroke="#6f8576"]{stroke:#7a7e80}
+html[data-theme="mono"] svg.gg [stroke="#7dff2e"],html[data-theme="mono"] svg.gg [stroke="#8dff3a"]{stroke:#f1f3f3}
+html[data-theme="mono"] svg.gg [fill="#7dff2e"]{fill:#f1f3f3}
+html[data-theme="mono"] svg.gg [fill="#7f9482"],html[data-theme="mono"] svg.gg [fill="#5d7062"]{fill:#80858a}
+html[data-theme="mono"] svg [stroke="#162616"]{stroke:#1d1e1f}
+html[data-theme="mono"] svg [fill="#6f8f70"]{fill:#80858a}
+html[data-theme="mono"] svg [stroke="#7dff2e"]{stroke:#f1f3f3}
+html[data-theme="mono"] svg [fill="#7dff2e"]{fill:#f1f3f3}
+html[data-theme="mono"] svg.eq polyline{filter:none}
+html[data-theme="mono"] .card.ai .ai-ic,html[data-theme="mono"] .ai-ic{background:#1b1c1d;border-color:#2b2d2e;color:#e6e9ea}
+
 </style></head>
 <body><div id="splash" role="status" aria-label="Loading"><img id="spl" src="icon-v2-180.png" alt="" width="96" height="96" onerror="this.onerror=null;try{this.src=LOGO}catch(e){this.style.display='none'}"><b>DHT Edge</b><small>YOUR INTELLIGENT TRADING PARTNER.</small><div class="spl-bar"><i></i></div></div><script id="sbjs" async src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script><header><div class="bw"><button class="lgb" aria-label="Home" onclick="go('home')"><img id="lgi" alt="Dan Han Trading" width="44" height="44"></button><div class="brand"><div class="bn"><b>DHT Edge</b><span class="dot" role="status" aria-label="Online" title="Online"></span></div><small>Your intelligent trading partner.</small></div></div><button class="gear" aria-label="Profile" onclick="go('set')"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.6"/><path d="M4.500 20c.8-3.600 3.800-5.500 7.500-5.500s6.700 1.900 7.500 5.500"/></svg></button></header>
 <div id="dtop" class="dtop"></div>
@@ -502,6 +660,7 @@ let PREF={name:'',h24:false};try{PREF=Object.assign(PREF,JSON.parse(localStorage
 const savePrefLocal=()=>{try{localStorage.setItem('thc_prefs',JSON.stringify(PREF))}catch(e){}};let _pt=null;
 const cloudPref=()=>{clearTimeout(_pt);_pt=setTimeout(()=>{try{if(UID&&sb)sb.auth.updateUser({data:{prefs:PREF}})}catch(e){}},800)};
 const savePref=()=>{savePrefLocal();cloudPref()};
+function applyTheme(){try{if(PREF.theme)document.documentElement.setAttribute('data-theme',PREF.theme);else document.documentElement.removeAttribute('data-theme')}catch(e){}}applyTheme();
 const etNow=()=>{const p=Object.fromEntries(new Intl.DateTimeFormat('en-CA',{timeZone:'America/New_York',hourCycle:'h23',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'}).formatToParts(new Date()).map(x=>[x.type,x.value]));return p.year+'-'+p.month+'-'+p.day+'T'+p.hour+':'+p.minute};
 const tmin=t=>+t.slice(0,2)*60+ +t.slice(3,5),etMin=d=>+d.slice(11,13)*60+ +d.slice(14,16),money=n=>(n<0?'−$':'$')+Math.abs(Math.round(n)).toLocaleString('en-US');
 let AUTO=[],HOL=[],NSTAT={s:'loading',u:''};const HOLC=['USD'];let FFH={t:0,list:[]};try{FFH.list=JSON.parse(localStorage.getItem('thc_ffh')||'[]')}catch(e){}
@@ -853,14 +1012,30 @@ async function syncPush(){try{if(typeof UID=='undefined'||!UID||!('serviceWorker
 function pushCard(){if(PSEC=='settings')refreshPush();const tx={'ios-install':'To get alerts on iPhone, add this app to your Home Screen (Share, then Add to Home Screen) and open it from that icon.',unsupported:'This browser does not support notifications.',denied:'Notifications are blocked. Allow them for this app in your device settings, then come back.',off:'Get a heads-up before each kill zone and red-folder news, even when the app is closed.',on:'Notifications are on for this device.','…':'Checking…'}[PUSHST]||'';
 return`<div class="card"><div class="sec"><h3>Notifications</h3></div><p class="mut small" style="margin:0 0 12px">${tx}</p>${PUSHST=='off'?'<button class="b" onclick="enablePush()">Enable notifications</button>':''}${PUSHST=='on'?'<div style="display:flex;gap:10px;flex-wrap:wrap"><button class="b alt" onclick="testPush()">Send test alert</button><button class="b alt" onclick="disablePush()">Turn off</button></div>':''}<p class="mut small" style="margin:12px 0 0">Alerts: 15 minutes before London (3:00 AM) and NY (10:00 AM) on weekdays, and before red-folder USD news. All times ET.</p></div>`}
 let PSEC='';
+const bioEnc=b=>btoa(String.fromCharCode(...new Uint8Array(b))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,''),bioDec=t=>Uint8Array.from(atob(t.replace(/-/g,'+').replace(/_/g,'/')),c=>c.charCodeAt(0));
+let BIOAV=null,BIOASK=false,HID=0;
+function bioOn(uid){try{const b=JSON.parse(localStorage.getItem('thc_bio')||'null');return b&&b.uid==uid&&b.id?b:null}catch(e){return null}}
+function bioAsk(){if(BIOASK)return;BIOASK=true;(async()=>{let v=false;try{v=!!(window.PublicKeyCredential&&window.isSecureContext&&await PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable())}catch(e){}BIOAV=v;if(PSEC=='settings')render()})()}
+async function bioVerify(b){try{const r=await navigator.credentials.get({publicKey:{challenge:crypto.getRandomValues(new Uint8Array(32)),allowCredentials:[{type:'public-key',id:bioDec(b.id),transports:['internal']}],userVerification:'required',timeout:60000}});return !!r}catch(e){return false}}
+async function enableBio(){try{const c=await navigator.credentials.create({publicKey:{challenge:crypto.getRandomValues(new Uint8Array(32)),rp:{name:'DHT Edge'},user:{id:new TextEncoder().encode(UID||'user'),name:UEMAIL||'user',displayName:UEMAIL||'user'},pubKeyCredParams:[{type:'public-key',alg:-7},{type:'public-key',alg:-257}],authenticatorSelection:{authenticatorAttachment:'platform',userVerification:'required',residentKey:'discouraged'},timeout:60000,attestation:'none'}});if(!c)throw 0;localStorage.setItem('thc_bio',JSON.stringify({uid:UID,id:bioEnc(c.rawId)}));UNLOCKED=true;msg='Face ID unlock is on for this device.'}catch(e){msg=e&&e.name=='NotAllowedError'?'Face ID setup was cancelled.':'Could not turn on Face ID on this device.'}render()}
+function disableBio(){try{localStorage.removeItem('thc_bio')}catch(e){}msg='Face ID unlock is off.';render()}
+function lockNow(){const b=bioOn(UID);if(b)showLock(b)}
+function showLock(b){return new Promise(res=>{if(document.getElementById('lock'))return res('ok');const d=document.createElement('div');d.id='lock';d.setAttribute('role','dialog');d.setAttribute('aria-label','Unlock');d.innerHTML=`<img src="${LOGO}" alt="" width="88" height="88"><b>DHT Edge</b><p class="lk-e">${esc(UEMAIL||'')}</p><button class="b" id="lkb" type="button">Unlock with Face ID</button><button class="b alt" id="lko" type="button">Use password instead</button><p class="lk-m" id="lkm" role="status"></p>`;document.body.appendChild(d);
+const go=async(auto)=>{const ok=await bioVerify(b);if(ok){d.remove();UNLOCKED=true;res('ok')}else if(!auto){const m=document.getElementById('lkm');if(m)m.textContent='Face ID did not match. Try again.'}};
+document.getElementById('lkb').onclick=()=>go(false);document.getElementById('lko').onclick=async()=>{d.remove();await out();res('out')};setTimeout(()=>go(true),350)})}
+document.addEventListener('visibilitychange',()=>{if(document.hidden)HID=Date.now();else if(UID&&HID&&Date.now()-HID>3e5){const b=bioOn(UID);if(b&&!document.getElementById('lock'))showLock(b)}});
+function bioCard(){bioAsk();const on=!!bioOn(UID);let tx,btn='';if(BIOAV===null)tx='Checking…';else if(!BIOAV)tx='Face ID or fingerprint unlock is not available on this device or browser. It needs a secure (https) page and a device passcode or biometrics.';else if(on){tx='Face ID unlock is on. You will be asked to unlock when you open the app and when you come back after a few minutes away.';btn='<div style="display:flex;gap:10px;flex-wrap:wrap"><button class="b alt" onclick="lockNow()">Lock now</button><button class="b alt" onclick="disableBio()">Turn off</button></div>'}else{tx='Open the app with Face ID or your fingerprint instead of typing your password again.';btn='<button class="b" onclick="enableBio()">Turn on Face ID</button>'}
+return`<div class="card"><div class="sec"><h3>Face ID unlock</h3></div><p class="mut small" style="margin:0 0 12px">${tx}</p>${btn}</div>`}
+
 function pfIc(d){return`<svg class="i" viewBox="0 0 24 24">${d}</svg>`}
 function pfBack(t){return`<button class="pf-back" onclick="PSEC='';render();window.scrollTo(0,0)">‹ Profile</button><div class="hd"><h1>${t}</h1></div>`}
 function profileView(){const e=etInfo(),row=(x,y)=>`<div class="tr"><span>${x}</span><b>${y}</b></div>`,nm=(PREF.name||'').trim(),ini=(nm||UEMAIL||'T').trim()[0].toUpperCase();
 if(PSEC=='info')return pfBack('Personal info')+`<div class="card"><form onsubmit="return false"><label class="w">Your name<input value="${esc(PREF.name)}" placeholder="Trader" onchange="PREF.name=this.value.trim();savePref()"></label><div class="tr" style="margin-top:6px"><span>Email</span><b style="word-break:break-all;text-align:right">${esc(UEMAIL||'Signed in')}</b></div></form></div><button class="b alt" onclick="out()">Sign out</button>`;
 if(PSEC=='accts')return pfBack('Trading accounts')+`<div class="card">${AT.length?AT.map(a=>`<div class="tr"><span>${esc(a.name)}</span><b class="mut">${esc((a.phase=='f'&&a.kind!='funded'?'Funded':KL[a.kind])||'')}</b></div>`).join(''):'<p class="mut">No accounts yet.</p>'}</div><button class="b" onclick="go('accts')">Open Accounts</button>`;
 if(PSEC=='plan')return pfBack('Trading plan')+`<div class="card"><div class="sec"><h3>Trading plan</h3></div>${row('London kill zone',fmt(180)+'–'+fmt(240)+' ET')}${row('New York kill zone',fmt(600)+'–'+fmt(660)+' ET')}${row('Days','Mon–Fri (markets open)')}${row('Risk per trade','0.5%')}${row('Daily loss limit','−1% (two stop-outs)')}${row('Weekly loss limit','−2%')}${row('Targets','50% at 1:3 · rest at 1:10')}<p class="mut small" style="margin-top:10px">These come from your plan and are read-only. The plan says not to change them mid-week.</p></div>`;
-if(PSEC=='settings')return pfBack('Settings')+`<div class="card"><div class="sec"><h3>Preferences</h3></div><form onsubmit="return false"><label class="w">Time format<select onchange="PREF.h24=this.value=='24';savePref();render()"><option value="12" ${PREF.h24?'':'selected'}>12-hour</option><option value="24" ${PREF.h24?'selected':''}>24-hour</option></select></label></form><p class="mut small" style="margin-top:10px">All times follow Eastern Time (${e.abbr}), including daylight saving changes.</p></div>
+if(PSEC=='settings')return pfBack('Settings')+`<div class="card"><div class="sec"><h3>Preferences</h3></div><form onsubmit="return false"><label class="w">Time format<select onchange="PREF.h24=this.value=='24';savePref();render()"><option value="12" ${PREF.h24?'':'selected'}>12-hour</option><option value="24" ${PREF.h24?'selected':''}>24-hour</option></select></label><label class="w">Colour theme<select onchange="PREF.theme=this.value;savePref();applyTheme();render()"><option value="" ${PREF.theme?'':'selected'}>Green (default)</option><option value="mono" ${PREF.theme=='mono'?'selected':''}>Monochrome</option></select></label></form><p class="mut small" style="margin-top:10px">All times follow Eastern Time (${e.abbr}), including daylight saving changes.</p></div>
 ${pushCard()}
+${bioCard()}
 <div class="card"><div class="sec"><h3>Data</h3></div><p class="mut small" style="margin-bottom:12px">Back up about once a month. Restore adds back anything missing and never deletes what you have.</p><form onsubmit="return false"><label class="w">Balance when no account is selected<input type="number" value="${CFG.bal||''}" onchange="CFG.bal=+this.value||0;saveCfg();render()"></label><label class="w">Hours to add to imported CSV times to get ET<input type="number" value="${CFG.off}" onchange="CFG.off=+this.value||0;saveCfg()"></label></form><label style="display:flex;flex-direction:column;gap:6px;margin-top:14px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--mut);font-weight:700">Put imported trades in<select onchange="IMPACC=this.value">${AT.map(a=>`<option value="${a.id}" ${(IMPACC||(AT[0]&&AT[0].id))==a.id?'selected':''}>${esc(a.name)}</option>`).join('')}</select></label><label class="btn alt" tabindex="0">Import CSV<input type="file" accept=".csv,text/csv" hidden onchange="onFile(this)"></label><button class="b" onclick="backup()">Back up everything</button><label class="btn alt" tabindex="0">Restore backup<input type="file" accept=".json,application/json" hidden onchange="restore(this)"></label><button class="b alt" onclick="exp()">Export trades CSV</button><button class="b alt" onclick="T=sample();save();render()">Load sample data</button><button class="b alt" onclick="if(confirm('Delete ALL trades?')){T=[];save();render()}">Delete all trades</button></div>`;
 if(PSEC=='memory')return pfBack('Coach memory')+`<div class="card">${MEM?`<p>${esc(MEM).replace(/\n/g,'<br>')}</p>`:'<p class="mut">Your coach has not saved anything yet. It learns as you chat and journal.</p>'}</div>`;
 const m=(k,ic,t,d)=>`<button class="pf-row" onclick="PSEC='${k}';render();window.scrollTo(0,0)"><span class="pf-ic">${pfIc(ic)}</span><span><b>${t}</b><small>${d}</small></span><span class="pf-ch">›</span></button>`;
@@ -890,25 +1065,28 @@ return`Current time ET: ${et}. Journal timestamps are ET${CFG.off?' after a '+CF
 async function ask(e,pre){if(e)e.preventDefault();let q=pre||document.getElementById('q').value.trim();if(!q&&IMGS.length)q='Review the attached chart(s) against my plan.';if(!q||busy)return;CH.push({role:'user',text:q,imgs:IMGS.map(i=>({m:i.m,d:i.d})),th:IMGS.map(i=>i.u)});IMGS=[];busy=true;render();
 try{const ses=(await sb.auth.getSession()).data.session,r=await fetch(SUPABASE_URL+'/functions/v1/'+((window.CFG&&CFG.fn)||'rapid-worker'),{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+ses.access_token,apikey:SUPABASE_KEY},body:JSON.stringify({messages:CH.slice(-10).map((m,i,z)=>({role:m.role,text:m.text,imgs:i==z.length-1?m.imgs||[]:[]})),ctx:buildCtx(analyze(T)),setup:SETUP})});
 const j=await r.json();if(!r.ok)throw new Error(j.error||r.status);CH.push({role:'coach',text:j.reply});if(j.memory)MEM=j.memory;if(j.setup)SETUP=j.setup}catch(err){CH.push({role:'coach',text:'Coach error: '+err.message})}busy=false;render()}
-let LASTEM='',LASTTAB='';
+let LASTEM='',LASTTAB='',RM=true,UNLOCKED=false;try{RM=localStorage.getItem('thc_rm')!='0';if(RM)LASTEM=localStorage.getItem('thc_email')||''}catch(e){}
+const AUTHST={getItem:k=>{try{const a=localStorage.getItem(k);return a!=null?a:sessionStorage.getItem(k)}catch(e){return null}},setItem:(k,v)=>{try{const r=localStorage.getItem('thc_rm')!='0',a=r?localStorage:sessionStorage,b=r?sessionStorage:localStorage;a.setItem(k,v);b.removeItem(k)}catch(e){}},removeItem:k=>{try{localStorage.removeItem(k);sessionStorage.removeItem(k)}catch(e){}}};
 function authView(){LASTTAB='';document.getElementById('nav').innerHTML='';
-document.getElementById('v').innerHTML=`<div class="au"><div class="au-top"><img src="${LOGO}" alt="Dan Han Trading" width="104" height="104"><h1>DHT Edge</h1><p>YOUR INTELLIGENT TRADING PARTNER.</p></div>${msg?`<div class="au-msg" role="alert">${esc(msg)}</div>`:''}<form class="au-card" onsubmit="auth('in');return false" novalidate><label>Email<input id="em" type="email" autocomplete="email" inputmode="email" autocapitalize="none" autocorrect="off" spellcheck="false" placeholder="you@email.com" value="${esc(LASTEM)}"></label><label>Password<span class="au-pw"><input id="pw" type="password" autocomplete="current-password" placeholder="8 or more characters"><button type="button" class="au-eye" aria-label="Show password" onclick="togglePw()">Show</button></span></label><button class="b" type="submit" id="aub">Sign in</button><button class="b alt" type="button" onclick="auth('up')">Create account</button></form><p class="au-foot">Your trades are private and stored securely.</p></div>`}
+document.getElementById('v').innerHTML=`<div class="au"><div class="au-top"><img src="${LOGO}" alt="Dan Han Trading" width="104" height="104"><h1>DHT Edge</h1><p>YOUR INTELLIGENT TRADING PARTNER.</p></div>${msg?`<div class="au-msg" role="alert">${esc(msg)}</div>`:''}<form class="au-card" onsubmit="auth('in');return false" novalidate><label>Email<input id="em" type="email" autocomplete="email" inputmode="email" autocapitalize="none" autocorrect="off" spellcheck="false" placeholder="you@email.com" value="${esc(LASTEM)}"></label><label>Password<span class="au-pw"><input id="pw" type="password" autocomplete="current-password" placeholder="8 or more characters"><button type="button" class="au-eye" aria-label="Show password" onclick="togglePw()">Show</button></span></label><label class="au-rm"><input type="checkbox" id="rm" ${RM?'checked':''}><span>Remember me on this device</span></label><button class="b" type="submit" id="aub">Sign in</button><button class="b alt" type="button" onclick="auth('up')">Create account</button></form><p class="au-foot">Your trades are private and stored securely.</p></div>`}
 function togglePw(){const p=document.getElementById('pw'),b=document.querySelector('.au-eye');if(!p||!b)return;const h=p.type=='password';p.type=h?'text':'password';b.textContent=h?'Hide':'Show';b.setAttribute('aria-label',h?'Hide password':'Show password')}
 async function auth(m){const e=document.getElementById('em').value.trim(),p=document.getElementById('pw').value;LASTEM=e;
 if(!e||!p){msg='Enter your email and password.';return render()}
 if(m=='up'&&p.length<8){msg='Use 8 or more characters for your password.';return render()}
+const rmEl=document.getElementById('rm');RM=rmEl?rmEl.checked:true;try{localStorage.setItem('thc_rm',RM?'1':'0');if(RM)localStorage.setItem('thc_email',e);else localStorage.removeItem('thc_email')}catch(x){}
 const bt=document.getElementById('aub');if(bt){bt.disabled=true;bt.textContent='Please wait…'}
 try{const r=m=='in'?await sb.auth.signInWithPassword({email:e,password:p}):await sb.auth.signUp({email:e,password:p});
 if(r.error){msg=/invalid login/i.test(r.error.message)?'Wrong email or password.':r.error.message;return render()}
 if(!r.data.session){msg='Check your email to confirm your account, then sign in.';return render()}
-msg='';await boot()}catch(x){msg='Cannot reach the server. Check your connection and try again.';render()}}
+msg='';UNLOCKED=true;await boot()}catch(x){msg='Cannot reach the server. Check your connection and try again.';render()}}
 async function boot(){tab='home';if(SUPABASE_URL.includes('PASTE')){msg='Setup needed: paste your Supabase URL and anon key at the top of the script (see README).';return render()}
-await SBR;sb=sb||supabase.createClient(SUPABASE_URL,SUPABASE_KEY);const g=await sb.auth.getSession();UID=g.data.session?g.data.session.user.id:null;UEMAIL=g.data.session?g.data.session.user.email:'';
-if(UID){const cp=(g.data.session.user.user_metadata||{}).prefs;if(cp&&Object.keys(cp).length){PREF=Object.assign({name:'',h24:false},PREF,cp);savePrefLocal()}else if(PREF.name||PREF.h24)cloudPref()}T=[];SRV=new Set();AT=[];SRVA=new Set();
+await SBR;sb=sb||supabase.createClient(SUPABASE_URL,SUPABASE_KEY,{auth:{storage:AUTHST,persistSession:true,autoRefreshToken:true}});const g=await sb.auth.getSession();UID=g.data.session?g.data.session.user.id:null;UEMAIL=g.data.session?g.data.session.user.email:'';
+if(UID&&!UNLOCKED){const bb=bioOn(UID);if(bb){hideSplash();if(await showLock(bb)=='out')return}else UNLOCKED=true}
+if(UID){const cp=(g.data.session.user.user_metadata||{}).prefs;if(cp&&Object.keys(cp).length){PREF=Object.assign({name:'',h24:false},PREF,cp);savePrefLocal();applyTheme()}else if(PREF.name||PREF.h24||PREF.theme)cloudPref()}T=[];SRV=new Set();AT=[];SRVA=new Set();
 if(UID){const a=await sb.from('trades').select('*').order('d').range(0,4999);T=(a.data||[]).map(x=>({...x,p:+x.p,z:+x.z,m:+x.m,r:x.r==null?null:+x.r}));SRV=new Set(T.map(t=>t.id));
 const c=await sb.from('settings').select('*').maybeSingle();if(c.data)CFG={bal:+c.data.bal,off:+c.data.tzoff};const mm=await sb.from('coach_memory').select('notes').maybeSingle();MEM=mm.data?mm.data.notes:'';const ac=await sb.from('accounts').select('*').order('created');AT=(ac.data||[]).map(a=>({...a,size:+a.size,ddd:+a.ddd,dmx:+a.dmx,t1:+a.t1,t2:+a.t2,steps:+a.steps,hist:a.hist||[]}));SRVA=new Set(AT.map(a=>a.id))}
 msg=msg.startsWith('Setup')?msg:'';render()}
-async function out(){await sb.auth.signOut();PREF={name:'',h24:false};try{localStorage.removeItem('thc_prefs')}catch(e){}UID=null;T=[];AT=[];CK={};CH=[];MEM='';SETUP={};IMGS=[];PF=null;tab='home';render()}
+async function out(){try{localStorage.removeItem('thc_bio')}catch(e){}UNLOCKED=false;await sb.auth.signOut();PREF={name:'',h24:false};applyTheme();try{localStorage.removeItem('thc_prefs')}catch(e){}UID=null;T=[];AT=[];CK={};CH=[];MEM='';SETUP={};IMGS=[];PF=null;tab='home';render()}
 setInterval(()=>{if(UID&&tab=='home'){const e=document.getElementById('sess');if(e){e.innerHTML=sessInner();e.className='card sess'+(sess().open?' open':'')}}},1000);
 document.getElementById('lgi').src=LOGO;{const fi=document.createElement('link');fi.rel='icon';fi.href=LOGO;document.head.appendChild(fi)}
 function setOnline(){const d=document.querySelector('.dot');if(!d||typeof navigator=='undefined')return;const on=navigator.onLine!==false;d.classList.toggle('off',!on);d.title=on?'Online':'Offline';d.setAttribute('aria-label',on?'Online':'Offline')}
