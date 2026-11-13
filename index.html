@@ -318,18 +318,18 @@ main{padding-bottom:104px}
 }
 
 /* ===== gray kill zone + AI insight ===== */
-.card.ai{background:linear-gradient(160deg,#181b1c 0%,#111314 65%,#0d0f10 100%);border-color:#2a2e30}
-.card.ai .ai-ic{background:#1f2325;border-color:#30363a;color:#c5cdd0}
-.ai-pill{background:#23282b;color:#aab3b6}
-.ai-head{color:#e9eced}.ai-body{color:#9aa3a6}
-.ai-div{background:#262a2c}.ai-s{border-top-color:#212527}
-.ai-perf>div{background:#0e1011}
-.card.aid{background:#111314;border-color:#2a2e30}
-.card.sess{background:linear-gradient(160deg,#181b1c,#111314);border-color:#2a2e30}
-.card.sess .lab{color:#9aa3a6}.card.sess .sz{color:#e9eced}.card.sess b{color:#e6eaeb}
-.card.sess .bar{background:#23282a}
-.card.sess.open{background:linear-gradient(160deg,#1d2122,#131516);border-color:#444b4f;box-shadow:0 0 16px rgba(255,255,255,.04)}
-.card.sess .mut,.card.sess .clk{color:#9aa3a6}
+body.hol-day .card.ai{background:linear-gradient(160deg,#181b1c 0%,#111314 65%,#0d0f10 100%);border-color:#2a2e30}
+body.hol-day .card.ai .ai-ic{background:#1f2325;border-color:#30363a;color:#c5cdd0}
+body.hol-day .ai-pill:not(.stop){background:#23282b;color:#aab3b6}
+body.hol-day .ai-head{color:#e9eced}body.hol-day .ai-body{color:#9aa3a6}
+body.hol-day .ai-div{background:#262a2c}body.hol-day .ai-s{border-top-color:#212527}
+body.hol-day .ai-perf>div{background:#0e1011}
+body.hol-day .card.aid{background:#111314;border-color:#2a2e30}
+body.hol-day .card.sess{background:linear-gradient(160deg,#181b1c,#111314);border-color:#2a2e30}
+body.hol-day .card.sess .lab{color:#9aa3a6}body.hol-day .card.sess .sz{color:#e9eced}body.hol-day .card.sess b{color:#e6eaeb}
+body.hol-day .card.sess .bar{background:#23282a}
+body.hol-day .card.sess.open{background:linear-gradient(160deg,#1d2122,#131516);border-color:#444b4f;box-shadow:0 0 16px rgba(255,255,255,.04)}
+body.hol-day .card.sess .mut,body.hol-day .card.sess .clk{color:#9aa3a6}
 .hol{padding:12px 14px;border-radius:14px;background:#17191a;border:1px solid #30363a;color:#d2d9db;margin-bottom:12px;font-size:14.5px}.hol b{display:block;margin-bottom:2px;color:#eef1f2}
 .newsbar.holb{background:#17191a;border-color:#30363a;color:#c5cdd0;animation:none}
 
@@ -642,7 +642,7 @@ document.getElementById('nav').innerHTML=`<div class="sb-only sb-brand"><img src
 document.body.dataset.tab=tab;drawTop();
 let h=msg?`<div class="msg">${esc(msg)}</div>`:'';
 h+=tab=='home'?homeView():tab=='journal'?journalView():tab=='flight'?flightView():tab=='accts'?acctView():tab=='coach'?`<div class="hd"><h1>AI Coach</h1></div>`+coachView():profileView();
-const V=document.getElementById('v');V.innerHTML=h;try{checkLimits()}catch(e){}try{tickNews()}catch(e){}if(LASTTAB!==tab){LASTTAB=tab;V.classList.remove('enter');void V.offsetWidth;V.classList.add('enter');clearTimeout(window._et);window._et=setTimeout(()=>V.classList.remove('enter'),1500)}}
+const V=document.getElementById('v');V.innerHTML=h;try{document.body.classList.toggle('hol-day',HOL.some(x=>x.c=='USD'))}catch(e){}try{checkLimits()}catch(e){}try{tickNews()}catch(e){}if(LASTTAB!==tab){LASTTAB=tab;V.classList.remove('enter');void V.offsetWidth;V.classList.add('enter');clearTimeout(window._et);window._et=setTimeout(()=>V.classList.remove('enter'),1500)}}
 const TSP={50:{size:50000,mll:2000,tgt:3000,dll:1000,pay:[2000,3000]},100:{size:100000,mll:3000,tgt:6000,dll:2000,pay:[3000,4000]},150:{size:150000,mll:4500,tgt:9000,dll:3000,pay:[5000,6000]}},KL={futures:'Futures prop (Topstep)',prop:'Prop challenge',funded:'Funded',live:'Live',demo:'Demo'},DN=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 const sm=n=>(n<0?'−':'+')+'$'+Math.abs(Math.round(n)).toLocaleString('en-US');
 const fmt=m=>{m=Math.round(m);const h=Math.floor(m/60)%24,mi=m%60;return PREF.h24?p2(h)+':'+p2(mi):((h%12)||12)+':'+p2(mi)+' '+(h<12?'AM':'PM')};
