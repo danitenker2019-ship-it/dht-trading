@@ -1,36 +1,90 @@
 {
- "updated": "2026-11-15T04:43:50.890Z",
+ "updated": "2026-11-15T05:42:56.381Z",
  "source": "Forex Factory",
  "events": [
   {
-   "d": "2026-11-10",
+   "d": "2026-11-16",
    "t": "08:30",
-   "c": "USD",
-   "n": "Core CPI m/m"
-  },
-  {
-   "d": "2026-11-10",
-   "t": "08:30",
-   "c": "USD",
+   "c": "CAD",
    "n": "CPI m/m"
   },
   {
-   "d": "2026-11-12",
+   "d": "2026-11-16",
+   "t": "08:30",
+   "c": "CAD",
+   "n": "Median CPI y/y"
+  },
+  {
+   "d": "2026-11-16",
+   "t": "08:30",
+   "c": "CAD",
+   "n": "Trimmed CPI y/y"
+  },
+  {
+   "d": "2026-11-16",
+   "t": "12:00",
+   "c": "USD",
+   "n": "Fed Chairman Warsh Speaks"
+  },
+  {
+   "d": "2026-11-16",
+   "t": "17:50",
+   "c": "AUD",
+   "n": "RBA Gov Bullock Speaks"
+  },
+  {
+   "d": "2026-11-16",
+   "t": "21:00",
+   "c": "NZD",
+   "n": "Inflation Expectations q/q"
+  },
+  {
+   "d": "2026-11-17",
+   "t": "08:30",
+   "c": "USD",
+   "n": "Core Retail Sales m/m"
+  },
+  {
+   "d": "2026-11-17",
+   "t": "08:30",
+   "c": "USD",
+   "n": "Retail Sales m/m"
+  },
+  {
+   "d": "2026-11-18",
    "t": "02:00",
    "c": "GBP",
-   "n": "GDP m/m"
+   "n": "CPI y/y"
   },
   {
-   "d": "2026-11-13",
-   "t": "08:30",
-   "c": "USD",
-   "n": "Core PPI m/m"
+   "d": "2026-11-18",
+   "t": "02:30",
+   "c": "GBP",
+   "n": "BOE Gov Bailey Speaks"
   },
   {
-   "d": "2026-11-13",
-   "t": "08:30",
+   "d": "2026-11-18",
+   "t": "10:00",
+   "c": "GBP",
+   "n": "BOE Gov Bailey Speaks"
+  },
+  {
+   "d": "2026-11-18",
+   "t": "14:00",
    "c": "USD",
-   "n": "PPI m/m"
+   "n": "FOMC Meeting Minutes"
+  },
+  {
+   "d": "2026-11-18",
+   "t": "19:30",
+   "c": "AUD",
+   "n": "Employment Change"
+  },
+  {
+   "d": "2026-11-18",
+   "t": "19:30",
+   "c": "AUD",
+   "n": "Unemployment Rate"
   }
  ]
 }
